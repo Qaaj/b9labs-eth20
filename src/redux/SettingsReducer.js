@@ -1,30 +1,30 @@
 import { createReducer, createActions } from 'reduxsauce'
 import { fromJS } from 'immutable'
+import {loadContracts} from './Contracts';
+import Web3 from '../services/web3';
 
 const { Types, Creators } = createActions({
-  trades: ['data'],
-  connection: [],
+  providerChanged: ['web3'],
 })
 
 
-export const INITIAL_STATE = fromJS({
-  trades: [],
-  connected: true,
-});
+export const INITIAL_STATE = {
+};
 
-
-export const handleConnection = (state) => {
-  return state;
+export const providerChanged = (state, {web3}) => {
+  return state.set('web3', web3);
 }
 
-export const showTrades = (state, { data }) => {
-  return state.set('trades', fromJS([data]));
+export const changeProvider = (url) => (dispatch) => {
+  Web3.get(url).then((web3) => {
+     console.log('PROVIDER CHANGED:', web3);
+     dispatch(Creators.providerChanged(web3));
+     dispatch(loadContracts());
+  });
 }
 
-
-export const reducer = createReducer(INITIAL_STATE, {
-  [Types.TRADES]: showTrades,
-  [Types.CONNECTION]: handleConnection,
+export const reducer = (web3) => createReducer(fromJS({ ...INITIAL_STATE, web3 }), {
+  [Types.PROVIDER_CHANGED]: providerChanged,
 })
 
 export const DefaultTypes = Types;

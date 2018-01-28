@@ -7,25 +7,26 @@ class Web3Service {
     this.initConnection();
   }
 
-  initConnection(ok,nok){
-    if(window.web3){
+  initConnection(ok,nok,url){
+    if(!url && window.web3){
       console.log("Injected web3 detected");
       this.web3 = new Web3(window.web3.currentProvider)
       if(ok) return ok(this.web3);
     }else{
       console.log('No web3 instance injected -  using http://127.0.0.1:9545');
-      const provider = new Web3.providers.HttpProvider('http://127.0.0.1:9545')
+      const provider = new Web3.providers.HttpProvider(url || 'http://127.0.0.1:9545' )
+      // const provider = new Web3.providers.HttpProvider('https://ropsten.infura.io/A6JlogMFVWgkE7v6pwMO ')
       this.web3 = new Web3(provider)
       if(ok) return ok(this.web3)
     }
   }
 
-  get(){
+  get(url){
     return new Promise((ok,nok) => {
       // if instantiated, return web3
-      if(this.web3) return ok(this.web3)
+      if(!url && this.web3) return ok(this.web3)
       // otherwise, initiate again
-      this.initConnection(ok,nok);
+      this.initConnection(ok,nok, url);
     })
   }
 }

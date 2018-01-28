@@ -5,9 +5,9 @@ export default (web3) => {
 
 
   const rootReducer = combineReducers({
-    settings: require('./SettingsReducer').reducer,
+    settings: require('./SettingsReducer').reducer(web3),
     contracts: require('./Contracts').reducer,
-  })
+  });
 
-  return configureStore(rootReducer,web3)
+  return configureStore(rootReducer)
 }

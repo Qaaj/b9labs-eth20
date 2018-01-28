@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 
 // creates the store
-export default (rootReducer, web3) => {
+export default (rootReducer) => {
 
 
   const enhancers = compose(
@@ -17,7 +17,7 @@ export default (rootReducer, web3) => {
 
   const store = createStore(
       rootReducer,
-      { settings: { web3 }},
+      {},
       compose(middleware, enhancers)
   );
 

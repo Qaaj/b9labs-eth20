@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import Web3 from './services/web3';
 
 import App from './App'
@@ -18,6 +18,7 @@ injectGlobal`
   }
 `;
 
+// Web3.get('https://ropsten.infura.io/A6JlogMFVWgkE7v6pwMO').then((web3) => {
 Web3.get().then((web3) => {
 
   const store = createStore(web3);
@@ -28,4 +29,4 @@ Web3.get().then((web3) => {
       </Provider>,
       document.getElementById('root')
   );
-})
+});
