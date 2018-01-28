@@ -1,58 +1,77 @@
 import { createReducer, createActions } from 'reduxsauce'
 import { fromJS } from 'immutable'
-import contract from 'truffle-contract';
+import truffleContract from 'truffle-contract';
 
 import Youtube from '../../build/contracts/Youtube.json';
+import CrowdFunding from '../../build/contracts/CrowdFunding.json';
 
 const { Types, Creators } = createActions({
   contractLoaded: ['contractName', 'contractInstance'],
+  contractLoadFailed: ['contractName', 'error'],
   loadingContract: ['contractName'],
 })
 
 
 export const INITIAL_STATE = fromJS({
   Youtube: {
-    isLoading: true,
     json: Youtube
+  },
+  CrowdFunding: {
+    json: CrowdFunding
   },
 });
 
-export const contractLoaded = (state, { data }) => {
+export const contractLoaded = (state, { contractName, contractInstance }) => {
   return state
-      .setIn([data.contractName, 'isLoading'], false)
-      .setIn([data.contractName, 'contract'], data.contractInstance);
+      .setIn([contractName, 'isLoaded'], true)
+      .setIn([contractName, 'error'], null)
+      .setIn([contractName, 'contract'], contractInstance);
+}
+
+export const contractLoadFailed = (state, { contractName, error }) => {
+  return state
+      .setIn([contractName, 'error'], error)
 }
 
 export const loadingContract = (state, { contractName }) => {
   return state
-      .setIn([contractName, 'isLoading'], true)
+      .setIn([contractName, 'isLoaded'], false)
 }
 
 export const loadContracts = () => (dispatch, getState) => {
 
+  const contracts = getState().contracts.toJS();
   const web3 = getState().settings.get('web3');
 
-  dispatch(Creators.loadingContract('Youtube'));
+  Object.keys(contracts).forEach(key => {
 
-  const simpleStorage = contract(Youtube)
-  simpleStorage.setProvider(web3.currentProvider)
+    const contract = contracts[key];
 
-  // Declaring this for later so we can chain functions on SimpleStorage.
-  var simpleStorageInstance;
+    dispatch(Creators.loadingContract(key));
 
-  // Get accounts.
-  web3.eth.getAccounts((error, accounts) => {
-    simpleStorage.deployed().then((instance) => {
-      simpleStorageInstance = instance;
-      dispatch({ type: "CONTRACT_LOADED", data: { contractName: 'Youtube', contractInstance: simpleStorageInstance } });
+    const contractInstance = truffleContract(contract.json)
+
+    contractInstance.setProvider(web3.currentProvider)
+
+    // Get accounts.
+    web3.eth.getAccounts((error, accounts) => {
+      contractInstance.deployed().then((instance) => {
+        dispatch(Creators.contractLoaded(key, instance));
+      }).catch(error => {
+        dispatch(Creators.contractLoadFailed(key, error.message))
+      })
     });
-  });
+  })
+
+
+
 
 }
 
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.CONTRACT_LOADED]: contractLoaded,
+  [Types.CONTRACT_LOAD_FAILED]: contractLoadFailed,
   [Types.LOADING_CONTRACT]: loadingContract,
 })
 

@@ -17,7 +17,6 @@ export const providerChanged = (state, {web3}) => {
 
 export const changeProvider = (url) => (dispatch) => {
   Web3.get(url).then((web3) => {
-     console.log('PROVIDER CHANGED:', web3);
      dispatch(Creators.providerChanged(web3));
      dispatch(loadContracts());
   });

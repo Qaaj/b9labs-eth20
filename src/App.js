@@ -18,6 +18,10 @@ const Button = styled.div`
   margin: 20px 5px;
 `;
 
+const Red = styled.span`
+  color: red;
+`
+
 class App extends Component {
 
 
@@ -32,8 +36,9 @@ class App extends Component {
 
     const contractList = Object.keys(this.props.contracts).map(contractKey => {
       const contract = this.props.contracts[contractKey];
-      if(contract.isLoading) return <Contract key={`contract-${contractKey}`}>⚙️Loading {contractKey}...</Contract>
-      return <Contract key={`contract-${contractKey}`}> ✅{contractKey} finished loading. ({contract.contract.address})</Contract>
+      if(contract.isLoaded) return <Contract key={`contract-${contractKey}`}> ✅{contractKey} finished loading. ({contract.contract.address})</Contract>
+      if(contract.error) return <Contract key={`contract-${contractKey}`}> ⚠️{contractKey} -  <Red>{contract.error}</Red></Contract>
+      return <Contract key={`contract-${contractKey}`}>⚙️Loading {contractKey}...</Contract>
     })
 
     return (
