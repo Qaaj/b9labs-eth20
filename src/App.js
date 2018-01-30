@@ -46,7 +46,11 @@ class App extends Component {
           <Button style={{cursor: 'pointer'}}
                   onClick={() => this.props.changeProvider('https://ropsten.infura.io/A6JlogMFVWgkE7v6pwMO')}>Connect to Ropsten</Button>
           <Button style={{cursor: 'pointer'}}
-                  onClick={() => this.props.changeProvider('http://localhost:9545')}>Connect to localhost:9545</Button>
+                  onClick={() => this.props.changeProvider('http://localhost:9545')}>TestRPC - localhost:9545</Button>
+          <Button style={{cursor: 'pointer'}}
+                  onClick={() => this.props.changeProvider('http://localhost:8545')}>Development - localhost:8545
+          </Button><Button style={{cursor: 'pointer'}}
+                  onClick={() => this.props.changeProvider('http://52.39.44.21:8545')}>Amazon - 52.39.44.21</Button>
           <h1>Welcome to The Smart Contract Playground</h1>
           <h3>Currently connected via {providerName} </h3>
           {providerName === 'HttpProvider' && <h3>{this.props.web3.currentProvider.host}</h3>}

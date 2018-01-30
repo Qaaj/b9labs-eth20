@@ -25,6 +25,12 @@ module.exports = {
       port: 9545,
       network_id: 1
     },
+    amazon: {
+      host: '52.39.44.21',
+      port: 8545,
+      network_id: 1,
+      gas: 4712388,
+    },
     dev: {
       host: 'localhost',
       port: 8545,

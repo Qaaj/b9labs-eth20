@@ -49,13 +49,16 @@ export const loadContracts = () => (dispatch, getState) => {
 
     dispatch(Creators.loadingContract(key));
 
-    const contractInstance = truffleContract(contract.json)
+    const contractInstance = truffleContract(contract.json);
 
-    contractInstance.setProvider(web3.currentProvider)
+    contractInstance.setProvider(web3.currentProvider);
+
 
     // Get accounts.
     web3.eth.getAccounts((error, accounts) => {
       contractInstance.deployed().then((instance) => {
+        console.log(instance)
+
         dispatch(Creators.contractLoaded(key, instance));
       }).catch(error => {
         dispatch(Creators.contractLoadFailed(key, error.message))
