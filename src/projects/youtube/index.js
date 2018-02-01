@@ -1,41 +1,68 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player';
 import { Button } from '../../styles/index';
-// import styled from 'styled-components';
+import styled from 'styled-components';
+import { requestNewVideo, requestCurrentVideo } from './reducer';
 
-import { requestNewVideo } from './reducer';
+const Input = styled.input`
+  border-radius: 3px;
+  height: 25px;
+  font-size: 18px;
+  width: 200px;
+  margin-right: 10px;
+`;
 
-const setURL =  async (contract, accounts) => {
-  await contract.requestVideo(Math.round(Math.random()*100000).toString(), 'Please like my video', {from: accounts[0], gas: 3000000});
-  const url2 = await contract.lastURL();
-  console.log(url2);
-}
-const getURL =  async (contract, accounts) => {
-  const url = await contract.lastURL();
-  console.log(url);
-}
+const PlayerHolder = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
-const Youtube = (props) => {
+class Youtube extends React.PureComponent {
 
-  return (<div>
-    <h2>Youtube</h2>
-    <Button onClick={()=> getURL(props.contract,props.accounts)}> Get the URL </Button>
-    <Button onClick={()=> setURL(props.contract,props.accounts)}> Set Random URL</Button>
-  </div>);
+  state = {};
+
+  constructor(props) {
+    super(props);
+    props.requestCurrentVideo(props.contract, props.accounts);
+  }
+
+  render() {
+    const { props } = this;
+    return (<div>
+      <h2>Youtube</h2>
+      <Input onChange={(e) => this.setState({ URL: e.target.value })} />
+      <Button onClick={() => props.requestNewVideo(this.state.URL, '', props.contract, props.accounts)}> Set
+        URL</Button>
+      <Button onClick={() => props.requestCurrentVideo(props.contract)}> Get the URL </Button>
+      <p>{props.url ? `Latest URL: ${props.url}` : 'No URL set!'}</p>
+      <PlayerHolder>
+        <ReactPlayer url={props.url}
+                     playing={true}
+                     width={800}
+                     height={450}
+                     config={{ youtube: { playerVars: { showInfo: 0, } } }}
+        />
+      </PlayerHolder>
+    </div>);
+
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    contract: state.contracts.getIn(['Youtube','contract']),
+    contract: state.contracts.getIn(['Youtube', 'contract']),
     accounts: state.settings.get('accounts'),
-    video: state.youtube.get('latestVideo'),
+    url: state.youtube.getIn(['latestVideo', 'url']),
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestNewVideo: (url,message) => dispatch(requestNewVideo(url, message)),
+    requestNewVideo: (url, message, contract, accounts) => dispatch(requestNewVideo(url, message, contract, accounts)),
+    requestCurrentVideo: (contract) => dispatch(requestCurrentVideo(contract)),
   }
 }
 
