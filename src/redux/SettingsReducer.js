@@ -12,6 +12,7 @@ export const INITIAL_STATE = {
 };
 
 export const providerChanged = (state, {web3}) => {
+  window._web3 = web3;
   return state.set('web3', web3);
 }
 
