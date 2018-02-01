@@ -57,8 +57,7 @@ export const loadContracts = () => (dispatch, getState) => {
     // Get accounts.
     web3.eth.getAccounts((error, accounts) => {
       contractInstance.deployed().then((instance) => {
-        console.log(instance)
-
+        // instance.at(instance.address);
         dispatch(Creators.contractLoaded(key, instance));
       }).catch(error => {
         dispatch(Creators.contractLoadFailed(key, error.message))

@@ -1,33 +1,39 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
-import {loadContracts} from './redux/Contracts';
-import {changeProvider} from './redux/SettingsReducer';
+import { connect } from 'react-redux';
+import { loadContracts } from './redux/Contracts';
+import { loadAccounts } from './redux/SettingsReducer';
+import Providers from './Providers';
 import styled from 'styled-components';
+
+import Youtube from './youtube'
+import { Button } from './styles';
 
 const Contract = styled.div`
   padding: 10px;
 `;
 
-const Button = styled.div`
-  display: inline-block;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #455A64;
-  color: white;
-  max-width: 300px; text-align: center;
-  margin: 20px 5px;
-`;
-
 const Red = styled.span`
   color: red;
-`
+`;
+
+const CloseButton = styled.div`
+  padding: 10px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  font-size: 20px;
+`;
 
 class App extends Component {
 
+  state = { component: null };
+  // state = { component: 'eth.tv' };
 
-  constructor(props){
+  constructor(props) {
     super(props);
     props.loadContracts();
+    props.loadAccounts(props.web3);
   }
 
   render() {
@@ -36,26 +42,32 @@ class App extends Component {
 
     const contractList = Object.keys(this.props.contracts).map(contractKey => {
       const contract = this.props.contracts[contractKey];
-      if(contract.isLoaded) return <Contract key={`contract-${contractKey}`}> ✅{contractKey} finished loading. ({contract.contract.address})</Contract>
-      if(contract.error) return <Contract key={`contract-${contractKey}`}> ⚠️{contractKey} -  <Red>{contract.error}</Red></Contract>
+      if (contract.isLoaded) return <Contract key={`contract-${contractKey}`}> ✅{contractKey} finished loading.
+        ({contract.contract.address})</Contract>
+      if (contract.error) return <Contract key={`contract-${contractKey}`}> ⚠️{contractKey} -
+        <Red>{contract.error}</Red></Contract>
       return <Contract key={`contract-${contractKey}`}>⚙️Loading {contractKey}...</Contract>
-    })
+    });
+
+    if(this.state.component){
+      let component;
+      if (this.state.component === 'eth.tv') component = <Youtube />;
+      return (<div>
+        {component}
+        <CloseButton onClick={()=>this.setState({component: null})}>❌</CloseButton>
+      </div>);
+    }
 
     return (
         <div>
-          <Button style={{cursor: 'pointer'}}
-                  onClick={() => this.props.changeProvider('https://ropsten.infura.io/A6JlogMFVWgkE7v6pwMO')}>Connect to Ropsten</Button>
-          <Button style={{cursor: 'pointer'}}
-                  onClick={() => this.props.changeProvider('http://localhost:9545')}>TestRPC - localhost:9545</Button>
-          <Button style={{cursor: 'pointer'}}
-                  onClick={() => this.props.changeProvider('http://localhost:8545')}>Development - localhost:8545
-          </Button><Button style={{cursor: 'pointer'}}
-                  onClick={() => this.props.changeProvider('http://52.39.44.21:8545')}>Amazon - 52.39.44.21</Button>
+          <Providers />
           <h1>Welcome to The Smart Contract Playground</h1>
-          <h3>Currently connected via {providerName} </h3>
-          {providerName === 'HttpProvider' && <h3>{this.props.web3.currentProvider.host}</h3>}
-          <h3>Hold on while we load your deployed contracts:</h3>
+          <h3>Currently connected via {providerName} {providerName === 'HttpProvider' &&
+          <span> - {this.props.web3.currentProvider.host}</span>}</h3>
+          <h2>Contracts</h2>
           {contractList}
+          <h2>Projects</h2>
+          <Button onClick={() => this.setState({ component: 'eth.tv' })}>ETH.TV</Button>
         </div>
     );
   }
@@ -71,7 +83,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadContracts: () => dispatch(loadContracts()),
-    changeProvider: (url) => dispatch(changeProvider(url)),
+    loadAccounts: (web3) => dispatch(loadAccounts(web3)),
   }
 }
 
