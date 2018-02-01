@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { loadContracts } from './redux/Contracts';
+import { loadAccounts } from './redux/SettingsReducer';
 import Providers from './Providers';
 import styled from 'styled-components';
 
@@ -26,11 +27,13 @@ const CloseButton = styled.div`
 
 class App extends Component {
 
-  state = { component: 'eth.tv' };
+  state = { component: null };
+  // state = { component: 'eth.tv' };
 
   constructor(props) {
     super(props);
     props.loadContracts();
+    props.loadAccounts(props.web3);
   }
 
   render() {
@@ -80,6 +83,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadContracts: () => dispatch(loadContracts()),
+    loadAccounts: (web3) => dispatch(loadAccounts(web3)),
   }
 }
 
