@@ -26,7 +26,7 @@ const CloseButton = styled.div`
 
 class App extends Component {
 
-  state = { component: null };
+  state = { component: 'eth.tv' };
 
   constructor(props) {
     super(props);

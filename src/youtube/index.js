@@ -1,22 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from '../styles';
 // import styled from 'styled-components';
 
 import { requestNewVideo } from './reducer';
 
+const doStuff = (contract) => {
+  console.log(contract);
+}
 
 const Youtube = (props) => {
-
-  console.log(props);
-
   return (<div>
-    Youtube
+    <h2>Youtube</h2>
+    <Button onClick={()=> doStuff(props.contract)}> Do Something Amazing</Button>
   </div>);
 }
 
 const mapStateToProps = (state) => {
   return {
-    contracts: state.contracts.get('Youtube'),
+    contract: state.contracts.getIn(['Youtube','contract']),
     video: state.youtube.get('latestVideo'),
   }
 }
