@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import ReactPlayer from 'react-player';
-import { Button } from '../styles';
+import { Button } from '../../styles/index';
 // import styled from 'styled-components';
 
 import { requestNewVideo } from './reducer';

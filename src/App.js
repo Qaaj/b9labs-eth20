@@ -5,7 +5,9 @@ import { loadAccounts } from './redux/SettingsReducer';
 import Providers from './Providers';
 import styled from 'styled-components';
 
-import Youtube from './youtube'
+import Youtube from './projects/youtube'
+import Splitter from './projects/splitter'
+
 import { Button } from './styles';
 
 const Contract = styled.div`
@@ -52,6 +54,7 @@ class App extends Component {
     if(this.state.component){
       let component;
       if (this.state.component === 'eth.tv') component = <Youtube />;
+      if (this.state.component === 'splitter') component = <Splitter />;
       return (<div>
         {component}
         <CloseButton onClick={()=>this.setState({component: null})}>❌</CloseButton>
@@ -67,6 +70,7 @@ class App extends Component {
           <h2>Contracts</h2>
           {contractList}
           <h2>Projects</h2>
+          <Button onClick={() => this.setState({ component: 'splitter' })}>Splitter</Button>
           <Button onClick={() => this.setState({ component: 'eth.tv' })}>ETH.TV</Button>
         </div>
     );
