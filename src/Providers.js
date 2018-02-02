@@ -15,7 +15,7 @@ const Providers = (props) => {
           <Button
               onClick={() => props.changeProvider('http://localhost:8545')}>Development - localhost:8545</Button>
           <Button
-              onClick={() => props.changeProvider('http://52.39.44.21:8545')}>Amazon - 52.39.44.21</Button>
+              onClick={() => props.changeProvider('http://52.39.44.21:8545')}>Amazon</Button>
           <Button
               onClick={() => props.changeProvider('injected')}>Injected web3</Button>
         </div>
