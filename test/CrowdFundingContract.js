@@ -7,6 +7,8 @@ const crowdfunding = async () => {
   return await CrowdFunding.new()
 }
 
+return true;
+
 contract('Crowdfunding', accounts => {
 
 
