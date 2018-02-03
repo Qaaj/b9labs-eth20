@@ -1,7 +1,7 @@
 require('chai').should();
-const web3 = require('web3');
-const BigNumber = require('bignumber.js');
+// const BigNumber = require('bignumber.js');
 var Splitter = artifacts.require('Splitter');
+
 
 const splitter = async () => {
   return await Splitter.new()
@@ -9,9 +9,14 @@ const splitter = async () => {
 
 contract('Splitter', accounts => {
 
+  const bob = accounts[0];
+  const alice = accounts[0];
+  const carol = accounts[0];
+
   it('should deploy the contract', async () => {
-    const cf = await splitter()
-    cf.contract.owner().should.eql(accounts[0])
+    const cf = await splitter();
+    // Bob initially deployed the contract
+    cf.contract.owner().should.eql(bob)
   });
 
 })
