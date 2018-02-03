@@ -40,7 +40,7 @@ module.exports = {
     dev: {
       host: 'localhost',
       port: 8545,
-      network_id: 1
+      network_id: 42
     },
     docker: {
       host: 'geth',

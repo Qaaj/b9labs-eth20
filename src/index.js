@@ -22,8 +22,9 @@ injectGlobal`
 
 // Prints out current build # in console;
 console.log(`Version: ${version}`);
+Web3.get('http://localhost:8545').then((web3) => {
 
-Web3.get().then((web3) => {
+  window._web3 = web3;
   const store = createStore(web3);
 
   ReactDOM.render(
