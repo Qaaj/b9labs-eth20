@@ -9,14 +9,14 @@ const splitter = async () => {
 
 contract('Splitter', accounts => {
 
-  const bob = accounts[0];
   const alice = accounts[0];
+  const bob = accounts[0];
   const carol = accounts[0];
 
   it('should deploy the contract', async () => {
     const cf = await splitter();
     // Bob initially deployed the contract
-    cf.contract.owner().should.eql(bob)
+    cf.contract.owner().should.eql(alice)
   });
 
 })
