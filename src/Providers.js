@@ -11,6 +11,9 @@ const Providers = (props) => {
               onClick={() => props.changeProvider('https://ropsten.infura.io/A6JlogMFVWgkE7v6pwMO')}>Connect to
             Ropsten</Button>
           <Button
+              onClick={() => props.changeProvider('https://rinkeby.infura.io/KEyTvyJruqUAlQc7igSQ')}>Connect to
+                                                                                                     Rinkeby</Button>
+          <Button
               onClick={() => props.changeProvider('http://localhost:9545')}>TestRPC - localhost:9545</Button>
           <Button
               onClick={() => props.changeProvider('http://localhost:8545')}>Development - localhost:8545</Button>
