@@ -14,23 +14,27 @@ let POLLER;
 var myTimeOut;
 
 const fadeIn = keyframes`
-  from {
+  0% {
+    visibility: hidden;
     opacity: 0;
   }
+  
+  1% {
+    visibility: visible;
+  }
 
-  to {
+  50% {
     opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+    visibility: hidden;
   }
 `;
 
 const fadeOut = keyframes`
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
+  
 `;
 
 const EthTVContainer = styled.div`
@@ -41,8 +45,9 @@ const EthTVContainer = styled.div`
 const Fade = styled.div`
   display: inline-block;
   visibility: ${props => props.out ? 'hidden' : 'visible'};
-  animation: ${props => props.out ? fadeOut : fadeIn} 4s alternate;
+  animation: ${props => props.out ? fadeOut : fadeIn} 4s linear;
   transition: visibility 4s linear;
+  opacity: 0;
 `;
 
 const NavBar = styled.div`
@@ -54,7 +59,7 @@ const NavBar = styled.div`
   justify-content: space-between;
   height: 75px;
   background-color: black;
-  z-index: 9998;
+  z-index: 999;
   padding-left: 1em;
   padding-right: 1em;
   
@@ -64,6 +69,23 @@ const NavBar = styled.div`
     text-decoration: none;
   }
 `;
+
+const Overlay = styled.div`
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      z-index: 99999;
+      position: fixed;
+      top: 75px;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: black;
+      color: white;
+      font-size: 2em;
+      align-items: center;
+      justify-content: center;
+ `;
 
 class Youtube extends React.PureComponent {
 
@@ -84,6 +106,8 @@ class Youtube extends React.PureComponent {
         width: window.innerWidth,
         height: window.innerHeight,
       },
+
+      playerVisibility: 'hidden',
     };
 
     window.addEventListener('resize', this.onWindowResizedHandler);
@@ -92,26 +116,6 @@ class Youtube extends React.PureComponent {
   }
 
   renderPlayer = () => {
-    const Overlay = styled.div`
-      position: absolute;
-      display: flex;
-      flex-direction: row;
-      z-index: 99999;
-  
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background-color: black;
-      color: white;
-      font-size: 2em;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-     
-    `;
-
     return (
         <div>
           <Fade out={!this.state.showMessage}>
@@ -120,7 +124,7 @@ class Youtube extends React.PureComponent {
             </Overlay>
           </Fade>
 
-          <YouTubeComponent videoPlayer={this.state.videoPlayer} url={this.props.url} />
+          <YouTubeComponent style={{visibility: this.state.playerVisibility }} videoPlayer={this.state.videoPlayer} url={this.props.url} />
         </div>
     )
   }
@@ -135,14 +139,22 @@ class Youtube extends React.PureComponent {
     if(prevProps.url !== this.props.url){
       console.log('URL Changed from' , prevProps , ' to ' , this.props.url);
 
-      this.setState({
-        showMessage: true
-      });
-
-      window.setTimeout(() => {
+      if(!this.state.showMessage){
         this.showNotification('New video received!');
-        this.setState({ showMessage: false})
-      }, 2000);
+
+        window.setTimeout(() => {
+          this.setState({
+            showMessage: true,
+            playerVisibility: 'hidden'
+          });
+        }, 750);
+
+        window.setTimeout(() => {
+          this.setState({ showMessage: false, playerVisibility: 'visible'})
+        }, 4000);
+      }
+
+
     }
   }
 

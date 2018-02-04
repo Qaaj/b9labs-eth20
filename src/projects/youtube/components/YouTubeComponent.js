@@ -30,13 +30,21 @@ class YouTubeComponent extends React.Component{
     };**/
 
     return <ReactPlayer url={url}
+                        style={this.props.style}
                         playing={true}
                         width={width}
                         height={height}
+                        onError={(err) => console.log('Error: ' , err)}
                         config={{
                           youtube: {
                             playerVars: {
                               showInfo: 0,
+                              rel: 0,
+                              modestbranding: 1,
+                              loop: 1,
+                              iv_load_policy: 0,
+                              disablekb: 1,
+                              controls: 0,
                             },
                           },
                           soundcloud: {
