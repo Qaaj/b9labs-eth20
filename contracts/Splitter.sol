@@ -5,7 +5,7 @@ import 'zeppelin-solidity/contracts/math/SafeMath.sol';
 
 contract Splitter is Ownable{
   
-  event LogMoneyAddded(address sender, uint amount);
+  event LogMoneyAdded(address sender, uint amount);
   event LogBalanceWithdraw(address benificiary, uint amount);
   event LogFundsDrained(address benificiary, uint amount);
   event LogPaused(address sender, bool paused);
@@ -13,7 +13,7 @@ contract Splitter is Ownable{
   bool public paused = false;
   uint public numAddresses;
   
-  mapping (uint => address) addresses;
+  mapping (uint => address) public addresses;
   mapping (address => uint) public balances;
   
   function Splitter() public {
@@ -27,7 +27,7 @@ contract Splitter is Ownable{
     require(!paused); // Contract is in operation
     require(msg.value > 0); // There is actually ETH sent
     require(bob != address(0) && carol != address(0)); // Make sure there are 2 benificiairies
-    LogMoneyAddded(msg.sender, msg.value);
+    LogMoneyAdded(msg.sender, msg.value);
     uint amount = SafeMath.div(msg.value,2); // Calculate the amounts that are owed
     balances[bob] = amount; // Save the amounts owed
     balances[carol] = amount;

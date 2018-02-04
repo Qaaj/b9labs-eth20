@@ -71,6 +71,8 @@ class Splitter extends React.Component {
 
     const {props} = this;
 
+    console.log(this.state)
+
     if (!props.contract) return <div>Oops - Contract not loaded! </div>;
 
     return (<div>
