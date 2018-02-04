@@ -2,12 +2,7 @@ import React from 'react';
 import {Form, Input, Message, TextArea} from 'semantic-ui-react';
 import styled from 'styled-components';
 import BaseModal from './modals/BaseModal';
-
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { Row, Column } from '../styles';
 
 const FormContainer = styled(Form)`
   display: flex;
@@ -59,14 +54,11 @@ class RequestLinkPanel extends React.Component {
       errorMessages: []
     });
 
-
     if(this.validateInput(this.state.addNewLinkURL)){
       this.setState({
         isFormValid: true,
         errorMessages: []
       });
-
-      console.log({url: this.state.addNewLinkURL, message: this.state.message})
 
       this.props.onSendClickedHandler({url: this.state.addNewLinkURL, message: this.state.message})
     }else{
@@ -80,16 +72,48 @@ class RequestLinkPanel extends React.Component {
   render() {
     return  (
         <ModalContainer isOpen={this.props.isOpen}
-                     title="Add Your Video To The Queue!"
+                     title="Show Your Video To The World!"
                      onCloseClick={this.props.onCloseClick}
                      onConfirmClick={() => this.onSubmitForm()}>
           <div>
-          <p>Show your video to the world by sending a small transaction to</p>
 
-        <FormContainer success={this.state.errorMessages.length === 0 && this.state.isFormValid} error={this.state.errorMessages.length > 0}>
+            <Row>
+              <Column style={{ flex: 3}}>
+                <h2>How does it work?</h2>
+                <p>
+                  Show your video to the world by sending an Ethereum transaction.<br />
+                  Copy paste your video URL in the input field below and press confirm.<br /><br />
+                  Your MetaMask/Mist wallet will pop-up, asking to submit the confirmation.<br /><br />
+
+                  Your submitted video will be broadcasted as soon as the transaction is confirmed.<br /><br />
+                </p>
+              </Column>
+
+              <Column style={{ flex: 2}}>
+                <h2>What do we support?</h2>
+
+                Wallets
+                <ul>
+                  <li>MetaMask, Mist, ...</li>
+                </ul>
+
+                Links
+                <ul>
+                  <li>YouTube, Vimeo, Wistia, ...</li>
+                  <li>SoundCloud</li>
+                  <li>Facebook/Twitter Live</li>
+                  <li>DropBox files</li>
+                </ul>
+              </Column>
+            </Row>
+
+        <FormContainer success={this.state.errorMessages.length === 0 && this.state.isFormValid}
+          error={this.state.errorMessages.length > 0}>
+          <h2>Add Your Video</h2>
+
           <Form.Field required>
           <Column>
-            <label htmlFor="input">YouTube URL</label>
+            <label htmlFor="input">Video URL</label>
             <Input size="big" name="input" type="text" placeholder="https://www.youtube.com/watch?v=jlNvOWDfMYo" onChange={(evt) => this.setState({ addNewLinkURL: evt.target.value })} />
           </Column>
           </Form.Field>

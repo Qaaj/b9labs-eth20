@@ -1,4 +1,5 @@
 import React from 'react';
+import {Helmet} from 'react-helmet';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { Button } from '../../styles/index';
@@ -7,12 +8,14 @@ import RequestLinkPanel from './components/RequestLinkPanel';
 import YouTubeComponent from './components/YouTubeComponent';
 import { requestNewVideo, requestCurrentVideo } from './reducer';
 import { ToastContainer, toast} from 'react-toastify';
-
+import { Row } from './styles';
 import {Logo} from '../../../public/images/eth-tv/logo.png';
+import {ButtonPrimary} from './styles';
 
 let POLLER;
 var myTimeOut;
 
+// language=LESS
 const fadeIn = keyframes`
   0% {
     visibility: hidden;
@@ -22,8 +25,12 @@ const fadeIn = keyframes`
   1% {
     visibility: visible;
   }
+  
+  35%{
+    opacity: 1;
+  }
 
-  50% {
+  75% {
     opacity: 1;
   }
   
@@ -34,7 +41,15 @@ const fadeIn = keyframes`
 `;
 
 const fadeOut = keyframes`
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
   
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 `;
 
 const EthTVContainer = styled.div`
@@ -45,7 +60,7 @@ const EthTVContainer = styled.div`
 const Fade = styled.div`
   display: inline-block;
   visibility: ${props => props.out ? 'hidden' : 'visible'};
-  animation: ${props => props.out ? fadeOut : fadeIn} 4s linear;
+  animation: ${props => props.out ? null : fadeIn} 4s linear;
   transition: visibility 4s linear;
   opacity: 0;
 `;
@@ -67,6 +82,12 @@ const NavBar = styled.div`
     color: white;
     text-transform: uppercase;
     text-decoration: none;
+    margin-right: 3em;
+    font-weight: bold;
+    
+    &:hover{
+      color: yellow;
+    }
   }
 `;
 
@@ -98,8 +119,6 @@ class Youtube extends React.PureComponent {
       showMessage: false,
       showRequestLinkPanel: false,
 
-      storageValue: 0,
-
       isPlaying: false,
 
       videoPlayer: {
@@ -111,25 +130,16 @@ class Youtube extends React.PureComponent {
     };
 
     window.addEventListener('resize', this.onWindowResizedHandler);
-
-    props.requestCurrentVideo(props.contract, props.accounts);
   }
-
-  renderPlayer = () => {
-    return (
-        <div>
-          <Fade out={!this.state.showMessage}>
-            <Overlay>
-              {this.props.message}
-            </Overlay>
-          </Fade>
-
-          <YouTubeComponent style={{visibility: this.state.playerVisibility }} videoPlayer={this.state.videoPlayer} url={this.props.url} />
-        </div>
-    )
-  }
-
   componentDidMount(){
+    this.props.requestCurrentVideo(this.props.contract);
+
+    if(this.props.url && this.props.url.length > 0){
+      this.setState({
+        playerVisibility: 'visible'
+      })
+    }
+
     this.startPolling();
   }
 
@@ -147,11 +157,12 @@ class Youtube extends React.PureComponent {
             showMessage: true,
             playerVisibility: 'hidden'
           });
-        }, 750);
 
-        window.setTimeout(() => {
-          this.setState({ showMessage: false, playerVisibility: 'visible'})
-        }, 4000);
+          window.setTimeout(() => {
+            this.setState({ showMessage: false, playerVisibility: 'visible'})
+          }, 4000);
+
+        }, 750);
       }
 
 
@@ -195,24 +206,62 @@ class Youtube extends React.PureComponent {
     this.setState({
       showRequestLinkPanel: false
     });
-      // Instantiate contract once web3 provided.
+
+    this.showNotification('Please submit your transaction.');
+
+    // Instantiate contract once web3 provided.
     this.props.requestNewVideo(params.url, params.message, this.props.contract, this.props.accounts)
   };
 
   showNotification = (msg) => {
-    toast(msg);
+    toast(msg, { type: toast.TYPE.WARNING });
   };
+
+  renderPlayer = () => {
+    return (
+        <div>
+          <Fade out={!this.state.showMessage}>
+            <Overlay>
+              {this.props.message}
+            </Overlay>
+          </Fade>
+
+          <YouTubeComponent style={{visibility: this.state.playerVisibility }}
+                            videoPlayer={this.state.videoPlayer}
+                            url={this.props.url} />
+        </div>
+    )
+  }
 
   render() {
     const { props } = this;
 
     return (<EthTVContainer>
-      <ToastContainer />
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>ETH.TV - Decentralised Television</title>
+        <link rel="canonical" href="http://tv.teamhut.co" />
+      </Helmet>
+
+      <ToastContainer style={{ top: '85px'}}/>
 
       <NavBar>
         <img src={`${window.location.href}images/eth-tv/logo-white.png`} width="50" height="50" />
 
-        <Button primary onClick={() => this.setState({ showRequestLinkPanel: true })}>Request new link</Button>
+        <Row style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}>
+
+          <a href="">ETH.TV</a>
+          <a href="">ABOUT</a>
+          <a href="">FAQ</a>
+          <a href="">PRESS</a>
+
+          <ButtonPrimary primary onClick={() => this.setState({ showRequestLinkPanel: true })}>Request new link</ButtonPrimary>
+        </Row>
+
       </NavBar>
 
       <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
