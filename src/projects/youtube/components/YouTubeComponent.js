@@ -11,7 +11,9 @@ class YouTubeComponent extends React.Component{
   };
 
   render(){
-    const { width, height, url } = this.props.videoPlayer;
+    const { url, videoPlayer } = this.props;
+    const { width, height } = videoPlayer;
+
 
     /**const opts = {
       height,

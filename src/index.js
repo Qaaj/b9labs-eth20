@@ -12,9 +12,9 @@ import version from './version';
 
 injectGlobal`
   html,body{
-    background-color: black;
+    background-color: #546E7A;
     font-family: Roboto;
-    color: white; 
+    //color: white; 
     margin: 0px;
     padding: 0px;
   }

@@ -10,6 +10,11 @@ import Splitter from './projects/splitter'
 
 import { Button } from './styles';
 
+const Container = styled.div`
+  color: white;
+  padding: 2em;
+`;
+
 const Contract = styled.div`
   padding: 10px;
 `;
@@ -64,7 +69,7 @@ class App extends Component {
     }
 
     return (
-        <div>
+        <Container>
           <Providers />
           <h1>Welcome to The Smart Contract Playground</h1>
           <h3>Currently connected via {providerName} {providerName === 'HttpProvider' &&
@@ -74,7 +79,7 @@ class App extends Component {
           <h2>Projects</h2>
           <Button onClick={() => this.setState({ component: 'splitter' })}>Splitter</Button>
           <Button onClick={() => this.setState({ component: 'eth.tv' })}>ETH.TV</Button>
-        </div>
+        </Container>
     );
   }
 }

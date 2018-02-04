@@ -3,28 +3,14 @@ import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { Button } from '../../styles/index';
 import styled, {keyframes}  from 'styled-components';
+import RequestLinkPanel from './components/RequestLinkPanel';
 import YouTubeComponent from './components/YouTubeComponent';
 import { requestNewVideo, requestCurrentVideo } from './reducer';
 import { ToastContainer, toast} from 'react-toastify';
 
-const Input = styled.input`
-  border-radius: 3px;
-  height: 25px;
-  font-size: 18px;
-  width: 200px;
-  margin-right: 10px;
-`;
-
-const PlayerHolder = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import {Logo} from '../../../public/images/eth-tv/logo.png';
 
 let POLLER;
-var youtube;
-
 var myTimeOut;
 
 const fadeIn = keyframes`
@@ -45,6 +31,11 @@ const fadeOut = keyframes`
   to {
     opacity: 0;
   }
+`;
+
+const EthTVContainer = styled.div`
+  background-color: black;
+  color: black;
 `;
 
 const Fade = styled.div`
@@ -82,19 +73,19 @@ class Youtube extends React.PureComponent {
     super(props);
 
     this.state = {
-      showMessage: true,
+      showMessage: false,
       showRequestLinkPanel: false,
 
       storageValue: 0,
-      web3: null,
 
       isPlaying: false,
 
       videoPlayer: {
         width: window.innerWidth,
         height: window.innerHeight,
-        url: 'https://www.youtube.com/watch?v=0IefMXZrVYI',
-      }
+      },
+
+      url: '',
     };
 
     window.addEventListener('resize', this.onWindowResizedHandler);
@@ -137,13 +128,23 @@ class Youtube extends React.PureComponent {
             </Overlay>
           </Fade>
 
-          <YouTubeComponent videoPlayer={this.state.videoPlayer} />
+          <YouTubeComponent videoPlayer={this.state.videoPlayer} url={this.props.url} />
         </div>
     )
   }
 
   componentDidMount(){
     this.startPolling();
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    //console.log(nextProps, nextState)
+
+    if(prevProps.url !== this.props.url){
+      console.log('URL Changed from' , prevProps , ' to ' , this.props.url);
+
+      this.showNotification('New video received!');
+    }
   }
 
   componentWillUnmount(){
@@ -161,7 +162,7 @@ class Youtube extends React.PureComponent {
           width: window.innerWidth,
           height: window.innerHeight,
         }
-      })
+      });
 
       clearTimeout(myTimeOut);
     }, 100);
@@ -172,37 +173,19 @@ class Youtube extends React.PureComponent {
   startPolling = () => {
     POLLER = window.setInterval(async () => {
       let url = await this.getLastURL();
-
-      console.log('Polled URL: ' , url)
-
-      if(url !== this.props.url){
-        console.log('URL Changed! ' , console.log('Polled URL: ' , url))
-
-        this.setState({
-          ...this.state,
-          videoPlayer: {
-            ...this.state.videoPlayer,
-            url: url
-          }
-        })
-
-      }
-
     }, 500)
-  }
-
-  stopPolling = () => {
-
-  }
+  };
 
   getLastURL = async () => {
-    console.log('getting lasst url')
-    return this.props.requestCurrentVideo(this.props.contract); //youtube.lastURL.call().then(result => result);
+    return this.props.requestCurrentVideo(this.props.contract);
   };
 
   onSendClickedHandler = (params) => {
-    // Instantiate contract once web3 provided.
-    this.instantiateContract(params);
+    this.setState({
+      showRequestLinkPanel: false
+    });
+      // Instantiate contract once web3 provided.
+    this.props.requestNewVideo(params.url, params.message, this.props.contract, this.props.accounts)
   };
 
   showNotification = (msg) => {
@@ -211,35 +194,22 @@ class Youtube extends React.PureComponent {
 
   render() {
     const { props } = this;
-    return (<div>
-      {/** <h2>Youtube</h2>
-      <Input onChange={(e) => this.setState({ URL: e.target.value })} />
-      <Button onClick={() => props.requestNewVideo(this.state.URL, '', props.contract, props.accounts)}> Set
-        URL</Button>
-      <Button onClick={() => props.requestCurrentVideo(props.contract)}> Get the URL </Button>
-      <p>{props.url ? `Latest URL: ${props.url}` : 'No URL set!'}</p>
-      <PlayerHolder>
-        <ReactPlayer url={props.url}
-                     playing={true}
-                     width={800}
-                     height={450}
-                     config={{ youtube: { playerVars: { showInfo: 0, } } }}
-        />
-      </PlayerHolder>**/}
 
+    return (<EthTVContainer>
       <ToastContainer />
 
       <NavBar>
-        <a href="#">ETH.TV</a>
+        <img src={`${window.location.href}images/eth-tv/logo-white.png`} width="50" height="50" />
+
         <Button primary onClick={() => this.setState({ showRequestLinkPanel: true })}>Request new link</Button>
       </NavBar>
 
-      <YouTubeComponent videoPlayer={{
-        width: window.innerWidth,
-        height: window.innerHeight,
-        url: props.url
-      }} />
-    </div>);
+      <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
+                        onSendClickedHandler={this.onSendClickedHandler}
+                        onCloseClick={() => this.setState({ showRequestLinkPanel: false })} />
+
+      {this.renderPlayer()}
+    </EthTVContainer>);
 
   }
 }

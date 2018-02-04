@@ -7,8 +7,8 @@ const { Types, Creators } = createActions({
 
 export const INITIAL_STATE = {
   latestVideo: {
-    url: 'https://www.youtube.com/watch?v=0IefMXZrVYI',
-    message: 'Hoi',
+    url: '',
+    message: '',
   }
 };
 
@@ -17,13 +17,14 @@ export const newVideoReceived = (state, { url, message }) => {
 }
 
 export const requestNewVideo = (URL, message, contract, accounts) => async (dispatch) => {
-  await contract.requestVideo(URL || '', 'Please like my video', {from: accounts[0], gas: 3000000});
+  await contract.requestVideo(URL || '', message, {from: accounts[0], gas: 3000000});
   const url = await contract.lastURL();
   dispatch(Creators.newVideoReceived(url))
 }
 
 export const requestCurrentVideo = (contract) => async (dispatch) => {
   const url = await contract.lastURL();
+
   dispatch(Creators.newVideoReceived(url))
 }
 
