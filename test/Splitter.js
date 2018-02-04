@@ -28,7 +28,7 @@ contract('Splitter', accounts => {
   it('should send money to the splitter contract', async () => {
 
     const result = await api.splitFunds(alice, bob, carol, sendAmount);
-    const log = helpers.getLog('LogMoneyAdded',result);
+    const log = helpers.getLog('LogMoneySplit',result);
 
     log.args.sender.should.eql(alice);
     log.args.amount.toString().should.eql(sendAmount);
