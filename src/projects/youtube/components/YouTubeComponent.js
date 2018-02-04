@@ -37,10 +37,16 @@ class YouTubeComponent extends React.Component{
                           youtube: {
                             playerVars: {
                               showInfo: 0,
-                            }
+                            },
                           },
                           soundcloud: {
-
+                            options:{
+                              title: false
+                            },
+                          },
+                          dailymotion: {
+                          },
+                          wistia: {
                           }
                         }}
     />;

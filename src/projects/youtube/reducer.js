@@ -8,7 +8,7 @@ const { Types, Creators } = createActions({
 export const INITIAL_STATE = {
   latestVideo: {
     url: '',
-    message: '',
+    message: 'Message!',
   }
 };
 

@@ -33,10 +33,6 @@ class RequestLinkPanel extends React.Component {
     }
   }
 
-  componentDidMount() {
-
-  }
-
   validateInput = (input) => {
     let result = false;
 

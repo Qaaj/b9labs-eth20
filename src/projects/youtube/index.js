@@ -41,8 +41,8 @@ const EthTVContainer = styled.div`
 const Fade = styled.div`
   display: inline-block;
   visibility: ${props => props.out ? 'hidden' : 'visible'};
-  animation: ${props => props.out ? fadeOut : fadeIn} 1s linear;
-  transition: visibility 1s linear;
+  animation: ${props => props.out ? fadeOut : fadeIn} 4s alternate;
+  transition: visibility 4s linear;
 `;
 
 const NavBar = styled.div`
@@ -84,8 +84,6 @@ class Youtube extends React.PureComponent {
         width: window.innerWidth,
         height: window.innerHeight,
       },
-
-      url: '',
     };
 
     window.addEventListener('resize', this.onWindowResizedHandler);
@@ -110,6 +108,7 @@ class Youtube extends React.PureComponent {
       font-size: 2em;
       align-items: center;
       justify-content: center;
+      opacity: 1;
      
     `;
 
@@ -117,14 +116,7 @@ class Youtube extends React.PureComponent {
         <div>
           <Fade out={!this.state.showMessage}>
             <Overlay>
-              Hi guys!
-              qdsqs
-              qs
-              s
-              q
-              qsd
-              qsd
-              qsdqdsqsd
+              {this.props.message}
             </Overlay>
           </Fade>
 
@@ -143,7 +135,14 @@ class Youtube extends React.PureComponent {
     if(prevProps.url !== this.props.url){
       console.log('URL Changed from' , prevProps , ' to ' , this.props.url);
 
-      this.showNotification('New video received!');
+      this.setState({
+        showMessage: true
+      });
+
+      window.setTimeout(() => {
+        this.showNotification('New video received!');
+        this.setState({ showMessage: false})
+      }, 2000);
     }
   }
 
@@ -219,6 +218,7 @@ const mapStateToProps = (state) => {
     contract: state.contracts.getIn(['Youtube', 'contract']),
     accounts: state.settings.get('accounts'),
     url: state.youtube.getIn(['latestVideo', 'url']),
+    message: state.youtube.getIn(['latestVideo', 'message']),
   }
 }
 
