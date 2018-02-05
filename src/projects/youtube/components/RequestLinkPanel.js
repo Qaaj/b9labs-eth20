@@ -99,8 +99,8 @@ class RequestLinkPanel extends React.Component {
 
                 Links
                 <ul>
-                  <li>YouTube, Vimeo, Wistia, ...</li>
-                  <li>SoundCloud</li>
+                  <li>YouTube, Twitch, Vimeo, Wistia</li>
+                  <li>SoundCloud, Streamable, DailyMotion</li>
                   <li>Facebook/Twitter Live</li>
                   <li>DropBox files</li>
                 </ul>

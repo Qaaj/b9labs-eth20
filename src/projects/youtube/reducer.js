@@ -17,7 +17,7 @@ export const newVideoReceived = (state, params) => {
 
   console.log('Polling... ');
 
-  if(url !== state.getIn(['latestVideo', 'url'])){
+  if(url && url !== state.getIn(['latestVideo', 'url'])){
     //console.log('New video received ' , params);
 
     // TODO: Add message
@@ -36,9 +36,13 @@ export const requestNewVideo = (URL, message, contract, accounts) => async (disp
 }
 
 export const requestCurrentVideo = (contract) => async (dispatch) => {
-  const url = await contract.lastURL();
-  dispatch(Creators.newVideoReceived(url))
-}
+  try{
+    const url = await contract.lastURL();
+    dispatch(Creators.newVideoReceived(url))
+  }catch(e){
+    throw(e.message)
+  }
+};
 
 export const reducer = createReducer(fromJS(INITIAL_STATE), {
   [Types.NEW_VIDEO_RECEIVED]: newVideoReceived,

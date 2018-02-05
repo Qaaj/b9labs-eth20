@@ -109,7 +109,8 @@ class Youtube extends React.PureComponent {
     window.addEventListener('resize', this.onWindowResizedHandler);
   }
   componentDidMount(){
-    this.props.requestCurrentVideo(this.props.contract);
+    // Not dispatching here, as contract load can be a tad slow
+    // this.props.requestCurrentVideo(this.props.contract);
 
     if(this.props.url && this.props.url.length > 0){
       this.setState({
@@ -124,7 +125,7 @@ class Youtube extends React.PureComponent {
     //console.log(nextProps, nextState)
 
     if(prevProps.url !== this.props.url){
-      console.log('URL Changed from' , prevProps , ' to ' , this.props.url);
+      console.log('URL Changed to ' , this.props.url);
 
       if(!this.state.showMessage){
         this.showNotification('New video received!');
@@ -172,7 +173,7 @@ class Youtube extends React.PureComponent {
   startPolling = () => {
     POLLER = window.setInterval(async () => {
       let url = await this.getLastURL();
-    }, 500)
+    }, 1000)
   };
 
   getLastURL = async () => {
@@ -213,6 +214,12 @@ class Youtube extends React.PureComponent {
   render() {
     const { props } = this;
 
+    if(!this.props.contract){
+      return (
+          <div>Loading...</div>
+      )
+    }
+
     return (<EthTVContainer>
       <Helmet>
         <meta charSet="utf-8" />
@@ -237,7 +244,6 @@ class Youtube extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-    contract: state.contracts.getIn(['Youtube', 'contract']),
     contract: state.contracts.getIn(['Youtube', 'contract']),
     accounts: state.settings.get('accounts'),
     url: state.youtube.getIn(['latestVideo', 'url']),

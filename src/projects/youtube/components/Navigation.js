@@ -243,7 +243,7 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
               { menuItems.map((item, i) => <a key={i} onClick={() => onMenuClicked()}>{item.label.toUpperCase()}</a>)}
               <ButtonPrimary primary onClick={() => onMenuClicked()}>Request new link</ButtonPrimary>
 
-              <ProvidersDropdown />
+              <ProvidersDropdown style={{ backgroundColor: 'yellow', color: 'black', padding: '0.8em'}} />
             </Row>
 
           </Desktop>

@@ -4,19 +4,6 @@ import styled from 'styled-components';
 import {connect} from 'react-redux';
 import {changeProvider} from '../../../../redux/SettingsReducer';
 import DropdownBase from './DropdownBase';
-import { Button } from 'semantic-ui-react';
-
-const Container = styled.div`
-  
-`;
-
-const DropdownContainer = styled(DropdownBase)`
-  padding: 1em;
-  background-color: yellow;
-  text-transform: uppercase;
-  color: black;
-  font-size: 1em;
-`;
 
 class ProvidersDropdown extends React.Component {
   constructor(props) {
@@ -41,15 +28,12 @@ class ProvidersDropdown extends React.Component {
 
   onChangeHandler = ({key, text, value}) => {
     this.props.changeProvider(value)
-  }
+  };
 
   render() {
     const options = this.state.options;
 
     let providerName = this.props.web3.currentProvider.constructor.name;
-    //providerName === 'HttpProvider' ? `${providerName} - ${this.props.web3.currentProvider.host}` : null;
-
-    console.log(providerName)
 
     if (providerName.indexOf('HttpProvider') > -1){
 
@@ -64,14 +48,13 @@ class ProvidersDropdown extends React.Component {
       providerName = "MetaMask"
     }
 
-    return (<Container>
-        <DropdownContainer placeholder={providerName}
-                           options={options}
-                           onChange={(e, params) => {
-                             console.log(e.currentTarget.key)
-                             this.onChangeHandler(params)
-                           }}/>
-    </Container>);
+    return (<DropdownBase placeholder={providerName}
+                          style={this.props.style}
+                          options={options}
+                          onChange={(e, params) => {
+                            console.log(e.currentTarget.key)
+                            this.onChangeHandler(params)
+                          }}/>);
   }
 }
 
@@ -85,7 +68,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-
   return {
     changeProvider: (url) => dispatch(changeProvider(url)),
   };
