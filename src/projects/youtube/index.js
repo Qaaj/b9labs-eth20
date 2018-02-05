@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { Button } from '../../styles/index';
 import styled, {keyframes}  from 'styled-components';
-import {Navigation} from './components/Navigation';
+import Navigation from './components/Navigation';
 import RequestLinkPanel from './components/RequestLinkPanel';
 import YouTubeComponent from './components/YouTubeComponent';
 import { requestNewVideo, requestCurrentVideo } from './reducer';
