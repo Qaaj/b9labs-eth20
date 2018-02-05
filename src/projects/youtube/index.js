@@ -100,7 +100,7 @@ class Youtube extends React.PureComponent {
 
       videoPlayer: {
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight - 75,
       },
 
       playerVisibility: 'hidden',
@@ -159,7 +159,7 @@ class Youtube extends React.PureComponent {
         videoPlayer: {
           ...this.state.videoPlayer,
           width: window.innerWidth,
-          height: window.innerHeight,
+          height: window.innerHeight - 75,
         }
       });
 
@@ -237,6 +237,7 @@ class Youtube extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   return {
+    contract: state.contracts.getIn(['Youtube', 'contract']),
     contract: state.contracts.getIn(['Youtube', 'contract']),
     accounts: state.settings.get('accounts'),
     url: state.youtube.getIn(['latestVideo', 'url']),

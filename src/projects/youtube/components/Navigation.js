@@ -5,6 +5,7 @@ import {Column} from '../styles';
 import { Row, ButtonPrimary } from './../styles';
 import PropTypes from 'prop-types';
 import { media } from './../styles';
+import ProvidersDropdown from './dropdowns/ProvidersDropdown';
 
 const Mobile = styled.div`
     padding-right: 2em;
@@ -13,7 +14,7 @@ const Mobile = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 0;
-    background-color: grey;
+    background-color: black;
     
    ${media.giant`  
       dislay: none;
@@ -119,7 +120,7 @@ const MobileOverlay = styled(Column)`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: red;
+  background-color: black;
   
   ${media.giant`  
       dislay: none;
@@ -158,21 +159,15 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
     this.state = {
       selectedIndex: 0,
 
-      isMobileNavShown: true,
+      isMobileNavShown: false,
     }
   }
 
-  onMobileNavClicked = () => {
+  onMobileNavClicked = (item) => {
     this.setState({
       isMobileNavShown: !this.state.isMobileNavShown,
     });
   };
-
-  renderIcon = (src) => {
-    return (
-        <div></div>
-    )
-  }
 
   render(){
     const { onMenuClicked } = this.props;
@@ -195,9 +190,10 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
           <Mobile>
             <img src={`${window.location.href}images/eth-tv/logo-white.png`}
                  width="50" height="50"
+                 onClick={() => this.onMobileNavClicked(menuItems[0])}
                  style={{ cursor: 'hand', cursor: 'pointer' }} />
 
-            <ButtonPrimary primary onClick={() => onMenuClicked()}>Request new link</ButtonPrimary>
+            <ButtonPrimary primary onClick={() => this.onMobileNavClicked(menuItems[4])}>Request new link</ButtonPrimary>
             <img src={`${window.location.href}images/eth-tv/icons/hamburger-icon.png`}
                  width="50" height="37"
                  onClick={() => this.onMobileNavClicked()}
@@ -228,7 +224,7 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
 
             {menuItems.map((item, i) => <MobileNavButton key={item.label}
                                                    selected={i == this.state.selectedIndex}
-                                                   onClick={() => this.onMenuClicked(item, i)}>
+                                                   onClick={() => this.onMobileNavClicked(item)}>
               {item.label.toUpperCase()}
             </MobileNavButton>)}
           </MobileOverlay>
@@ -246,6 +242,8 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
 
               { menuItems.map((item, i) => <a key={i} onClick={() => onMenuClicked()}>{item.label.toUpperCase()}</a>)}
               <ButtonPrimary primary onClick={() => onMenuClicked()}>Request new link</ButtonPrimary>
+
+              <ProvidersDropdown />
             </Row>
 
           </Desktop>
