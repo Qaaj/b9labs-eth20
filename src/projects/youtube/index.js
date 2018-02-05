@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { Button } from '../../styles/index';
 import styled, {keyframes}  from 'styled-components';
+import {Navigation} from './components/Navigation';
 import RequestLinkPanel from './components/RequestLinkPanel';
 import YouTubeComponent from './components/YouTubeComponent';
 import { requestNewVideo, requestCurrentVideo } from './reducer';
@@ -65,31 +66,7 @@ const Fade = styled.div`
   opacity: 0;
 `;
 
-const NavBar = styled.div`
-  position: absolute;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 75px;
-  background-color: black;
-  z-index: 999;
-  padding-left: 1em;
-  padding-right: 1em;
-  
-  a{
-    color: white;
-    text-transform: uppercase;
-    text-decoration: none;
-    margin-right: 3em;
-    font-weight: bold;
-    
-    &:hover{
-      color: yellow;
-    }
-  }
-`;
+
 
 const Overlay = styled.div`
       position: absolute;
@@ -245,24 +222,8 @@ class Youtube extends React.PureComponent {
 
       <ToastContainer style={{ top: '85px'}}/>
 
-      <NavBar>
-        <img src={`${window.location.href}images/eth-tv/logo-white.png`} width="50" height="50" />
 
-        <Row style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        }}>
-
-          <a href="">ETH.TV</a>
-          <a href="">ABOUT</a>
-          <a href="">FAQ</a>
-          <a href="">PRESS</a>
-
-          <ButtonPrimary primary onClick={() => this.setState({ showRequestLinkPanel: true })}>Request new link</ButtonPrimary>
-        </Row>
-
-      </NavBar>
+      <Navigation onMenuClicked={() => this.setState({ showRequestLinkPanel: true })} />
 
       <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
                         onSendClickedHandler={this.onSendClickedHandler}
