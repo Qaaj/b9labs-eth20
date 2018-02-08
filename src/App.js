@@ -29,8 +29,8 @@ const CloseButton = styled.div`
 
 class App extends Component {
 
-  // state = { component: null };
-  state = { component: 'splitter' };
+  state = { component: null };
+  // state = { component: 'splitter' };
 
   constructor(props) {
     super(props);
