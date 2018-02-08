@@ -29,7 +29,6 @@ const CloseButton = styled.div`
   top: 0px;
   right: 0px;
   cursor: pointer;
-  cursor: hand;
   font-size: 20px;
   z-index: 99999;
 `;
