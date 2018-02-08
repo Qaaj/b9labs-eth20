@@ -33,4 +33,4 @@ Web3.get('http://localhost:8545').then((web3) => {
       </Provider>,
       document.getElementById('root')
   );
-})
+});
