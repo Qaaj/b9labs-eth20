@@ -4,7 +4,8 @@ import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 contract Remittance is Ownable {
 
-    mapping (string => Project) projects;
+    mapping (uint => Project) public projects;
+    uint projectCount;
 
     struct Project {
         bytes32 password_one; // Hashed password_one
@@ -16,37 +17,41 @@ contract Remittance is Ownable {
         owner = msg.sender;
     }
 
-    function claimMoney(string name, string password_one, string password_two)
+    function claimMoney(uint projectId, string password_one, string password_two)
     public
     {
-        var project = projects[name]; // Get the project form our mapping by name
-        require(project.amount != 0); // Make sure there is a project under that name
-        require(project.password_one == keccak256(password_one)); // We need the hashed password_one to match
-        require(project.password_two == keccak256(password_two)); // We need the hashed password_two to match
-        msg.sender.transfer(project.amount); // Transfer the amount to the person claiming it
+        // Get the project from our mapping by name
+        Project storage project = projects[projectId];
+        // Make sure there is a project under that name AND that there is still money to be sent
+        require(project.amount != 0);
+        // We need the hashed passwords to match
+        require(project.password_one == keccak256(password_one));
+        require(project.password_two == keccak256(password_two));
+        // Save the amount to be sent in a seperate variable
+        uint amountToSend = project.amount;
+        // Clear the amount of money to send before sending it to avoid re-entry
+        project.amount = 0;
+        // Finally, transfer the amount to the person claiming it
+        msg.sender.transfer(amountToSend);
     }
 
-    function newProject(string name, bytes32 password_one, bytes32 password_two)
+    function newProject(bytes32 password_one, bytes32 password_two)
     public
     payable
-    returns (bool succes)
+    returns (uint projectId)
     {
-        require(msg.value != 0); // need some eth to be sent for new Remittance project
-        require(password_one != 0x0); // no empty password_one
-        require(password_two != 0x0); // no empty password_two
-        var exisitingProject = projects[name]; // See if a project already exists with this name
-        require(exisitingProject.amount != 0); // This prevents people from overwriting an exisiting project
-        var project = Project(password_one, password_two, msg.value); // Create new project struct
-        projects[name] = project; // Save the project
-        return true;
+        // Create new Project struct
+        Project memory project =  Project(password_one, password_two, msg.value);
+        projectCount++;
+        projects[projectCount] = project;
+        return projectCount;
     }
 
-    function doHashing(string extra)
+    // Emergency function to drain all funds from the contract
+    function panicButton(address emergencyExit)
     public
-    pure
-    returns (bytes32 hash)
+    onlyOwner
     {
-        return keccak256(extra);
+        emergencyExit.transfer(this.balance);
     }
-
 }
