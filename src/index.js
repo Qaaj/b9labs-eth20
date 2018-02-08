@@ -18,7 +18,7 @@ injectGlobal`
   }
 `;
 
-Web3.get('http://localhost:8545').then((web3) => {
+Web3.get('http://localhost:9545').then((web3) => {
 
   window._web3 = web3;
   const store = createStore(web3);

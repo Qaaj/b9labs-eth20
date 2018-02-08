@@ -5,6 +5,7 @@ import truffleContract from 'truffle-contract';
 import Youtube from '../../build/contracts/Youtube.json';
 import CrowdFunding from '../../build/contracts/CrowdFunding.json';
 import Splitter from '../../build/contracts/Splitter.json';
+import Remittance from '../../build/contracts/Remittance.json';
 
 const { Types, Creators } = createActions({
   contractLoaded: ['contractName', 'contractInstance'],
@@ -22,6 +23,9 @@ export const INITIAL_STATE = fromJS({
   },
   Splitter: {
     json: Splitter
+  },
+  Remittance: {
+    json: Remittance
   },
 });
 

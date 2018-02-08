@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import Youtube from './projects/youtube'
 import Splitter from './projects/splitter'
+import Remittance from './projects/remittance'
 
 import { Button } from './styles';
 
@@ -55,6 +56,7 @@ class App extends Component {
       let component;
       if (this.state.component === 'eth.tv') component = <Youtube />;
       if (this.state.component === 'splitter') component = <Splitter />;
+      if (this.state.component === 'remittance') component = <Remittance />;
       return (<div>
         {component}
         <CloseButton onClick={()=>this.setState({component: null})}>❌</CloseButton>
@@ -72,6 +74,7 @@ class App extends Component {
           <h2>Projects</h2>
           <Button onClick={() => this.setState({ component: 'splitter' })}>Splitter</Button>
           <Button onClick={() => this.setState({ component: 'eth.tv' })}>ETH.TV</Button>
+          <Button onClick={() => this.setState({ component: 'remittance' })}>Remittance</Button>
         </div>
     );
   }
