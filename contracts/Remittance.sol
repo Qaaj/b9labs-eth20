@@ -2,18 +2,25 @@ pragma solidity 0.4.18;
 
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
+pragma solidity 0.4.18;
+
+import './Ownable.sol';
+
 contract Remittance is Ownable {
 
-    event LogProjectClaimed(address claimer, uint projectId);
-    event LogProjectCreated(address owner, uint amount, uint projectId);
-    event LogProjectCancelled(address projectOwner, uint projectId);
+    event LogProjectClaimed(address claimer, uint instanceId, uint feePaid);
+    event LogProjectCreated(address owner, uint amount, uint instanceId);
+    event LogProjectCancelled(address remittanceInstanceOwner, uint instanceId);
     event LogKillswitch(address receiver, uint amount);
     event LogPaused(address sender, bool paused);
 
-    mapping (uint => Project) public projects;
+    mapping (uint => RemittanceInstance) public remittances;
 
-    uint projectCount;
+    // Current estimate of contract creation cost
+    uint contractCreationGasCost = 2000000;
+    uint remittanceInstanceCount;
     bool paused;
+    // Maximum amount of blocks after which remittance owner can withdraw
     uint maxDeadlineHeight = 1000;
 
     modifier pausable{
@@ -21,7 +28,7 @@ contract Remittance is Ownable {
         _;
     }
 
-    struct Project {
+    struct RemittanceInstance {
         address owner;
         bytes32 passphrase; // Hashed password_one
         uint amount; // Amount of eth
@@ -32,39 +39,50 @@ contract Remittance is Ownable {
         owner = msg.sender;
     }
 
-    function claimMoney(uint projectId, string password_one, string password_two)
+    function gasPrice()
+    public
+    view
+    returns(uint gasprice)
+    {
+        return (tx.gasprice * 1000000);
+    }
+
+    function claimMoney(uint instanceId, string password_one, string password_two)
     pausable
     public
     {
-        // Get the project from our mapping by name
-        Project storage project = projects[projectId];
-        // Make sure there is a project under that name AND that there is still money to be sent
-        require(project.amount != 0);
+        // Get the remittanceInstance from our mapping by name
+        RemittanceInstance storage instance = remittances[instanceId];
+        // Make sure there is a instance under that name AND that there is still money to be sent
+        require(instance.amount != 0);
         // We need the hashed passwords to match
-        require(project.passphrase == keccak256(keccak256(password_one),keccak256(password_two)));
-        LogProjectClaimed(msg.sender, projectId);
+        require(instance.passphrase == keccak256(keccak256(password_one),keccak256(password_two)));
+        uint fee = tx.gasprice * 1000000 * contractCreationGasCost;
+        LogProjectClaimed(msg.sender, instanceId, fee);
         // Save the amount to be sent in a seperate variable
-        uint amountToSend = project.amount;
-        // Clear the project amount
-        project.amount = 0;
+        uint amountToSend = instance.amount;
+        // Gotta pay taxes
+        amountToSend = amountToSend - fee;
+        // Clear the instance amount
+        instance.amount = 0;
         // Finally, transfer the amount to the person claiming it
         msg.sender.transfer(amountToSend);
     }
 
-    function cancelProject(uint projectId)
+    function cancelProject(uint instanceId)
     public
     pausable
     {
-        // Get the project from our mapping by name
-        Project storage project = projects[projectId];
-        require(project.owner == msg.sender);
+        // Get the instance from our mapping by name
+        RemittanceInstance storage instance = remittances[instanceId];
+        require(instance.owner == msg.sender);
         // After the deadline block, owner can claim funds
-        require(project.deadlineBlock <= block.number);
-        LogProjectCancelled(project.owner, projectId);
+        require(instance.deadlineBlock <= block.number);
+        LogProjectCancelled(instance.owner, instanceId);
         // Save the amount to be sent in a seperate variable
-        uint amountToSend = project.amount;
-        // Clear the project amount
-        project.amount = 0;
+        uint amountToSend = instance.amount;
+        // Clear the instance amount
+        instance.amount = 0;
         // Finally, transfer the amount to the owner
         msg.sender.transfer(amountToSend);
     }
@@ -73,18 +91,18 @@ contract Remittance is Ownable {
     public
     pausable
     payable
-    returns (uint projectId)
+    returns (uint instanceId)
     {
         // Deadline can't be further away than the max Deadline BlockHeight
         require((deadlineBlock - block.number) > maxDeadlineHeight);
         // There needs to be something to remit
         require(msg.value > 0);
         // Create new Project struct
-        Project memory project =  Project(msg.sender, passphrase, msg.value, deadlineBlock);
-        projectCount++;
-        projects[projectCount] = project;
-        LogProjectCreated(msg.sender, msg.value, projectCount);
-        return projectCount;
+        RemittanceInstance memory remittanceInstance =  RemittanceInstance(msg.sender, passphrase, msg.value, deadlineBlock);
+        remittanceInstanceCount++;
+        remittances[remittanceInstanceCount] = remittanceInstance;
+        LogProjectCreated(msg.sender, msg.value, remittanceInstanceCount);
+        return remittanceInstanceCount;
     }
 
     // Emergency function to drain all funds from the contract and pauses it
