@@ -14,6 +14,7 @@ contract Remittance is Ownable {
 
     uint projectCount;
     bool paused;
+    uint maxDeadlineHeight = 1000;
 
     modifier pausable{
         require(!paused);
@@ -74,6 +75,10 @@ contract Remittance is Ownable {
     payable
     returns (uint projectId)
     {
+        // Deadline can't be further away than the max Deadline BlockHeight
+        require((deadlineBlock - block.number) > maxDeadlineHeight);
+        // There needs to be something to remit
+        require(msg.value > 0);
         // Create new Project struct
         Project memory project =  Project(msg.sender, passphrase, msg.value, deadlineBlock);
         projectCount++;
