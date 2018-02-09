@@ -13,8 +13,8 @@ module.exports = {
         return result;
       },
 
-      newProject:  async (pass_one, pass_two, blockHeight, txObject) => {
-        const result = await contract.newProject(pass_one, pass_two, blockHeight, txObject);
+      newProject:  async (pass_one, claimer, blockHeight, txObject) => {
+        const result = await contract.newProject(pass_one, claimer, blockHeight, txObject);
         return result;
       },
     }
