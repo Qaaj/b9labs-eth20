@@ -23,34 +23,32 @@ contract('Remittance', accounts => {
   const bob = accounts[1];
   const carol = accounts[2];
 
+  console.log(carol);
+
   it('should deploy the contract', async () => {
     remittance.contract.owner().should.eql(alice)
   });
 
   it('should hash passwords correctly', async () => {
     const cool = await api.hashPassword('cool');
-    const beans = await api.hashPassword('beans');
     cool.should.eql(cool_hash);
-    beans.should.eql(beans_hash);
   });
 
   it('should create a new Remittance Project', async () => {
-    const blockHeight = await remittance.contract.blockHeight({from:alice});
-    const password_one = await api.hashPassword(Math.round(Math.random()*1000000).toString());
-    const password_two = await api.hashPassword(Math.round(Math.random()*1000000).toString());
-    const logs =  await api.newProject(password_one, password_two, blockHeight.toNumber() + 100, { from: alice, value: sendAmount});
+    const blockHeight = await remittance.contract.blockHeight();
+    const password = await api.hashPassword(Math.round(Math.random()*1000000).toString());
+    const logs =  await api.newProject(password, carol, blockHeight.toNumber() + 100, { from: alice, value: sendAmount});
     const log = helpers.getLog('LogRemittanceCreated',logs);
     log.args.owner.should.eql(alice);
-    log.args.instanceId.toString().should.eql("1");
+    log.args.instanceId.toString().should.eql(password);
   });
 
   it('should not create a new Remittance Project when deadline is over allowed max blockheight', async () => {
-    const blockHeight = await remittance.contract.blockHeight({from:alice});
+    const blockHeight = await remittance.contract.blockHeight();
     const maxDeadlineHeight = await remittance.contract.maxDeadlineHeight({from:alice});
-    const password_one = await api.hashPassword(Math.round(Math.random()*1000000).toString());
-    const password_two = await api.hashPassword(Math.round(Math.random()*1000000).toString());
+    const password = await api.hashPassword(Math.round(Math.random()*1000000).toString());
     try {
-      await api.newProject(password_one, password_two, blockHeight + maxDeadlineHeight + 1, { from: alice, value: sendAmount});
+      await api.newProject(password, carol, blockHeight + maxDeadlineHeight + 1, { from: alice, value: sendAmount});
     } catch (error) {
       assert(true);
       return;
