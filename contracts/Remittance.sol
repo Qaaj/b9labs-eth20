@@ -3,10 +3,11 @@ pragma solidity 0.4.18;
 import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 // Alice creates a new Remittance Instance with 2 passwords, ETH and a deadlineBlock
-// Carol can unlock the funds with Bob's address and her password
-// Bob can claim his funds with his address and his password
+// Carol trades Bob's password for the funds
+// Carol then unlock the funds to be available for her address with Bob's password
+// Next, Carol can claim the funds with her password
 // If something goes wrong, Alice can step in and manually set Bob as the benificiary
-// Alice can withdraw her funds up until a certain point, with maxDeadlineHeight defining the maximum blockheight after the creation
+// Alice can withdraw her funds after a certain point, with maxDeadlineHeight defining the maximum blockheight after the creation
 // Upon withdrawal, a fee is taken based on current tx.gasprice * contractCreationGasCost
 // The contract owner can withdraw the current bankroll with takeProfits()
 
@@ -105,7 +106,7 @@ contract Remittance is Ownable {
         RemittanceInstance storage instance = remittances[instanceId];
         require(instance.owner == msg.sender);
         // After the deadline block, owner can claim funds
-        require(instance.deadlineBlock <= block.number);
+        require(instance.deadlineBlock >= block.number);
         LogRemittanceCancelled(instance.owner, instanceId);
         // Save the amount to be sent in a seperate variable
         uint amountToSend = instance.amount;
@@ -134,7 +135,7 @@ contract Remittance is Ownable {
     returns (uint instanceId)
     {
         // Deadline can't be further away than the max Deadline BlockHeight
-        require((deadlineBlock - block.number) > maxDeadlineHeight);
+        require(deadlineBlock == 0 || (deadlineBlock - block.number) < maxDeadlineHeight);
         // There needs to be something to remit
         require(msg.value > 0);
         // Don't reuse passwords
@@ -149,7 +150,7 @@ contract Remittance is Ownable {
         LogRemittanceCreated(msg.sender, msg.value, remittanceInstanceCount);
         return remittanceInstanceCount;
     }
-    
+
     // Emergency function to drain all funds from the contract and pauses it
     function panicButton(address emergencyExit)
     public
@@ -188,6 +189,15 @@ contract Remittance is Ownable {
     }
     
     // Helper functions
+    
+    function blockHeight()
+    public
+    view
+    returns(uint blockheight)
+    {
+        uint height = block.number;
+        return height;
+    }
     
     function gasPrice()
     public
