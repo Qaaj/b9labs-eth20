@@ -57,7 +57,6 @@ export const loadContracts = () => (dispatch, getState) => {
 
     contractInstance.setProvider(web3.currentProvider);
 
-
     // Get accounts.
     web3.eth.getAccounts((error, accounts) => {
       contractInstance.deployed().then((instance) => {

@@ -20,6 +20,12 @@ console.log(hdwallet);
 
 module.exports = {
   networks: {
+    ganache: {
+      host: 'localhost',
+      port: 7545,
+      network_id: 5777
+    },
+
     testrpc: {
       host: 'localhost',
       port: 9545,

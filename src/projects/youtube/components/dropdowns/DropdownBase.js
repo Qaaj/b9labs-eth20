@@ -5,7 +5,7 @@ const DropdownBase = ({placeholder, options, style, onChange}) => (
     <Dropdown button
               color="red"
               style={style}
-              text={placeholder}
+              text={`Nework: ${placeholder}`}
               options={options}
               onChange={onChange} />
 )

@@ -4,16 +4,16 @@ import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { Button } from '../../styles/index';
 import styled, {keyframes}  from 'styled-components';
+import BaseModal from './components/modals/BaseModal';
 import Navigation from './components/Navigation';
 import RequestLinkPanel from './components/RequestLinkPanel';
 import YouTubeComponent from './components/YouTubeComponent';
-import { requestNewVideo, requestCurrentVideo } from './reducer';
+import { requestNewVideo, requestCurrentVideo, requestTxReceipt, addSmartContractEventWatchers} from './reducer';
 import { ToastContainer, toast} from 'react-toastify';
-import { Row } from './styles';
+import {Column, Row} from './styles';
 import {Logo} from '../../../public/images/eth-tv/logo.png';
 import {ButtonPrimary} from './styles';
 
-let POLLER;
 var myTimeOut;
 
 // language=LESS
@@ -66,8 +66,6 @@ const Fade = styled.div`
   opacity: 0;
 `;
 
-
-
 const Overlay = styled.div`
       position: absolute;
       display: flex;
@@ -117,8 +115,6 @@ class Youtube extends React.PureComponent {
         playerVisibility: 'visible'
       })
     }
-
-    this.startPolling();
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -142,13 +138,16 @@ class Youtube extends React.PureComponent {
 
         }, 750);
       }
+    }
 
-
+    // Contract was loaded
+    if(prevProps.isLoading && !this.props.isLoading){
+      this.props.addEventWatchers(this.props.contract);
+      this.props.getLastURL(this.props.contract);
     }
   }
 
   componentWillUnmount(){
-    window.clearInterval(POLLER)
   }
 
   onWindowResizedHandler = (evt) => {
@@ -170,14 +169,10 @@ class Youtube extends React.PureComponent {
     evt.preventDefault();
   };
 
-  startPolling = () => {
-    POLLER = window.setInterval(async () => {
-      let url = await this.getLastURL();
-    }, 1000)
-  };
+  getLastURL = (contract) => {
+    if(!contract) throw('Needs a contract instance');
 
-  getLastURL = async () => {
-    return this.props.requestCurrentVideo(this.props.contract);
+    return this.props.requestCurrentVideo(contract);
   };
 
   onSendClickedHandler = (params) => {
@@ -193,6 +188,48 @@ class Youtube extends React.PureComponent {
 
   showNotification = (msg) => {
     toast(msg, { type: toast.TYPE.WARNING });
+  };
+
+  renderTxReceipt = (txReceipt) => {
+    if(!txReceipt) return <div>No receipt</div>;
+
+    //console.log('RECEIPT = ' , txReceipt)
+
+    return <div>Receipt</div>;
+    /**let content = txReceipt.map((val, key) => {
+                  if(typeof val === 'object'){
+                    let subItems = val.map((objVal, objKey) => {
+                      return (<div key={objKey}>{objKey}: {objVal}</div>)
+                    });
+
+                    // Maps as children is still experimental in current React version
+                    return subItems.toArray();
+                  }else{
+                    return (<div key={key}>{key}: {val}</div>)
+                  }
+                }).toArray();
+
+    return (
+        <BaseModal isOpen={txReceipt ? true : false}
+                         title="Your Receipt!"
+                         onClose={() => null}
+                         onConfirm={() => null}>
+          <Column style={{ marginLeft: '1em' }}>
+            <h2>Transaction</h2>
+
+            <Column>
+              { content }
+            </Column>
+
+            <br />
+
+            <ButtonPrimary onClick={() => window.open(`https://ropsten.etherscan.io/tx/${txReceipt.get('tx')}`)} text="View transaction">View on Etherscan</ButtonPrimary>
+          </Column>
+
+
+
+        </BaseModal>
+    )**/
   };
 
   renderPlayer = () => {
@@ -211,34 +248,39 @@ class Youtube extends React.PureComponent {
     )
   }
 
+  renderLoading(){
+    return (
+        <div>Loading...</div>
+    )
+  }
+
   render() {
     const { props } = this;
 
-    if(!this.props.contract){
-      return (
-          <div>Loading...</div>
-      )
+    if(props.isLoading){
+      return this.renderLoading();
+    }else{
+      return (<EthTVContainer>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>ETH.TV - Decentralised Television</title>
+          <link rel="canonical" href="http://tv.teamhut.co" />
+        </Helmet>
+
+        <ToastContainer style={{ top: '85px'}}/>
+
+        <Navigation onMenuClicked={() => this.setState({ showRequestLinkPanel: true })} />
+
+        { this.renderTxReceipt(this.props.txReceipt) }
+
+        <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
+                          onSendClickedHandler={this.onSendClickedHandler}
+                          onCloseClick={() => this.setState({ showRequestLinkPanel: false })} />
+
+        {this.renderPlayer()}
+
+      </EthTVContainer>);
     }
-
-    return (<EthTVContainer>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>ETH.TV - Decentralised Television</title>
-        <link rel="canonical" href="http://tv.teamhut.co" />
-      </Helmet>
-
-      <ToastContainer style={{ top: '85px'}}/>
-
-
-      <Navigation onMenuClicked={() => this.setState({ showRequestLinkPanel: true })} />
-
-      <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
-                        onSendClickedHandler={this.onSendClickedHandler}
-                        onCloseClick={() => this.setState({ showRequestLinkPanel: false })} />
-
-      {this.renderPlayer()}
-    </EthTVContainer>);
-
   }
 }
 
@@ -248,13 +290,17 @@ const mapStateToProps = (state) => {
     accounts: state.settings.get('accounts'),
     url: state.youtube.getIn(['latestVideo', 'url']),
     message: state.youtube.getIn(['latestVideo', 'message']),
+    txReceipt: state.youtube.get('txReceipt'),
+    isLoading: state.contracts.getIn(['Youtube', 'contract']) ? false : true,
   }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addEventWatchers: (contract) => dispatch(addSmartContractEventWatchers(contract)),
     requestNewVideo: (url, message, contract, accounts) => dispatch(requestNewVideo(url, message, contract, accounts)),
     requestCurrentVideo: (contract) => dispatch(requestCurrentVideo(contract)),
+    requestTxReceipt: (txHash) => dispatch(requestTxReceipt(txHash))
   }
 }
 

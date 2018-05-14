@@ -234,6 +234,10 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
                  width="50" height="50"
                  style={{ cursor: 'hand', cursor: 'pointer' }} />
 
+            <img src={`${window.location.href}images/eth-tv/icons/live-icon.png`}
+                 width="37" height="21"
+                 style={{ marginLeft: '2em'}} />
+
             <Row style={{
               flex: 1,
               justifyContent: 'flex-end',

@@ -73,8 +73,8 @@ class RequestLinkPanel extends React.Component {
     return  (
         <ModalContainer isOpen={this.props.isOpen}
                      title="Show Your Video To The World!"
-                     onCloseClick={this.props.onCloseClick}
-                     onConfirmClick={() => this.onSubmitForm()}>
+                     onClose={this.props.onCloseClick}
+                     onConfirm={() => this.onSubmitForm()}>
           <div>
 
             <Row>

@@ -14,27 +14,35 @@ contract Youtube {
     address public owner;
     mapping (uint => Video) public videos;
 
-    event VideoCreated(uint videoId, string URL);
+    event LogVideoCreated(uint indexed videoId, address indexed by, string URL, string message);
 
-    function Youtube() public {
+    function Youtube()
+    public {
         owner = msg.sender;
     }
 
-    function numVids() public view returns (uint num){
+    function numVids()
+    public
+    view
+    returns (uint num){
         return numVideos;
     }
 
-    function requestVideo(string URL, string extra) public payable returns (uint videoID) {
+    function requestVideo(string URL, string extra)
+    public
+    payable
+    returns (uint videoID) {
         videoID = numVideos++;
+
         // videoID is return variable
         Video storage v = videos[videoID];
-        if(msg.value > 0){
-            v.extra = extra;
-        }
+        v.extra = extra;
         v.sender = msg.sender;
         v.URL = URL;
         lastURL = URL;
-        VideoCreated(videoID, URL);
+
+        emit LogVideoCreated(videoID, msg.sender, URL, extra);
+
         return videoID;
     }
 

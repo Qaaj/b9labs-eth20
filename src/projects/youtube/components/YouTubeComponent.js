@@ -8,7 +8,8 @@ const YouTubeComponent = (props) => {
 
     // https://developers.google.com/youtube/player_parameters
     return (<div onClick={evt => evt.preventDefault()}>
-        <ReactPlayer url={url}
+        <ReactPlayer    url={url}
+                        muted={true}
                         style={Object.assign(props.style, { pointerEvents: 'none' })}
                         playing={true}
                         width={width}
@@ -20,7 +21,7 @@ const YouTubeComponent = (props) => {
                               showInfo: 0,
                               rel: 0,
                               modestbranding: 1,
-                              loop: 1,
+                              //loop: 1,
                               iv_load_policy: 0,
                               disablekb: 1,
                               controls: 0,
