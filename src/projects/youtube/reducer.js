@@ -42,7 +42,7 @@ export const newVideoReceived = (state, params) => {
 export const addSmartContractEventWatchers = (contractInstance) => async(dispatch) => {
   console.log('Adding event watchers');
 
-  var LogVideoCreated = contractInstance.LogVideoCreated({},{fromBlock: 0, toBlock: 'latest'});
+  var LogVideoCreated = contractInstance.LogVideoCreated({}/**,{fromBlock: 0, toBlock: 'latest'}**/);
 
   LogVideoCreated.watch(function(err, result){
     if(!err){
@@ -68,11 +68,11 @@ export const requestNewVideo = (URL, message, contract, accounts) => async (disp
 
   console.log('Reducer tx receipt == ' , txReceipt);
 
-  dispatch(Creators.txReceiptReceived(txReceipt))
+  //dispatch(Creators.txReceiptReceived(txReceipt))
 
-  const url = await contract.lastURL();
+  var result = txReceipt.logs[0].args;
 
-  dispatch(Creators.newVideoReceived(url, txReceipt))
+  dispatch(Creators.newVideoReceived(result.URL, result.message))
 };
 
 export const requestCurrentVideo = (contract) => async (dispatch) => {
