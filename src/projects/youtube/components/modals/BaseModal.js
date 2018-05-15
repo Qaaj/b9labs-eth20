@@ -27,7 +27,7 @@ class BaseModal extends React.Component {
           key: 'btn-cancel',
           color: 'red',
           icon: 'cancel',
-          label: 'Cancel',
+          label: 'CANCEL',
           onClick: () => this.props.onClose(),
         },
 
@@ -35,7 +35,7 @@ class BaseModal extends React.Component {
           key: 'btn-confirm',
           color: 'green',
           icon: 'checkmark',
-          label: 'Confirm',
+          label: 'CONFIRM',
           onClick: () => this.props.onConfirm(),
         }
       ]

@@ -61,7 +61,7 @@ export const addSmartContractEventWatchers = (contractInstance) => async(dispatc
   })
 };
 
-export const requestNewVideo = (URL, message, contract, accounts) => async (dispatch) => {
+export const requestNewVideo = ({URL , message}, contract, accounts) => async (dispatch) => {
   console.log('Requesting: ' , URL , message)
 
   let txReceipt = await contract.requestVideo(URL || '', message, {from: accounts[0], gas: 3000000});

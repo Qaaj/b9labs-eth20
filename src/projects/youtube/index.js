@@ -181,7 +181,7 @@ class Youtube extends React.PureComponent {
     this.showNotification('Please submit your transaction.');
 
     // Instantiate contract once web3 provided.
-    this.props.requestNewVideo(params.url, params.message, this.props.contract, this.props.accounts)
+    this.props.requestNewVideo(params, this.props.contract, this.props.accounts)
   };
 
   showNotification = (msg) => {
@@ -273,7 +273,10 @@ class Youtube extends React.PureComponent {
 
         <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
                           onSendClickedHandler={this.onSendClickedHandler}
-                          onCloseClick={() => this.setState({ showRequestLinkPanel: false })} />
+                          onCloseClick={() => this.setState({ showRequestLinkPanel: false })}
+                          contract={this.props.contract}
+                          accounts={this.props.accounts}
+                          web3={this.props.web3} />
 
         {this.renderPlayer()}
 
@@ -284,6 +287,7 @@ class Youtube extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   return {
+    web3: state.settings.get('web3'),
     contract: state.contracts.getIn(['Youtube', 'contract']),
     accounts: state.settings.get('accounts'),
     url: state.youtube.getIn(['latestVideo', 'url']),
@@ -296,7 +300,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addEventWatchers: (contract) => dispatch(addSmartContractEventWatchers(contract)),
-    requestNewVideo: (url, message, contract, accounts) => dispatch(requestNewVideo(url, message, contract, accounts)),
+    requestNewVideo: (params, contract, accounts) => dispatch(requestNewVideo(params, contract, accounts)),
     requestCurrentVideo: (contract) => dispatch(requestCurrentVideo(contract)),
     requestTxReceipt: (txHash) => dispatch(requestTxReceipt(txHash))
   }

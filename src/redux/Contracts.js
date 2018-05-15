@@ -10,7 +10,7 @@ const { Types, Creators } = createActions({
   contractLoaded: ['contractName', 'contractInstance'],
   contractLoadFailed: ['contractName', 'error'],
   loadingContract: ['contractName'],
-})
+});
 
 
 export const INITIAL_STATE = fromJS({
@@ -30,17 +30,17 @@ export const contractLoaded = (state, { contractName, contractInstance }) => {
       .setIn([contractName, 'isLoaded'], true)
       .setIn([contractName, 'error'], null)
       .setIn([contractName, 'contract'], contractInstance);
-}
+};
 
 export const contractLoadFailed = (state, { contractName, error }) => {
   return state
       .setIn([contractName, 'error'], error)
-}
+};
 
 export const loadingContract = (state, { contractName }) => {
   return state
       .setIn([contractName, 'isLoaded'], false)
-}
+};
 
 export const loadContracts = () => (dispatch, getState) => {
 
@@ -67,18 +67,13 @@ export const loadContracts = () => (dispatch, getState) => {
       })
     });
   })
-
-
-
-
-}
-
+};
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.CONTRACT_LOADED]: contractLoaded,
   [Types.CONTRACT_LOAD_FAILED]: contractLoadFailed,
   [Types.LOADING_CONTRACT]: loadingContract,
-})
+});
 
 export const ContractTypes = Types;
 
