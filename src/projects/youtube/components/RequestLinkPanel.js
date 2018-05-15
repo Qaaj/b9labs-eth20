@@ -6,10 +6,8 @@ import BaseModal from './modals/BaseModal';
 import { Row, Column } from '../styles';
 import PropTypes from 'prop-types';
 
-const ModalContainer = styled(BaseModal)`
-  p{
-    color: black;
-  }
+const RequestLinkPanelContainer = styled(BaseModal)`
+ 
 `;
 
 class RequestLinkPanel extends React.Component {
@@ -27,14 +25,42 @@ class RequestLinkPanel extends React.Component {
       fee: 0,
       inputCost: 0,
 
-      accountBalance: this.getBalance(this.props.accounts[0]),
+      accountBalance: 0,
+
+      gasPrice: 0,
+      gasCosts: 0,
     }
+  }
+
+  componentDidMount(){
+    Promise.all([
+        //this.state.gasCosts * this.state.gasPrice
+      this.getBalance(this.props.accounts[0]),
+      this.getGasPrice(),
+      this.estimateGasCosts(),
+    ]).then(res => {
+      this.setState({
+        accountBalance: res[0],
+        gasPrice: res[1],
+        gasCosts: res[2]
+      })
+    });
+
+
+    /**
+      // TODO: Improve with web3 bignumber comparison?
+      if(!this.validateAccountBalance(balance.toString())){
+        this.setState({
+          isFormSucces: false,
+          errorMessages: this.state.errorMessages.concat([`No sufficient funds in your wallet @ ${this.props.accounts[0]}`])
+        })
+      };**/
   }
 
   validateInput = (input) => {
     let result = false;
 
-    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    const expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expression);
 
     // If input is long enough
@@ -51,10 +77,24 @@ class RequestLinkPanel extends React.Component {
     return result;
   };
 
-  validateFee = (fee) => {
+  validateFee = () => {
     let result = false;
 
-    if(fee > 0){
+    console.log('FEE = ' , this.state.gasPrice  * this.state.gasCosts)
+
+    // Min. fee of 0
+    if(this.state.gasPrice  * this.state.gasCosts > 0){
+      result = true;
+    }
+
+    return result;
+  };
+
+  validateAccountBalance = (balance) => {
+    let result = false;
+
+    // Min. account balance of 0
+    if(balance.toNumber() > 0){
       result = true;
     }
 
@@ -67,16 +107,22 @@ class RequestLinkPanel extends React.Component {
       errorMessages: []
     });
 
+    // TODO: Improve this & return specific errorMessages for each validator
     if(
         this.validateInput(this.state.addNewLinkURL) &&
-        this.validateFee(this.state.fee)
+        this.validateFee() &&
+        this.validateAccountBalance(this.state.accountBalance)
     ){
       this.setState({
         isFormValid: true,
         errorMessages: []
       });
 
-      this.props.onSendClickedHandler({url: this.state.addNewLinkURL, message: this.state.message})
+      this.props.onSendClickedHandler({
+        url: this.state.addNewLinkURL,
+        message: this.state.message,
+        isCustomMessageAdded: this.state.isCustomMessageAdded
+      })
     }else{
       this.setState({
         isFormValid: false,
@@ -85,33 +131,46 @@ class RequestLinkPanel extends React.Component {
     }
   };
 
-  getBalance = async (account) => {
-    return this.props.web3.eth.getBalance(account, (err, res) => {
-      if (err) console.log(err);
-      this.setState({ accountBalance: res })
-      return res;
+  getBalance = (account) => {
+    return new Promise((resolve, reject) => {
+      return this.props.web3.eth.getBalance(account, (err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      })
     });
+  };
 
-    /**var prom = new Promise((resolve, reject) => {
-      this.props.web3.eth.getBalance(account, (err, res) => {
-        if(err) reject();
-        return res;
+  getGasPrice = () => {
+    return new Promise((resolve, reject) => {
+      return this.props.web3.eth.getGasPrice((err, res) => {
+        if(err) reject(err);
+        resolve(res);
+      })
+    });
+  };
+
+  estimateGasCosts = () => {
+    //console.log('Estimating gas costs to ...' , this.props.contract.address.toString());
+
+    // TODO: Improve estimation w. reall address & data
+    return new Promise((resolve, reject) => {
+      this.props.web3.eth.estimateGas({
+        from: this.props.accounts[0].toString(),
+        to: "0xc4abd0339eb8d57087278718986382264244252f",
+        data: "0xc6888fa10000000000000000000000000000000000000000000000000000000000000003"
+      }, (err, res) => {
+        if(err) reject(err)
+        resolve(res);
       });
     });
-
-    // Using callback style for MetaMask's Web3
-    let balance = prom.then(res => console.log('++++' , res));
-
-    console.log(balance);
-
-    return balance;**/
-  }
+  };
 
   render() {
     const CONTRACT_ADDRESS = this.props.contract.address.toString();
 
     return  (
-        <ModalContainer isOpen={this.props.isOpen}
+        <RequestLinkPanelContainer
+                     isOpen={this.props.isOpen}
                      title="Show Your Video To The World!"
                      onClose={this.props.onCloseClick}
                      onConfirm={() => this.onSubmitForm()}>
@@ -205,7 +264,6 @@ class RequestLinkPanel extends React.Component {
             </Form.Field>}
 
           <Form.Checkbox label='I want to add a custom message.' checked={this.state.isCustomMessageAdded} onClick={() => this.setState({ isCustomMessageAdded: !this.state.isCustomMessageAdded })} />
-          {console.log(this.props.accounts)}
           <Form.Group widths="equal" style={{ display: 'flex', flexDirection: 'row'}}>
             <Form.Field>
               <label htmlFor="inputCost">COST (in wei)</label>
@@ -219,9 +277,10 @@ class RequestLinkPanel extends React.Component {
             <Form.Field>
               <label htmlFor="inputFee">FEE (in wei)</label>
               <Row style={{ alignItems: 'center'}}>
-                <input type="number" min={0} placeholder={this.state.fee} id="inputFee" name="inputFee" value={this.state.fee} onChange={(evt) => this.setState({ fee: evt.target.value })} />
+                <input disabled type="number" min={0} placeholder={this.state.gasCosts * this.state.gasPrice} id="inputFee" name="inputFee" value={this.state.gasCosts * this.state.gasPrice} onChange={(evt) => this.setState({ fee: evt.target.value })} />
                 wei
               </Row>
+              <span><small>Gas Price: {this.state.gasPrice.toString()} wei</small></span>
             </Form.Field>
           </Form.Group>
 
@@ -232,7 +291,7 @@ class RequestLinkPanel extends React.Component {
           />
         </Form>
       </div>
-        </ModalContainer>
+        </RequestLinkPanelContainer>
     );
   }
 }

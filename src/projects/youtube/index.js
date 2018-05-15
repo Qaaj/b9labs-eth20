@@ -116,11 +116,7 @@ class Youtube extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState){
-    //console.log(nextProps, nextState)
-
     if(prevProps.url !== this.props.url){
-      console.log('URL Changed to ' , this.props.url);
-
       if(!this.state.showMessage){
         this.showNotification('New video received!');
 
@@ -262,7 +258,7 @@ class Youtube extends React.PureComponent {
         <Helmet>
           <meta charSet="utf-8" />
           <title>ETH.TV - Decentralised Television</title>
-          <link rel="canonical" href="http://tv.teamhut.co" />
+          <link rel="canonical" href="http://ethtelevision.com" />
         </Helmet>
 
         <ToastContainer style={{ top: '85px'}}/>
