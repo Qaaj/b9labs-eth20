@@ -1,12 +1,21 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 import { connect } from 'react-redux';
+import {Form, Label} from 'semantic-ui-react';
 import styled, {keyframes}  from 'styled-components';
+import BaseModal from './components/modals/BaseModal';
 import Navigation from './components/Navigation';
 import RequestLinkPanel from './components/RequestLinkPanel';
 import YouTubeComponent from './components/YouTubeComponent';
-import { requestNewVideo, requestCurrentVideo, requestTxReceipt, addSmartContractEventWatchers} from './reducer';
+import {
+  requestNewVideo,
+  requestCurrentVideo,
+  addSmartContractEventWatchers,
+  resetReceipt, deleteReceipt,
+} from './reducer';
 import { ToastContainer, toast} from 'react-toastify';
+import {Column, Row} from './styles';
+import Blocky from './components/Blocky';
 
 var WINDOW_RESIZE_TIMEOUT;
 const HEADER_HEIGHT = 75;
@@ -185,45 +194,133 @@ class Youtube extends React.PureComponent {
   };
 
   renderTxReceipt = (txReceipt) => {
-    if(!txReceipt) return <div>No receipt</div>;
-
-    //console.log('RECEIPT = ' , txReceipt)
-
-    return <div>Receipt</div>;
-    /**let content = txReceipt.map((val, key) => {
-                  if(typeof val === 'object'){
-                    let subItems = val.map((objVal, objKey) => {
-                      return (<div key={objKey}>{objKey}: {objVal}</div>)
-                    });
-
-                    // Maps as children is still experimental in current React version
-                    return subItems.toArray();
-                  }else{
-                    return (<div key={key}>{key}: {val}</div>)
-                  }
-                }).toArray();
+    const { tx, receipt } = txReceipt;
 
     return (
         <BaseModal isOpen={txReceipt ? true : false}
-                         title="Your Receipt!"
-                         onClose={() => null}
-                         onConfirm={() => null}>
+                         title="Confirmation"
+                         onClose={() => this.props.resetReceipt()}
+                         onConfirm={() => this.props.resetReceipt()}>
           <Column style={{ marginLeft: '1em' }}>
-            <h2>Transaction</h2>
+            <h2>Receipt</h2>
+
+          <Form widths="equal">
+            <Form.Group>
+            <Form.Field>
+              <label htmlFor="userAddress">FROM</label>
+
+              <Label style={{
+                display: 'flex',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+                     as='a'
+                     onClick={() => window.open(`https://etherscan.io/address/${this.props.accounts[0]}`) }
+                     alt="Click to show your address on Etherscan"
+                     title="Click to show your address on Etherscan">
+                <Blocky seed={this.props.accounts[0]} />
+
+                <Column style={{ marginLeft: 25 }}>
+                  YOUR WALLET ADDRESS
+                  <strong>{this.props.accounts[0]}</strong>
+                </Column>
+              </Label>
+            </Form.Field>
+
+            <Form.Field>
+              <label htmlFor="contractAddress">TO</label>
+
+              <Label style={{
+                display: 'flex',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+                     as='a'
+                     onClick={() => window.open(`https://etherscan.io/address/${this.props.contract.address}`) }
+                     alt="Click to show Smart Contract on Etherscan"
+                     title="Click to show Smart Contract on Etherscan">
+                <Blocky seed={this.props.contract.address} />
+
+                <Column style={{ marginLeft: 25 }}>
+                  ETH.TV SMART CONTRACT ADDRESS
+                  <strong>{this.props.contract.address}</strong>
+                </Column>
+              </Label>
+            </Form.Field>
+            </Form.Group>
+
+
+            <Form.Field>
+              <label htmlFor="userAddress">TRANSACTION</label>
+
+              <Label style={{
+                display: 'flex',
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+                     as='a'
+                     onClick={() => window.open(`https://etherscan.io/tx/${this.props.contract.address}`) }
+                     alt="Click to show Smart Contract on Etherscan"
+                     title="Click to show Smart Contract on Etherscan">
+                <Blocky seed={tx} />
+
+                <Column style={{ marginLeft: 25 }}>
+                  TRANSACTION REFERENCE
+                  <strong>{this.props.contract.address}</strong>
+                </Column>
+              </Label>
+            </Form.Field>
+          </Form>
+
+            <h4>DETAILS</h4>
 
             <Column>
-              { content }
+              <Row>
+                <Column style={{ flex: 1 }}>
+                  BLOCK HASH
+                </Column>
+
+                <Column style={{ flex:3, alignItems: 'left'}}>
+                  {receipt.blockHash}
+                </Column>
+              </Row>
+
+              <Row>
+                <Column style={{ flex: 1 }}>
+                  BLOCK NR.
+                </Column>
+
+                <Column style={{ flex:3, alignItems: 'left'}}>
+                  {receipt.blockNumber}
+                </Column>
+              </Row>
+
+              <Row>
+                <Column style={{ flex: 1 }}>
+                  GAS USED
+                </Column>
+
+                <Column style={{ flex:3, alignItems: 'left'}}>
+                  {receipt.gasUsed}
+                </Column>
+              </Row>
+
+              <Row>
+                <Column style={{ flex: 1 }}>
+                  STATUS
+                </Column>
+
+                <Column style={{ flex:3, alignItems: 'left'}}>
+                  {receipt.status}
+                </Column>
+              </Row>
             </Column>
-
-            <br />
-
-            <ButtonPrimary onClick={() => window.open(`https://ropsten.etherscan.io/tx/${txReceipt.get('tx')}`)} text="View transaction">View on Etherscan</ButtonPrimary>
           </Column>
-
-
-
         </BaseModal>
-    )**/
+    )
   };
 
   renderPlayer = () => {
@@ -265,7 +362,7 @@ class Youtube extends React.PureComponent {
 
         <Navigation onMenuClicked={() => this.setState({ showRequestLinkPanel: true })} />
 
-        { this.renderTxReceipt(this.props.txReceipt) }
+        { this.props.txReceipt ? this.renderTxReceipt(this.props.txReceipt) : null }
 
         <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
                           onSendClickedHandler={this.onSendClickedHandler}
@@ -298,9 +395,9 @@ const mapDispatchToProps = (dispatch) => {
     addEventWatchers: (contract) => dispatch(addSmartContractEventWatchers(contract)),
     requestNewVideo: (params, contract, accounts) => dispatch(requestNewVideo(params, contract, accounts)),
     requestCurrentVideo: (contract) => dispatch(requestCurrentVideo(contract)),
-    requestTxReceipt: (txHash) => dispatch(requestTxReceipt(txHash))
+    resetReceipt: () => dispatch(deleteReceipt())
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Youtube);
 

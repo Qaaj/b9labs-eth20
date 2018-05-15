@@ -4,6 +4,7 @@ import { fromJS } from 'immutable'
 const { Types, Creators } = createActions({
   newVideoReceived: ['url', 'message'],
   txReceiptReceived: ['txReceipt'],
+  resetReceipt: null,
 });
 
 export const INITIAL_STATE = {
@@ -12,7 +13,9 @@ export const INITIAL_STATE = {
     message: '',
   },
 
-  txReceipt: {
+  txReceipt: null,
+
+  /**txReceipt: {
     tx: "0x474ab9b37ef0dc9719ec4605a6b028a0b51d8c24296e8aa02a318ec7a8388f77",
 
     receipt: {
@@ -24,19 +27,7 @@ export const INITIAL_STATE = {
     }
   },
 
-  //txReceipt: null,
-};
-
-
-export const newVideoReceived = (state, params) => {
-  let { url, message } = params;
-
-  if(url && url !== state.getIn(['latestVideo', 'url'])){
-    state = state.setIn(['latestVideo', 'message'], message);
-    return state.setIn(['latestVideo','url'], url);
-  }else{
-    return state;
-  }
+  txReceipt: null,**/
 };
 
 export const addSmartContractEventWatchers = (contractInstance) => async(dispatch) => {
@@ -60,10 +51,20 @@ export const addSmartContractEventWatchers = (contractInstance) => async(dispatc
 };
 
 export const requestNewVideo = (params, contract, accounts) => async (dispatch) => {
-  console.log('Requesting: ' , params.url , params.message, params)
-  console.log('accounts: ' , accounts[0])
+  const payment = params.isCustomMessageAdded ? params.payment : 0;
 
-  let txReceipt = await contract.requestVideo(params.url, params.message, {from: accounts[0], gas: 3000000});
+  if(payment.isCustomMessageAdded){
+    console.log('You payed ' , payment , 'wei for your custom message')
+  }else{
+    // Overwrite message (non-payed)
+    params.message = "ETH.TV";
+  }
+
+  let txReceipt = await contract.requestVideo(params.url, params.message, {
+    from: accounts[0],
+    gas: 3000000,
+    value: payment
+  });
 
   dispatch(Creators.txReceiptReceived(txReceipt))
 
@@ -91,10 +92,40 @@ export const requestTxReceipt = (web3, txHash) => async (dispatch) => {
   }
 };
 
+export const deleteReceipt = (state) => async (dispatch) => {
+  try{
+    dispatch(Creators.resetReceipt());
+  }catch(e){
+    throw(e.message);
+  }
+};
+
+export const newVideoReceived = (state, params) => {
+  let { url, message } = params;
+
+  if(url && url !== state.getIn(['latestVideo', 'url'])){
+    state = state.setIn(['latestVideo', 'message'], message);
+    return state.setIn(['latestVideo','url'], url);
+  }else{
+    return state;
+  }
+};
 export const txReceiptReceived = (state, params) => {
   const { txReceipt } = params;
 
-  state = state.setIn(['txReceipt'], txReceipt);
+  state = state.set('txReceipt', txReceipt);
+
+  console.log('RECEIVED TX RECEIPT ' , state.getIn(['txReceipt']));
+
+  return state;
+};
+
+export const receiptWasReset = (state, params) => {
+  console.log(state);
+
+  state = state.set('txReceipt', null);
+
+  console.log('TX RECEIPT RESET');
 
   return state;
 };
@@ -102,6 +133,7 @@ export const txReceiptReceived = (state, params) => {
 export const reducer = createReducer(fromJS(INITIAL_STATE), {
   [Types.NEW_VIDEO_RECEIVED]: newVideoReceived,
   [Types.TX_RECEIPT_RECEIVED]: txReceiptReceived,
+  [Types.RESET_RECEIPT]: receiptWasReset,
 });
 
 export const DefaultTypes = Types;

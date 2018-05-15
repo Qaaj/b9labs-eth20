@@ -57,6 +57,9 @@ class RequestLinkPanel extends React.Component {
       };**/
   }
 
+  componentWillUnmount(){
+  }
+
   validateInput = (input) => {
     let result = false;
 
@@ -121,7 +124,15 @@ class RequestLinkPanel extends React.Component {
       this.props.onSendClickedHandler({
         url: this.state.addNewLinkURL,
         message: this.state.message,
-        isCustomMessageAdded: this.state.isCustomMessageAdded
+        isCustomMessageAdded: this.state.isCustomMessageAdded,
+        payment: this.props.web3.toWei(0.5, 'ether')
+      });
+
+      // RESET FORM
+      this.setState({
+        url: '',
+        message: '',
+        isCustomMessageAdded: false,
       })
     }else{
       this.setState({
@@ -165,6 +176,27 @@ class RequestLinkPanel extends React.Component {
     });
   };
 
+  onCloseClick = () => {
+    this.setState({
+      isFormSuccess: true,
+      errorMessages: [],
+
+      addNewLinkURL: '',
+      isCustomMessageAdded: false,
+      message: '',
+
+      fee: 0,
+      inputCost: 0,
+
+      accountBalance: 0,
+
+      gasPrice: 0,
+      gasCosts: 0,
+    });
+
+    this.props.onCloseClick();
+  };
+
   render() {
     const CONTRACT_ADDRESS = this.props.contract.address.toString();
 
@@ -172,7 +204,7 @@ class RequestLinkPanel extends React.Component {
         <RequestLinkPanelContainer
                      isOpen={this.props.isOpen}
                      title="Show Your Video To The World!"
-                     onClose={this.props.onCloseClick}
+                     onClose={this.onCloseClick}
                      onConfirm={() => this.onSubmitForm()}>
           <div>
 
@@ -208,7 +240,7 @@ class RequestLinkPanel extends React.Component {
 
         <Form success={this.state.errorMessages.length === 0 && this.state.isFormValid}
           error={this.state.errorMessages.length > 0}>
-          <h2>Send to ETH.TV</h2>
+          <h2>Send a transaction</h2>
           <Form.Field>
             <label htmlFor="userAddress">FROM</label>
 
@@ -263,7 +295,15 @@ class RequestLinkPanel extends React.Component {
               <TextArea placeholder="Add your message" id="message" name="message" value={this.state.message} onChange={(evt) => this.setState({ message: evt.target.value })} />
             </Form.Field>}
 
-          <Form.Checkbox label='I want to add a custom message.' checked={this.state.isCustomMessageAdded} onClick={() => this.setState({ isCustomMessageAdded: !this.state.isCustomMessageAdded })} />
+          <Form.Checkbox label='I want to add a custom message for 0.5 ETH.' checked={this.state.isCustomMessageAdded} onClick={() => {
+            if(!this.state.isCustomMessageAdded){
+              this.setState({ inputCost: this.props.web3.toWei(0.5, 'ether')})
+            }else{
+              this.setState({ inputCost: this.props.web3.toWei(0, 'ether')})
+            }
+
+            this.setState({ isCustomMessageAdded: !this.state.isCustomMessageAdded })}
+          } />
           <Form.Group widths="equal" style={{ display: 'flex', flexDirection: 'row'}}>
             <Form.Field>
               <label htmlFor="inputCost">COST (in wei)</label>
