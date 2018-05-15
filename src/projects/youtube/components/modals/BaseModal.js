@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Icon, Modal} from 'semantic-ui-react';
-import styled from 'styled-components';
-import {Row} from '../../styles';
 
 class BaseModal extends React.Component {
 

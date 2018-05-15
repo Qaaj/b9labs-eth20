@@ -64,7 +64,7 @@ class RequestLinkPanel extends React.Component {
     }else{
       this.setState({
         isFormValid: false,
-        errorMessages: ['That\s not a valid URL.']
+        errorMessages: ['That\'s not a valid URL.']
       })
     }
   };

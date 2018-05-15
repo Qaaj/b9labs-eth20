@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'semantic-ui-react';
 import styled from 'styled-components';
 import {Column} from '../styles';
 import { Row, ButtonPrimary } from './../styles';
@@ -188,12 +187,17 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
           <Mobile>
             <img src={`${window.location.href}images/eth-tv/logo-white.png`}
                  width="50" height="50"
+                 alt="ETH.TV"
+                 role="link"
                  onClick={() => this.onMobileNavClicked(menuItems[0])}
+                // eslint-disable-next-line
                  style={{ cursor: 'hand', cursor: 'pointer' }} />
 
             <ButtonPrimary primary onClick={() => this.onMobileNavClicked(menuItems[4])}>Request new link</ButtonPrimary>
             <img src={`${window.location.href}images/eth-tv/icons/hamburger-icon.png`}
                  width="50" height="37"
+                 role="button"
+                 alt="Menu"
                  onClick={() => this.onMobileNavClicked()}
                  style={{}}/>
 
@@ -210,18 +214,22 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
 
                 <img src={`${window.location.href}images/eth-tv/logo-white.png`}
                      width="50" height="50"
+                     alt="ETH.TV"
+                    // eslint-disable-next-line
                      style={{ cursor: 'hand', cursor: 'pointer' }}
                      onClick={() => this.onMenuClicked({url: '/'}, 0)} />
 
                 <img src={`${window.location.href}images/eth-tv/icons/icon-close.png`}
                      width="35"
                      height="35"
+                     alt="close"
                      onClick={() => {this.setState({ isMobileNavShown: false })}}
+                    // eslint-disable-next-line
                      style={{ cursor: 'hand', cursor: 'pointer' }} />
             </div>
 
             {menuItems.map((item, i) => <MobileNavButton key={item.label}
-                                                   selected={i == this.state.selectedIndex}
+                                                   selected={i === this.state.selectedIndex}
                                                    onClick={() => this.onMobileNavClicked(item)}>
               {item.label.toUpperCase()}
             </MobileNavButton>)}
@@ -230,10 +238,13 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
           <Desktop>
             <img src={`${window.location.href}images/eth-tv/logo-white.png`}
                  width="50" height="50"
+                 role="presentation"
+                // eslint-disable-next-line
                  style={{ cursor: 'hand', cursor: 'pointer' }} />
 
             <img src={`${window.location.href}images/eth-tv/icons/live-icon.png`}
                  width="37" height="21"
+                 role="presentation"
                  style={{ marginLeft: '2em'}} />
 
             <Row style={{

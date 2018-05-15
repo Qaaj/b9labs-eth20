@@ -1,20 +1,14 @@
 import React from 'react';
 import {Helmet} from 'react-helmet';
 import { connect } from 'react-redux';
-import ReactPlayer from 'react-player';
-import { Button } from '../../styles/index';
 import styled, {keyframes}  from 'styled-components';
-import BaseModal from './components/modals/BaseModal';
 import Navigation from './components/Navigation';
 import RequestLinkPanel from './components/RequestLinkPanel';
 import YouTubeComponent from './components/YouTubeComponent';
 import { requestNewVideo, requestCurrentVideo, requestTxReceipt, addSmartContractEventWatchers} from './reducer';
 import { ToastContainer, toast} from 'react-toastify';
-import {Column, Row} from './styles';
-import {Logo} from '../../../public/images/eth-tv/logo.png';
-import {ButtonPrimary} from './styles';
 
-var myTimeOut;
+var WINDOW_RESIZE_TIMEOUT;
 const HEADER_HEIGHT = 75;
 
 // language=LESS
@@ -42,12 +36,13 @@ const fadeIn = keyframes`
   }
 `;
 
+// eslint-disable-next-line
 const fadeOut = keyframes`
   0% {
     visibility: visible;
     opacity: 1;
   }
-  
+
   100% {
     opacity: 0;
     visibility: hidden;
@@ -154,9 +149,9 @@ class Youtube extends React.PureComponent {
   }
 
   onWindowResizedHandler = (evt) => {
-    clearTimeout(myTimeOut);
+    clearTimeout(WINDOW_RESIZE_TIMEOUT);
 
-    myTimeOut = setTimeout(() => {
+    WINDOW_RESIZE_TIMEOUT = setTimeout(() => {
       this.setState({
         ...this.state,
         videoPlayer: {
@@ -166,14 +161,14 @@ class Youtube extends React.PureComponent {
         }
       });
 
-      clearTimeout(myTimeOut);
+      clearTimeout(WINDOW_RESIZE_TIMEOUT);
     }, 100);
 
     evt.preventDefault();
   };
 
   getLastURL = (contract) => {
-    if(!contract) throw('Needs a contract instance');
+    if(!contract) console.error('Needs a contract');
 
     return this.props.requestCurrentVideo(contract);
   };
@@ -249,7 +244,7 @@ class Youtube extends React.PureComponent {
                             url={this.props.url} />
         </div>
     )
-  }
+  };
 
   renderLoading(){
     return (
