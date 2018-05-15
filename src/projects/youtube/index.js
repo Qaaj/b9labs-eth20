@@ -15,6 +15,7 @@ import {Logo} from '../../../public/images/eth-tv/logo.png';
 import {ButtonPrimary} from './styles';
 
 var myTimeOut;
+const HEADER_HEIGHT = 75;
 
 // language=LESS
 const fadeIn = keyframes`
@@ -56,6 +57,8 @@ const fadeOut = keyframes`
 const EthTVContainer = styled.div`
   background-color: black;
   color: black;
+  max-height: 100vh;
+  overflow-y: hidden;
 `;
 
 const Fade = styled.div`
@@ -98,7 +101,7 @@ class Youtube extends React.PureComponent {
 
       videoPlayer: {
         width: window.innerWidth,
-        height: window.innerHeight - 75,
+        height: window.innerHeight - HEADER_HEIGHT,
       },
 
       playerVisibility: 'hidden',
@@ -159,7 +162,7 @@ class Youtube extends React.PureComponent {
         videoPlayer: {
           ...this.state.videoPlayer,
           width: window.innerWidth,
-          height: window.innerHeight - 75,
+          height: window.innerHeight - HEADER_HEIGHT,
         }
       });
 

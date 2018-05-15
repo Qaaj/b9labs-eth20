@@ -181,9 +181,7 @@ class Navigation extends React.Component { // eslint-disable-line react/prefer-s
         label: 'FAQ', url: '/faq',
       }, {
         label: 'PRESS', url: '/press',
-      }, {
-        label: 'Request New', url: '/new',
-      },
+      }
     ];
 
     return (<Container>

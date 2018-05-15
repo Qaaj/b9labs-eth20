@@ -38,7 +38,7 @@ const YouTubeComponent = (props) => {
                           }
                         }}
         /></div>);
-}
+};
 
 YouTubeComponent.defaultProps = {};
 YouTubeComponent.propTypes    = {

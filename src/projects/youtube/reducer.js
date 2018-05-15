@@ -66,9 +66,7 @@ export const requestNewVideo = (URL, message, contract, accounts) => async (disp
 
   let txReceipt = await contract.requestVideo(URL || '', message, {from: accounts[0], gas: 3000000});
 
-  console.log('Reducer tx receipt == ' , txReceipt);
-
-  //dispatch(Creators.txReceiptReceived(txReceipt))
+  dispatch(Creators.txReceiptReceived(txReceipt))
 
   var result = txReceipt.logs[0].args;
 
@@ -96,8 +94,6 @@ export const requestTxReceipt = (web3, txHash) => async (dispatch) => {
 
 export const txReceiptReceived = (state, params) => {
   const { txReceipt } = params;
-
-  console.log('TX RECEITP IS \n ' , txReceipt)
 
   state = state.setIn(['txReceipt'], txReceipt);
 

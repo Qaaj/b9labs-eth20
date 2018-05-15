@@ -29,7 +29,7 @@ module.exports = {
     testrpc: {
       host: 'localhost',
       port: 9545,
-      network_id: 4447
+      network_id: "*"
     },
     amazon: {
       host: '52.39.44.21',
