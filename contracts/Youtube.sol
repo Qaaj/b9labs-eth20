@@ -12,7 +12,7 @@ contract Youtube is Ownable {
 
     uint public numVideos;
 
-    string public lastURL;
+    Video public lastRequest;
     address public owner;
     mapping (uint => Video) public videos;
 
@@ -54,12 +54,14 @@ contract Youtube is Ownable {
         // Check if Contract hasn't been killed
         require(owner != 0);
 
+        // TODO: Improve this
         // Checks if a URL length > 4 has been added
         bytes memory URLString = bytes(URL);
         require(URLString.length > 3);
 
         videoID = numVideos++;
 
+        // TODO: Improve this
         // Checks if a message has been added
         bytes memory tempEmptyStringTest = bytes(extra);
         if(tempEmptyStringTest.length > 0){
@@ -74,7 +76,9 @@ contract Youtube is Ownable {
         v.extra = extra;
         v.sender = msg.sender;
         v.URL = URL;
-        lastURL = URL;
+
+        // TODO: Improve this
+        lastRequest = v;
 
         emit LogVideoCreated(videoID, msg.sender, URL, extra);
 

@@ -43,7 +43,6 @@ export const loadingContract = (state, { contractName }) => {
 };
 
 export const loadContracts = () => (dispatch, getState) => {
-
   const contracts = getState().contracts.toJS();
   const web3 = getState().settings.get('web3');
 

@@ -2,7 +2,7 @@ import { createReducer, createActions } from 'reduxsauce'
 import { fromJS } from 'immutable'
 
 const { Types, Creators } = createActions({
-  newVideoReceived: ['url', 'message'],
+  newVideoReceived: ['video'],
   txReceiptReceived: ['txReceipt'],
   resetReceipt: null,
 });
@@ -42,8 +42,7 @@ export const addSmartContractEventWatchers = (contractInstance) => async(dispatc
       console.log('Video ID: ' , result.args.videoId.toString());
       console.groupEnd();
 
-      dispatch(Creators.newVideoReceived(result.args.URL, result.args.message))
-
+      return dispatch(Creators.newVideoReceived(result.args.URL, result.args.message));
     }else{
       console.log(err);
     }
@@ -57,7 +56,7 @@ export const requestNewVideo = (params, contract, accounts) => async (dispatch) 
     console.log('You payed ' , payment , 'wei for your custom message')
   }else{
     // Overwrite message (non-payed)
-    params.message = "ETH.TV";
+    params.message = "";
   }
 
   let txReceipt = await contract.requestVideo(params.url, params.message, {
@@ -75,8 +74,17 @@ export const requestNewVideo = (params, contract, accounts) => async (dispatch) 
 
 export const requestCurrentVideo = (contract) => async (dispatch) => {
   try{
-    const url = await contract.lastURL();
-    dispatch(Creators.newVideoReceived(url))
+    const lastVideoRequest = await contract.lastRequest();
+
+    const message = lastVideoRequest[1];
+
+    var video = {
+      url : lastVideoRequest[0],
+      message: message.length > 0 ? message : 'ETH.TV',
+      from: lastVideoRequest[2]
+    };
+
+    dispatch(Creators.newVideoReceived(video))
   }catch(e){
     throw(e.message)
   }
@@ -101,10 +109,13 @@ export const deleteReceipt = (state) => async (dispatch) => {
 };
 
 export const newVideoReceived = (state, params) => {
-  let { url, message } = params;
+  let { video } = params;
+  let { url, message, from } = video;
 
   if(url && url !== state.getIn(['latestVideo', 'url'])){
+
     state = state.setIn(['latestVideo', 'message'], message);
+    state = state.setIn(['latestVideo', 'from'], from);
     return state.setIn(['latestVideo','url'], url);
   }else{
     return state;
@@ -115,17 +126,11 @@ export const txReceiptReceived = (state, params) => {
 
   state = state.set('txReceipt', txReceipt);
 
-  console.log('RECEIVED TX RECEIPT ' , state.getIn(['txReceipt']));
-
   return state;
 };
 
 export const receiptWasReset = (state, params) => {
-  console.log(state);
-
   state = state.set('txReceipt', null);
-
-  console.log('TX RECEIPT RESET');
 
   return state;
 };

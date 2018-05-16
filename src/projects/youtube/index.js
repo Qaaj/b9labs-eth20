@@ -11,7 +11,7 @@ import {
   requestNewVideo,
   requestCurrentVideo,
   addSmartContractEventWatchers,
-  resetReceipt, deleteReceipt,
+  deleteReceipt,
 } from './reducer';
 import { ToastContainer, toast} from 'react-toastify';
 import {Column, Row} from './styles';
@@ -76,7 +76,7 @@ const Fade = styled.div`
 const Overlay = styled.div`
       position: absolute;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       z-index: 99999;
       position: fixed;
       top: 75px;
@@ -85,9 +85,21 @@ const Overlay = styled.div`
       height: 100vh;
       background-color: black;
       color: white;
-      font-size: 2em;
+      font-size: 4rem;
       align-items: center;
       justify-content: center;
+      
+      .title-small{
+        margin-top: 50px;
+        text-transform: capitalize;
+        font-size: 1.5rem;
+      }
+      
+      .address{
+        color: darkgrey;
+        margin: 10px;
+        font-size: 1rem;
+      }
  `;
 
 class Youtube extends React.PureComponent {
@@ -146,7 +158,7 @@ class Youtube extends React.PureComponent {
     // Contract was loaded
     if(prevProps.isLoading && !this.props.isLoading){
       this.props.addEventWatchers(this.props.contract);
-      this.props.getLastURL(this.props.contract);
+      this.getLastURL(this.props.contract);
     }
   }
 
@@ -174,7 +186,6 @@ class Youtube extends React.PureComponent {
 
   getLastURL = (contract) => {
     if(!contract) console.error('Needs a contract');
-
     return this.props.requestCurrentVideo(contract);
   };
 
@@ -328,7 +339,10 @@ class Youtube extends React.PureComponent {
         <div>
           <Fade out={!this.state.showMessage}>
             <Overlay>
-              {this.props.message}
+              <div>{this.props.message}</div>
+
+              <div className="title-small">REQUESTED BY</div>
+              <div className="address">{this.props.from}</div>
             </Overlay>
           </Fade>
 
@@ -385,6 +399,7 @@ const mapStateToProps = (state) => {
     accounts: state.settings.get('accounts'),
     url: state.youtube.getIn(['latestVideo', 'url']),
     message: state.youtube.getIn(['latestVideo', 'message']),
+    from: state.youtube.getIn(['latestVideo', 'from']),
     txReceipt: state.youtube.get('txReceipt'),
     isLoading: state.contracts.getIn(['Youtube', 'contract']) ? false : true,
   }
