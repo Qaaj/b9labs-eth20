@@ -13,7 +13,6 @@ contract Youtube is Ownable {
     uint public numVideos;
 
     Video public lastRequest;
-    address public owner;
     mapping (uint => Video) public videos;
 
     event LogVideoCreated(uint indexed videoId, address indexed by, string URL, string message);
