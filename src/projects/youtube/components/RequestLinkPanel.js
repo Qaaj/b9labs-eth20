@@ -83,7 +83,7 @@ class RequestLinkPanel extends React.Component {
   validateFee = () => {
     let result = false;
 
-    console.log('FEE = ' , this.state.gasPrice  * this.state.gasCosts)
+    //console.log('FEE = ' , this.state.gasPrice  * this.state.gasCosts)
 
     // Min. fee of 0
     if(this.state.gasPrice  * this.state.gasCosts > 0){

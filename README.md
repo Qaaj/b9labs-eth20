@@ -2,6 +2,7 @@
 Tasks for the B9 Labs ETH Certified Course
 
 ## How to start development?
+#### First Time?
 1. `npm run install`
 2. `npm run start`
 3. Open your browser to `http://localhost:3000/` and make sure Ganache/Truffle Develop is running.
@@ -11,6 +12,13 @@ Tasks for the B9 Labs ETH Certified Course
     $ truffle compile
     $ truffle migrate --network NETWORK_NAME_HERE
     ```
+
+#### General
+Best practice in development mode:
+1. run `truffle compile` to make sure you're using the contract's latest version.
+2. run `ruffle migrate --network NETWORK_NAME_HERE` before you begin.
+3. If you're using MetaMask: Reset your account via settings.
+4. As your contract has only recently been deployed, it won't show a video untill you request (a new) one.
 
 ## How to deploy?
 

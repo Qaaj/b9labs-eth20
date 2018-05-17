@@ -35,14 +35,26 @@ export const addSmartContractEventWatchers = (contractInstance) => async(dispatc
 
   LogVideoCreated.watch(function(err, result){
     if(!err){
+      const from = result.args.by;
+      const url = result.args.URL;
+      const message = result.args.message;
+      const id = result.args.videoId.toString()
+
       console.groupCollapsed(`Solidity Event: LogVideoCreated: ${Object.keys(result.args).length} args`);
-      console.log('Owner: ' , result.args.by);
-      console.log('URL: ' , result.args.URL);
-      console.log('Message: ' , result.args.message);
-      console.log('Video ID: ' , result.args.videoId.toString());
+      console.log('Owner: ' , from);
+      console.log('URL: ' , url);
+      console.log('Message: ' , message);
+      console.log('Video ID: ' , id);
       console.groupEnd();
 
-      return dispatch(Creators.newVideoReceived(result.args.URL, result.args.message));
+      const newVideo = {
+        from,
+        url,
+        message,
+        id,
+      };
+
+      return dispatch(Creators.newVideoReceived(newVideo));
     }else{
       console.log(err);
     }
@@ -50,10 +62,12 @@ export const addSmartContractEventWatchers = (contractInstance) => async(dispatc
 };
 
 export const requestNewVideo = (params, contract, accounts) => async (dispatch) => {
+  const FROM = accounts[0];
+
   const payment = params.isCustomMessageAdded ? params.payment : 0;
 
-  if(payment.isCustomMessageAdded){
-    console.log('You payed ' , payment , 'wei for your custom message')
+  if(params.isCustomMessageAdded){
+    //console.log('You payed ' , payment , 'wei for your custom message', params.message)
   }else{
     // Overwrite message (non-payed)
     params.message = "";
@@ -65,16 +79,28 @@ export const requestNewVideo = (params, contract, accounts) => async (dispatch) 
     value: payment
   });
 
-  dispatch(Creators.txReceiptReceived(txReceipt))
+  var result = txReceipt.receipt;
 
-  var result = txReceipt.logs[0].args;
+  // Shows the receipt
+  dispatch(Creators.txReceiptReceived({
+    from: FROM,
+    url: params.URL,
+    message: params.message,
+    id: result.videoId || "0x0",
 
-  dispatch(Creators.newVideoReceived(result.URL, result.message))
+    tx: txReceipt.tx,
+    blockHash: result.blockHash,
+    gasUsed: result.gasUsed,
+    cumulativeGasUsed: result.cumulativeGasUsed,
+    status: result.status
+  }));
 };
 
 export const requestCurrentVideo = (contract) => async (dispatch) => {
   try{
     const lastVideoRequest = await contract.lastRequest();
+
+    // TODO: What if no first video has been requested yet?
 
     const message = lastVideoRequest[1];
 
@@ -84,7 +110,9 @@ export const requestCurrentVideo = (contract) => async (dispatch) => {
       from: lastVideoRequest[2]
     };
 
-    dispatch(Creators.newVideoReceived(video))
+    if(video.url.length > 0){
+      dispatch(Creators.newVideoReceived(video));
+    }
   }catch(e){
     throw(e.message)
   }
@@ -110,17 +138,20 @@ export const deleteReceipt = (state) => async (dispatch) => {
 
 export const newVideoReceived = (state, params) => {
   let { video } = params;
-  let { url, message, from } = video;
+  let { url, message, from, tx } = video;
 
   if(url && url !== state.getIn(['latestVideo', 'url'])){
-
+    // TODO: Improve this
     state = state.setIn(['latestVideo', 'message'], message);
     state = state.setIn(['latestVideo', 'from'], from);
+    state = state.setIn(['latestVideo', 'tx'], tx);
+
     return state.setIn(['latestVideo','url'], url);
   }else{
     return state;
   }
 };
+
 export const txReceiptReceived = (state, params) => {
   const { txReceipt } = params;
 

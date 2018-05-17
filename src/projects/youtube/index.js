@@ -158,6 +158,8 @@ class Youtube extends React.PureComponent {
     // Contract was loaded
     if(prevProps.isLoading && !this.props.isLoading){
       this.props.addEventWatchers(this.props.contract);
+
+      // TODO: Refactor this
       this.getLastURL(this.props.contract);
     }
   }
@@ -205,7 +207,9 @@ class Youtube extends React.PureComponent {
   };
 
   renderTxReceipt = (txReceipt) => {
-    const { tx, receipt } = txReceipt;
+    console.log('SHOWING RECEIPT ' , txReceipt)
+
+    const { tx, from } = txReceipt;
 
     return (
         <BaseModal isOpen={txReceipt ? true : false}
@@ -215,7 +219,7 @@ class Youtube extends React.PureComponent {
           <Column style={{ marginLeft: '1em' }}>
             <h2>Receipt</h2>
 
-          <Form widths="equal">
+          <Form widths="equal" style={{ marginBottom: '1em'}}>
             <Form.Group>
             <Form.Field>
               <label htmlFor="userAddress">FROM</label>
@@ -227,14 +231,14 @@ class Youtube extends React.PureComponent {
                 justifyContent: 'center'
               }}
                      as='a'
-                     onClick={() => window.open(`https://etherscan.io/address/${this.props.accounts[0]}`) }
+                     onClick={() => window.open(`https://etherscan.io/address/${from}`) }
                      alt="Click to show your address on Etherscan"
                      title="Click to show your address on Etherscan">
-                <Blocky seed={this.props.accounts[0]} />
+                <Blocky seed={from} />
 
                 <Column style={{ marginLeft: 25 }}>
                   YOUR WALLET ADDRESS
-                  <strong>{this.props.accounts[0]}</strong>
+                  <strong>{from}</strong>
                 </Column>
               </Label>
             </Form.Field>
@@ -273,29 +277,49 @@ class Youtube extends React.PureComponent {
                 justifyContent: 'center'
               }}
                      as='a'
-                     onClick={() => window.open(`https://etherscan.io/tx/${this.props.contract.address}`) }
+                     onClick={() => window.open(`https://etherscan.io/tx/${tx}`) }
                      alt="Click to show Smart Contract on Etherscan"
                      title="Click to show Smart Contract on Etherscan">
                 <Blocky seed={tx} />
 
                 <Column style={{ marginLeft: 25 }}>
                   TRANSACTION REFERENCE
-                  <strong>{this.props.contract.address}</strong>
+                  <strong>{tx}</strong>
                 </Column>
               </Label>
             </Form.Field>
           </Form>
+
+
+            {txReceipt.message.length > 0 && (<div><h4>YOUR CUSTOM MESSAGE</h4>
+            <Column>
+              <Row>
+                <Column style={{}}>
+                  "{txReceipt.message}"
+                </Column>
+              </Row>
+            </Column></div>)}
 
             <h4>DETAILS</h4>
 
             <Column>
               <Row>
                 <Column style={{ flex: 1 }}>
+                  VIDEO ID
+                </Column>
+
+                <Column style={{ flex:3, alignItems: 'left'}}>
+                  {txReceipt.id}
+                </Column>
+              </Row>
+
+              <Row>
+                <Column style={{ flex: 1 }}>
                   BLOCK HASH
                 </Column>
 
                 <Column style={{ flex:3, alignItems: 'left'}}>
-                  {receipt.blockHash}
+                  {txReceipt.blockHash}
                 </Column>
               </Row>
 
@@ -305,7 +329,7 @@ class Youtube extends React.PureComponent {
                 </Column>
 
                 <Column style={{ flex:3, alignItems: 'left'}}>
-                  {receipt.blockNumber}
+                  {txReceipt.blockNumber}
                 </Column>
               </Row>
 
@@ -315,7 +339,17 @@ class Youtube extends React.PureComponent {
                 </Column>
 
                 <Column style={{ flex:3, alignItems: 'left'}}>
-                  {receipt.gasUsed}
+                  {txReceipt.gasUsed} wei
+                </Column>
+              </Row>
+
+              <Row>
+                <Column style={{ flex: 1 }}>
+                  CUMULATIVE GAS USED
+                </Column>
+
+                <Column style={{ flex:3, alignItems: 'left'}}>
+                  {txReceipt.cumulativeGasUsed} wei
                 </Column>
               </Row>
 
@@ -325,7 +359,7 @@ class Youtube extends React.PureComponent {
                 </Column>
 
                 <Column style={{ flex:3, alignItems: 'left'}}>
-                  {receipt.status}
+                  {txReceipt.status}
                 </Column>
               </Row>
             </Column>
@@ -397,6 +431,7 @@ const mapStateToProps = (state) => {
     web3: state.settings.get('web3'),
     contract: state.contracts.getIn(['Youtube', 'contract']),
     accounts: state.settings.get('accounts'),
+    latestVideo: state.youtube.getIn(['latestVideo']),
     url: state.youtube.getIn(['latestVideo', 'url']),
     message: state.youtube.getIn(['latestVideo', 'message']),
     from: state.youtube.getIn(['latestVideo', 'from']),
