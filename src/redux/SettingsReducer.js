@@ -21,13 +21,14 @@ export const setAccounts = (state, { accounts }) => {
 
 export const loadAccounts = (web3) => (dispatch) => {
   web3.eth.getAccounts((error, accounts) => {
-    dispatch(Creators.setAccounts(accounts));
+    if(!error) dispatch(Creators.setAccounts(accounts));
   });
 }
 
 export const changeProvider = (url) => (dispatch) => {
   Web3.get(url).then((web3) => {
     dispatch(Creators.providerChanged(web3));
+    dispatch(Creators.setAccounts(['0x0']));
     dispatch(loadContracts());
     dispatch(loadAccounts(web3));
   });

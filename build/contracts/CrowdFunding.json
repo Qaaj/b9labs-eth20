@@ -150,14 +150,14 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b33600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506108e58061005f6000396000f30060606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063141961bc146100725780638da5cb5b14610156578063bfaece09146101ab578063c1cbbca714610244578063ecd8001d1461025c575b600080fd5b341561007d57600080fd5b61009360048080359060200190919050506102b2565b604051808673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200180602001858152602001848152602001838152602001828103825286818151815260200191508051906020019080838360005b838110156101175780820151818401526020810190506100fc565b50505050905090810190601f1680156101445780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b341561016157600080fd5b6101696103a0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156101b657600080fd5b61022e600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001909190803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506103c6565b6040518082815260200191505060405180910390f35b61025a60048080359060200190919050506104cb565b005b341561026757600080fd5b61029c600480803590602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610593565b6040518082815260200191505060405180910390f35b60026020528060005260406000206000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103845780601f1061035957610100808354040283529160200191610384565b820191906000526020600020905b81548152906001019060200180831161036757829003601f168201915b5050505050908060020154908060030154908060040154905085565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000808154809291906001019190505591506002600083815260200190815260200160002090507f633109eec20320eded000fc1e2634211aa7e92ba3f5b15faf6dcdafca05094e48233604051808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1848160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550838160020181905550828160010190805190602001906104bf929190610814565b50819150509392505050565b60008060026000848152602001908152602001600020915081600501600083600301600081548092919060010191905055815260200190815260200160002090508160020154348360040154011115151561052257fe5b338160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055503481600101819055508060010154826004016000828254019250508190555061058d83610670565b50505050565b60008060008060026000878152602001908152602001600020925060009150826003015490505b808211151561065c578473ffffffffffffffffffffffffffffffffffffffff1683600501600084815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16141561064f57826005016000838152602001908152602001600020600101549350610667565b81806001019250506105ba565b6000151561066657fe5b5b50505092915050565b600080600080600260008681526020019081526020016000209250826002015483600401541015156108075760009150826003015490508260000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc84600401549081150290604051600060405180830381858888f19350505050151561070f57600080fd5b6000836004018190555060008360000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060008360020181905550600083600301819055505b80821115156107fe57600083600501600084815260200190815260200160002060000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000836005016000848152602001908152602001600020600101819055508180600101925050610772565b6001935061080c565b600093505b505050919050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061085557805160ff1916838001178555610883565b82800160010185558215610883579182015b82811115610882578251825591602001919060010190610867565b5b5090506108909190610894565b5090565b6108b691905b808211156108b257600081600090555060010161089a565b5090565b905600a165627a7a723058202ec10646cf059e9c40ec38a9b52e2104cc31a52754d1c92a8629e00795c980580029",
-  "deployedBytecode": "0x60606040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063141961bc146100725780638da5cb5b14610156578063bfaece09146101ab578063c1cbbca714610244578063ecd8001d1461025c575b600080fd5b341561007d57600080fd5b61009360048080359060200190919050506102b2565b604051808673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200180602001858152602001848152602001838152602001828103825286818151815260200191508051906020019080838360005b838110156101175780820151818401526020810190506100fc565b50505050905090810190601f1680156101445780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b341561016157600080fd5b6101696103a0565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b34156101b657600080fd5b61022e600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803590602001909190803590602001908201803590602001908080601f016020809104026020016040519081016040528093929190818152602001838380828437820191505050505050919050506103c6565b6040518082815260200191505060405180910390f35b61025a60048080359060200190919050506104cb565b005b341561026757600080fd5b61029c600480803590602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610593565b6040518082815260200191505060405180910390f35b60026020528060005260406000206000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103845780601f1061035957610100808354040283529160200191610384565b820191906000526020600020905b81548152906001019060200180831161036757829003601f168201915b5050505050908060020154908060030154908060040154905085565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000808154809291906001019190505591506002600083815260200190815260200160002090507f633109eec20320eded000fc1e2634211aa7e92ba3f5b15faf6dcdafca05094e48233604051808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1848160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550838160020181905550828160010190805190602001906104bf929190610814565b50819150509392505050565b60008060026000848152602001908152602001600020915081600501600083600301600081548092919060010191905055815260200190815260200160002090508160020154348360040154011115151561052257fe5b338160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055503481600101819055508060010154826004016000828254019250508190555061058d83610670565b50505050565b60008060008060026000878152602001908152602001600020925060009150826003015490505b808211151561065c578473ffffffffffffffffffffffffffffffffffffffff1683600501600084815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16141561064f57826005016000838152602001908152602001600020600101549350610667565b81806001019250506105ba565b6000151561066657fe5b5b50505092915050565b600080600080600260008681526020019081526020016000209250826002015483600401541015156108075760009150826003015490508260000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc84600401549081150290604051600060405180830381858888f19350505050151561070f57600080fd5b6000836004018190555060008360000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060008360020181905550600083600301819055505b80821115156107fe57600083600501600084815260200190815260200160002060000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506000836005016000848152602001908152602001600020600101819055508180600101925050610772565b6001935061080c565b600093505b505050919050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061085557805160ff1916838001178555610883565b82800160010185558215610883579182015b82811115610882578251825591602001919060010190610867565b5b5090506108909190610894565b5090565b6108b691905b808211156108b257600081600090555060010161089a565b5090565b905600a165627a7a723058202ec10646cf059e9c40ec38a9b52e2104cc31a52754d1c92a8629e00795c980580029",
-  "sourceMap": "123:2916:0:-;;;741:62;;;;;;;;787:10;779:5;;:18;;;;;;;;;;;;;;;;;;123:2916;;;;;;",
-  "deployedSourceMap": "123:2916:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;592:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;592:43:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;522:20;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1221:403;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2113:327;;;;;;;;;;;;;;;;;;811:355;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;592:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;522:20::-;;;;;;;;;;;;;:::o;1221:403::-;1303:15;1399:18;1340:12;;:14;;;;;;;;;;;;1327:27;;1420:9;:21;1430:10;1420:21;;;;;;;;;;;1399:42;;1474:39;1490:10;1502;1474:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;1536:11;1520:1;:13;;;:27;;;;;;;;;;;;;;;;;;1570:4;1554:1;:13;;:20;;;;1590:4;1581:1;:6;;:13;;;;;;;;;;;;:::i;:::-;;1608:10;1601:17;;1221:403;;;;;;:::o;2113:327::-;2172:18;2221:16;2193:9;:21;2203:10;2193:21;;;;;;;;;;;2172:42;;2240:1;:9;;:25;2250:1;:12;;;:14;;;;;;;;;;;;2240:25;;;;;;;;;;;2221:44;;2305:1;:13;;;2291:9;2280:1;:8;;;:20;2279:39;;2272:47;;;;;;2335:10;2326:1;:6;;;:19;;;;;;;;;;;;;;;;;;2363:9;2352:1;:8;;:20;;;;2391:1;:8;;;2379:1;:8;;;:20;;;;;;;;;;;2406:28;2423:10;2406:16;:28::i;:::-;;2113:327;;;:::o;811:355::-;900:11;920:18;969:6;986;941:9;:21;951:10;941:21;;;;;;;;;;;920:42;;978:1;969:10;;995:1;:12;;;986:21;;1014:127;1026:1;1021;:6;;1014:127;;;1063:10;1042:31;;:1;:9;;:12;1052:1;1042:12;;;;;;;;;;;:17;;;;;;;;;;;;:31;;;1038:84;;;1093:1;:9;;:12;1103:1;1093:12;;;;;;;;;;;:19;;;1086:26;;;;1038:84;1130:3;;;;;;;1014:127;;;1154:5;1147:13;;;;;;811:355;;;;;;;;:::o;2522:514::-;2582:12;2603:18;2692:6;2711;2624:9;:21;2634:10;2624:21;;;;;;;;;;;2603:42;;2668:1;:13;;;2656:1;:8;;;:25;;2652:360;;;2701:1;2692:10;;2720:1;:12;;;2711:21;;2741:1;:13;;;;;;;;;;;;:22;;:32;2764:1;:8;;;2741:32;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2793:1;2782;:8;;:12;;;;2819:1;2803;:13;;;:17;;;;;;;;;;;;;;;;;;2845:1;2829;:13;;:17;;;;2870:1;2855;:12;;:16;;;;2880:105;2892:1;2887;:6;;2880:105;;;2926:1;2906;:9;;:12;2916:1;2906:12;;;;;;;;;;;:17;;;:21;;;;;;;;;;;;;;;;;;2960:1;2938;:9;;:12;2948:1;2938:12;;;;;;;;;;;:19;;:23;;;;2972:3;;;;;;;2880:105;;;3000:4;2993:11;;;;2652:360;3025:5;3018:12;;2522:514;;;;;;;:::o;123:2916::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "bytecode": "0x608060405234801561001057600080fd5b5033600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550610919806100616000396000f30060806040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063141961bc146100725780638da5cb5b14610160578063bfaece09146101b7578063c1cbbca71461025e578063ecd8001d1461027e575b600080fd5b34801561007e57600080fd5b5061009d600480360381019080803590602001909291905050506102df565b604051808673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200180602001858152602001848152602001838152602001828103825286818151815260200191508051906020019080838360005b83811015610121578082015181840152602081019050610106565b50505050905090810190601f16801561014e5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b34801561016c57600080fd5b506101756103cd565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156101c357600080fd5b50610248600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091929192905050506103f3565b6040518082815260200191505060405180910390f35b61027c600480360381019080803590602001909291905050506104f8565b005b34801561028a57600080fd5b506102c960048036038101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506105c0565b6040518082815260200191505060405180910390f35b60026020528060005260406000206000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103b15780601f10610386576101008083540402835291602001916103b1565b820191906000526020600020905b81548152906001019060200180831161039457829003601f168201915b5050505050908060020154908060030154908060040154905085565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000808154809291906001019190505591506002600083815260200190815260200160002090507f633109eec20320eded000fc1e2634211aa7e92ba3f5b15faf6dcdafca05094e48233604051808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1848160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550838160020181905550828160010190805190602001906104ec929190610848565b50819150509392505050565b60008060026000848152602001908152602001600020915081600501600083600301600081548092919060010191905055815260200190815260200160002090508160020154348360040154011115151561054f57fe5b338160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550348160010181905550806001015482600401600082825401925050819055506105ba8361069d565b50505050565b60008060008060026000878152602001908152602001600020925060009150826003015490505b8082111515610689578473ffffffffffffffffffffffffffffffffffffffff1683600501600084815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16141561067c57826005016000838152602001908152602001600020600101549350610694565b81806001019250506105e7565b6000151561069357fe5b5b50505092915050565b6000806000806002600086815260200190815260200160002092508260020154836004015410151561083b5760009150826003015490508260000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc84600401549081150290604051600060405180830381858888f19350505050158015610742573d6000803e3d6000fd5b506000836004018190555060008360000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060008360020181905550600083600301819055505b808211151561083257600083600501600084815260200190815260200160002060000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060008360050160008481526020019081526020016000206001018190555081806001019250506107a6565b60019350610840565b600093505b505050919050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061088957805160ff19168380011785556108b7565b828001600101855582156108b7579182015b828111156108b657825182559160200191906001019061089b565b5b5090506108c491906108c8565b5090565b6108ea91905b808211156108e65760008160009055506001016108ce565b5090565b905600a165627a7a723058207030005cbdff1d3caa414870e200ec662fc3db5c1754a769f1a1bdb80c8a542e0029",
+  "deployedBytecode": "0x60806040526004361061006d576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063141961bc146100725780638da5cb5b14610160578063bfaece09146101b7578063c1cbbca71461025e578063ecd8001d1461027e575b600080fd5b34801561007e57600080fd5b5061009d600480360381019080803590602001909291905050506102df565b604051808673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200180602001858152602001848152602001838152602001828103825286818151815260200191508051906020019080838360005b83811015610121578082015181840152602081019050610106565b50505050905090810190601f16801561014e5780820380516001836020036101000a031916815260200191505b50965050505050505060405180910390f35b34801561016c57600080fd5b506101756103cd565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b3480156101c357600080fd5b50610248600480360381019080803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091929192905050506103f3565b6040518082815260200191505060405180910390f35b61027c600480360381019080803590602001909291905050506104f8565b005b34801561028a57600080fd5b506102c960048036038101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506105c0565b6040518082815260200191505060405180910390f35b60026020528060005260406000206000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690806001018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103b15780601f10610386576101008083540402835291602001916103b1565b820191906000526020600020905b81548152906001019060200180831161039457829003601f168201915b5050505050908060020154908060030154908060040154905085565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b6000806000808154809291906001019190505591506002600083815260200190815260200160002090507f633109eec20320eded000fc1e2634211aa7e92ba3f5b15faf6dcdafca05094e48233604051808381526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019250505060405180910390a1848160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550838160020181905550828160010190805190602001906104ec929190610848565b50819150509392505050565b60008060026000848152602001908152602001600020915081600501600083600301600081548092919060010191905055815260200190815260200160002090508160020154348360040154011115151561054f57fe5b338160000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550348160010181905550806001015482600401600082825401925050819055506105ba8361069d565b50505050565b60008060008060026000878152602001908152602001600020925060009150826003015490505b8082111515610689578473ffffffffffffffffffffffffffffffffffffffff1683600501600084815260200190815260200160002060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16141561067c57826005016000838152602001908152602001600020600101549350610694565b81806001019250506105e7565b6000151561069357fe5b5b50505092915050565b6000806000806002600086815260200190815260200160002092508260020154836004015410151561083b5760009150826003015490508260000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc84600401549081150290604051600060405180830381858888f19350505050158015610742573d6000803e3d6000fd5b506000836004018190555060008360000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060008360020181905550600083600301819055505b808211151561083257600083600501600084815260200190815260200160002060000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555060008360050160008481526020019081526020016000206001018190555081806001019250506107a6565b60019350610840565b600093505b505050919050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061088957805160ff19168380011785556108b7565b828001600101855582156108b7579182015b828111156108b657825182559160200191906001019061089b565b5b5090506108c491906108c8565b5090565b6108ea91905b808211156108e65760008160009055506001016108ce565b5090565b905600a165627a7a723058207030005cbdff1d3caa414870e200ec662fc3db5c1754a769f1a1bdb80c8a542e0029",
+  "sourceMap": "123:2916:0:-;;;741:62;8:9:-1;5:2;;;30:1;27;20:12;5:2;741:62:0;787:10;779:5;;:18;;;;;;;;;;;;;;;;;;123:2916;;;;;;",
+  "deployedSourceMap": "123:2916:0:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;592:43;;8:9:-1;5:2;;;30:1;27;20:12;5:2;592:43:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:10;8:100;;;99:1;94:3;90:11;84:18;80:1;75:3;71:11;64:39;52:2;49:1;45:10;40:15;;8:100;;;12:14;592:43:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;522:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;522:20:0;;;;;;;;;;;;;;;;;;;;;;;;;;;1221:403;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1221:403:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2113:327;;;;;;;;;;;;;;;;;;;;;;;;;;811:355;;8:9:-1;5:2;;;30:1;27;20:12;5:2;811:355:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;592:43;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;522:20::-;;;;;;;;;;;;;:::o;1221:403::-;1303:15;1399:18;1340:12;;:14;;;;;;;;;;;;1327:27;;1420:9;:21;1430:10;1420:21;;;;;;;;;;;1399:42;;1474:39;1490:10;1502;1474:39;;;;;;;;;;;;;;;;;;;;;;;;;;;;1536:11;1520:1;:13;;;:27;;;;;;;;;;;;;;;;;;1570:4;1554:1;:13;;:20;;;;1590:4;1581:1;:6;;:13;;;;;;;;;;;;:::i;:::-;;1608:10;1601:17;;1221:403;;;;;;:::o;2113:327::-;2172:18;2221:16;2193:9;:21;2203:10;2193:21;;;;;;;;;;;2172:42;;2240:1;:9;;:25;2250:1;:12;;;:14;;;;;;;;;;;;2240:25;;;;;;;;;;;2221:44;;2305:1;:13;;;2291:9;2280:1;:8;;;:20;2279:39;;2272:47;;;;;;2335:10;2326:1;:6;;;:19;;;;;;;;;;;;;;;;;;2363:9;2352:1;:8;;:20;;;;2391:1;:8;;;2379:1;:8;;;:20;;;;;;;;;;;2406:28;2423:10;2406:16;:28::i;:::-;;2113:327;;;:::o;811:355::-;900:11;920:18;969:6;986;941:9;:21;951:10;941:21;;;;;;;;;;;920:42;;978:1;969:10;;995:1;:12;;;986:21;;1014:127;1026:1;1021;:6;;1014:127;;;1063:10;1042:31;;:1;:9;;:12;1052:1;1042:12;;;;;;;;;;;:17;;;;;;;;;;;;:31;;;1038:84;;;1093:1;:9;;:12;1103:1;1093:12;;;;;;;;;;;:19;;;1086:26;;;;1038:84;1130:3;;;;;;;1014:127;;;1154:5;1147:13;;;;;;811:355;;;;;;;;:::o;2522:514::-;2582:12;2603:18;2692:6;2711;2624:9;:21;2634:10;2624:21;;;;;;;;;;;2603:42;;2668:1;:13;;;2656:1;:8;;;:25;;2652:360;;;2701:1;2692:10;;2720:1;:12;;;2711:21;;2741:1;:13;;;;;;;;;;;;:22;;:32;2764:1;:8;;;2741:32;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;45:16;42:1;39;24:38;77:16;74:1;67:27;5:2;2741:32:0;2793:1;2782;:8;;:12;;;;2819:1;2803;:13;;;:17;;;;;;;;;;;;;;;;;;2845:1;2829;:13;;:17;;;;2870:1;2855;:12;;:16;;;;2880:105;2892:1;2887;:6;;2880:105;;;2926:1;2906;:9;;:12;2916:1;2906:12;;;;;;;;;;;:17;;;:21;;;;;;;;;;;;;;;;;;2960:1;2938;:9;;:12;2948:1;2938:12;;;;;;;;;;;:19;;:23;;;;2972:3;;;;;;;2880:105;;;3000:4;2993:11;;;;2652:360;3025:5;3018:12;;2522:514;;;;;;;:::o;123:2916::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
   "source": "pragma solidity ^0.4.11;\r\n\r\n\r\n/* The parent contract managing the list of active brokers and POAToken contracts.\r\n */\r\n\r\n\r\ncontract CrowdFunding {\r\n  \r\n  \r\n  /* Struct  for Funder  */\r\n  struct Funder {\r\n    address addr;\r\n    uint amount;\r\n  }\r\n  // Campaign data structure\r\n  struct Campaign {\r\n    address beneficiary;\r\n    string name;\r\n    uint fundingGoal;\r\n    uint numFunders;\r\n    uint amount;\r\n    mapping (uint => Funder) funders;\r\n  }\r\n  //Declares a state variable 'numCampaigns'\r\n  uint numCampaigns;\r\n  \r\n  address public owner;\r\n  //Creates a mapping of Campaign datatypes\r\n  mapping (uint => Campaign) public campaigns;\r\n  \r\n  event Changed(address a);\r\n  \r\n  event CampaignCreated(uint campaignId, address creator);\r\n  \r\n  function CrowdFunding() public {\r\n    owner = msg.sender;\r\n  }\r\n  \r\n  function getCampaignFunderByAddress(uint campaignId, address funderAddr) public returns (uint amount) {\r\n    Campaign storage c = campaigns[campaignId];\r\n    uint i = 0;\r\n    uint f = c.numFunders;\r\n    while (i <= f) {\r\n      if (c.funders[i].addr == funderAddr) {\r\n        return c.funders[i].amount;\r\n      }\r\n      i++;\r\n    }\r\n    assert(false);\r\n  }\r\n  \r\n  /* first function sets up a new campaign */\r\n  function newCampaign(address beneficiary, uint goal, string name) public returns (uint campaignID) {\r\n    campaignID = numCampaigns++;\r\n    // campaignID is return variable\r\n    Campaign storage c = campaigns[campaignID];\r\n    // assigns reference\r\n    CampaignCreated(campaignID, msg.sender);\r\n    c.beneficiary = beneficiary;\r\n    c.fundingGoal = goal;\r\n    c.name = name;\r\n    return campaignID;\r\n  }\r\n  \r\n  // function to contributes to the campaign\r\n  // Line 1: function is defined as taking a single argument campaignID – it has no return value.\r\n  // Line 2 and 3: Creates references to locations in storage to store a new funder *and* iterates the number of contributors.\r\n  // Line 4,5, and 6: here we take the amount of ether passed with the contributors transaction and the public address of\r\n  // the msg.sender and use it record the contribution from this transactions\r\n  \r\n  function contribute(uint campaignID) public payable {\r\n    Campaign storage c = campaigns[campaignID];\r\n    Funder storage f = c.funders[c.numFunders++];\r\n    assert((c.amount + msg.value) <= c.fundingGoal);\r\n    f.addr = msg.sender;\r\n    f.amount = msg.value;\r\n    c.amount += f.amount;\r\n    checkGoalReached(campaignID);\r\n  }\r\n  // checks if the goal or time limit has been reached and ends the campaign\r\n  function checkGoalReached(uint campaignID) private returns (bool reached) {\r\n    Campaign storage c = campaigns[campaignID];\r\n    if (c.amount >= c.fundingGoal) {\r\n      uint i = 0;\r\n      uint f = c.numFunders;\r\n      c.beneficiary.transfer(c.amount);\r\n      c.amount = 0;\r\n      c.beneficiary = 0;\r\n      c.fundingGoal = 0;\r\n      c.numFunders = 0;\r\n      while (i <= f) {\r\n        c.funders[i].addr = 0;\r\n        c.funders[i].amount = 0;\r\n        i++;\r\n      }\r\n      return true;\r\n    }\r\n    return false;\r\n  }\r\n}",
-  "sourcePath": "/Users/WWWillems/Dev/Crypto/eth-tv/contracts/CrowdFunding.sol",
+  "sourcePath": "/Users/janjorissen/Projects/b9labs-eth20/contracts/CrowdFunding.sol",
   "ast": {
-    "absolutePath": "/Users/WWWillems/Dev/Crypto/eth-tv/contracts/CrowdFunding.sol",
+    "absolutePath": "/Users/janjorissen/Projects/b9labs-eth20/contracts/CrowdFunding.sol",
     "exportedSymbols": {
       "CrowdFunding": [
         301
@@ -294,7 +294,7 @@
                 "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_string_storage_ptr",
-                  "typeString": "string storage pointer"
+                  "typeString": "string"
                 },
                 "typeName": {
                   "id": 9,
@@ -303,7 +303,7 @@
                   "src": "327:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
-                    "typeString": "string storage pointer"
+                    "typeString": "string"
                   }
                 },
                 "value": null,
@@ -398,7 +398,7 @@
                 "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Funder_$6_storage_$",
-                  "typeString": "mapping(uint256 => struct CrowdFunding.Funder storage ref)"
+                  "typeString": "mapping(uint256 => struct CrowdFunding.Funder)"
                 },
                 "typeName": {
                   "id": 19,
@@ -416,7 +416,7 @@
                   "src": "408:24:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Funder_$6_storage_$",
-                    "typeString": "mapping(uint256 => struct CrowdFunding.Funder storage ref)"
+                    "typeString": "mapping(uint256 => struct CrowdFunding.Funder)"
                   },
                   "valueType": {
                     "contractScope": null,
@@ -427,7 +427,7 @@
                     "src": "425:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Funder_$6_storage_ptr",
-                      "typeString": "struct CrowdFunding.Funder storage pointer"
+                      "typeString": "struct CrowdFunding.Funder"
                     }
                   }
                 },
@@ -504,7 +504,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Campaign_$21_storage_$",
-              "typeString": "mapping(uint256 => struct CrowdFunding.Campaign storage ref)"
+              "typeString": "mapping(uint256 => struct CrowdFunding.Campaign)"
             },
             "typeName": {
               "id": 28,
@@ -522,7 +522,7 @@
               "src": "592:26:0",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Campaign_$21_storage_$",
-                "typeString": "mapping(uint256 => struct CrowdFunding.Campaign storage ref)"
+                "typeString": "mapping(uint256 => struct CrowdFunding.Campaign)"
               },
               "valueType": {
                 "contractScope": null,
@@ -533,7 +533,7 @@
                 "src": "609:8:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                  "typeString": "struct CrowdFunding.Campaign storage pointer"
+                  "typeString": "struct CrowdFunding.Campaign"
                 }
               }
             },
@@ -688,7 +688,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 485,
+                        "referencedDeclaration": 689,
                         "src": "787:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -770,7 +770,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -781,7 +781,7 @@
                         "src": "920:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -1271,7 +1271,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 475,
+                      "referencedDeclaration": 678,
                       "src": "1147:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -1489,7 +1489,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -1500,7 +1500,7 @@
                         "src": "1399:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -1576,7 +1576,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 485,
+                          "referencedDeclaration": 689,
                           "src": "1502:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1920,7 +1920,7 @@
                   "storageLocation": "default",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_memory_ptr",
-                    "typeString": "string memory"
+                    "typeString": "string"
                   },
                   "typeName": {
                     "id": 105,
@@ -1929,7 +1929,7 @@
                     "src": "1274:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string storage pointer"
+                      "typeString": "string"
                     }
                   },
                   "value": null,
@@ -2000,7 +2000,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -2011,7 +2011,7 @@
                         "src": "2172:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -2078,7 +2078,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Funder_$6_storage_ptr",
-                        "typeString": "struct CrowdFunding.Funder storage pointer"
+                        "typeString": "struct CrowdFunding.Funder"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -2089,7 +2089,7 @@
                         "src": "2221:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Funder_$6_storage_ptr",
-                          "typeString": "struct CrowdFunding.Funder storage pointer"
+                          "typeString": "struct CrowdFunding.Funder"
                         }
                       },
                       "value": null,
@@ -2256,7 +2256,7 @@
                                   "name": "msg",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 485,
+                                  "referencedDeclaration": 689,
                                   "src": "2291:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_message",
@@ -2346,7 +2346,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 475,
+                      "referencedDeclaration": 678,
                       "src": "2272:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -2418,7 +2418,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 485,
+                        "referencedDeclaration": 689,
                         "src": "2335:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2496,7 +2496,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 485,
+                        "referencedDeclaration": 689,
                         "src": "2363:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -2737,7 +2737,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -2748,7 +2748,7 @@
                         "src": "2603:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -3828,7 +3828,7 @@
     "src": "0:3039:0"
   },
   "legacyAST": {
-    "absolutePath": "/Users/WWWillems/Dev/Crypto/eth-tv/contracts/CrowdFunding.sol",
+    "absolutePath": "/Users/janjorissen/Projects/b9labs-eth20/contracts/CrowdFunding.sol",
     "exportedSymbols": {
       "CrowdFunding": [
         301
@@ -3965,7 +3965,7 @@
                 "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_string_storage_ptr",
-                  "typeString": "string storage pointer"
+                  "typeString": "string"
                 },
                 "typeName": {
                   "id": 9,
@@ -3974,7 +3974,7 @@
                   "src": "327:6:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_storage_ptr",
-                    "typeString": "string storage pointer"
+                    "typeString": "string"
                   }
                 },
                 "value": null,
@@ -4069,7 +4069,7 @@
                 "storageLocation": "default",
                 "typeDescriptions": {
                   "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Funder_$6_storage_$",
-                  "typeString": "mapping(uint256 => struct CrowdFunding.Funder storage ref)"
+                  "typeString": "mapping(uint256 => struct CrowdFunding.Funder)"
                 },
                 "typeName": {
                   "id": 19,
@@ -4087,7 +4087,7 @@
                   "src": "408:24:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Funder_$6_storage_$",
-                    "typeString": "mapping(uint256 => struct CrowdFunding.Funder storage ref)"
+                    "typeString": "mapping(uint256 => struct CrowdFunding.Funder)"
                   },
                   "valueType": {
                     "contractScope": null,
@@ -4098,7 +4098,7 @@
                     "src": "425:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_struct$_Funder_$6_storage_ptr",
-                      "typeString": "struct CrowdFunding.Funder storage pointer"
+                      "typeString": "struct CrowdFunding.Funder"
                     }
                   }
                 },
@@ -4175,7 +4175,7 @@
             "storageLocation": "default",
             "typeDescriptions": {
               "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Campaign_$21_storage_$",
-              "typeString": "mapping(uint256 => struct CrowdFunding.Campaign storage ref)"
+              "typeString": "mapping(uint256 => struct CrowdFunding.Campaign)"
             },
             "typeName": {
               "id": 28,
@@ -4193,7 +4193,7 @@
               "src": "592:26:0",
               "typeDescriptions": {
                 "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Campaign_$21_storage_$",
-                "typeString": "mapping(uint256 => struct CrowdFunding.Campaign storage ref)"
+                "typeString": "mapping(uint256 => struct CrowdFunding.Campaign)"
               },
               "valueType": {
                 "contractScope": null,
@@ -4204,7 +4204,7 @@
                 "src": "609:8:0",
                 "typeDescriptions": {
                   "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                  "typeString": "struct CrowdFunding.Campaign storage pointer"
+                  "typeString": "struct CrowdFunding.Campaign"
                 }
               }
             },
@@ -4359,7 +4359,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 485,
+                        "referencedDeclaration": 689,
                         "src": "787:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -4441,7 +4441,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -4452,7 +4452,7 @@
                         "src": "920:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -4942,7 +4942,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 475,
+                      "referencedDeclaration": 678,
                       "src": "1147:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -5160,7 +5160,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -5171,7 +5171,7 @@
                         "src": "1399:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -5247,7 +5247,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 485,
+                          "referencedDeclaration": 689,
                           "src": "1502:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -5591,7 +5591,7 @@
                   "storageLocation": "default",
                   "typeDescriptions": {
                     "typeIdentifier": "t_string_memory_ptr",
-                    "typeString": "string memory"
+                    "typeString": "string"
                   },
                   "typeName": {
                     "id": 105,
@@ -5600,7 +5600,7 @@
                     "src": "1274:6:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_string_storage_ptr",
-                      "typeString": "string storage pointer"
+                      "typeString": "string"
                     }
                   },
                   "value": null,
@@ -5671,7 +5671,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -5682,7 +5682,7 @@
                         "src": "2172:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -5749,7 +5749,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Funder_$6_storage_ptr",
-                        "typeString": "struct CrowdFunding.Funder storage pointer"
+                        "typeString": "struct CrowdFunding.Funder"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -5760,7 +5760,7 @@
                         "src": "2221:6:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Funder_$6_storage_ptr",
-                          "typeString": "struct CrowdFunding.Funder storage pointer"
+                          "typeString": "struct CrowdFunding.Funder"
                         }
                       },
                       "value": null,
@@ -5927,7 +5927,7 @@
                                   "name": "msg",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 485,
+                                  "referencedDeclaration": 689,
                                   "src": "2291:3:0",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_magic_message",
@@ -6017,7 +6017,7 @@
                       "name": "assert",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 475,
+                      "referencedDeclaration": 678,
                       "src": "2272:6:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
@@ -6089,7 +6089,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 485,
+                        "referencedDeclaration": 689,
                         "src": "2335:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -6167,7 +6167,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 485,
+                        "referencedDeclaration": 689,
                         "src": "2363:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -6408,7 +6408,7 @@
                       "storageLocation": "storage",
                       "typeDescriptions": {
                         "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                        "typeString": "struct CrowdFunding.Campaign storage pointer"
+                        "typeString": "struct CrowdFunding.Campaign"
                       },
                       "typeName": {
                         "contractScope": null,
@@ -6419,7 +6419,7 @@
                         "src": "2603:8:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_struct$_Campaign_$21_storage_ptr",
-                          "typeString": "struct CrowdFunding.Campaign storage pointer"
+                          "typeString": "struct CrowdFunding.Campaign"
                         }
                       },
                       "value": null,
@@ -7500,7 +7500,7 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.4.21+commit.dfe3193c.Emscripten.clang"
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {
     "1": {
@@ -7515,5 +7515,5 @@
     }
   },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-14T17:26:17.493Z"
+  "updatedAt": "2018-05-31T19:44:23.664Z"
 }
