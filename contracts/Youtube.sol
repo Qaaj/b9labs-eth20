@@ -1,6 +1,6 @@
 pragma solidity ^0.4.11;
 
-import "./Ownable.sol";
+import 'zeppelin-solidity/contracts/ownership/Ownable.sol';
 
 contract Youtube is Ownable {
 
@@ -87,7 +87,7 @@ contract Youtube is Ownable {
     // The Owner can use this function to withdraw their payments
     function withdrawFunds()
     public
-    only_owner
+    onlyOwner
     returns (bool success){
         uint amount = getBalance();
         require(amount > 0);
@@ -103,7 +103,7 @@ contract Youtube is Ownable {
 
     function kill()
     public
-    only_owner {
+    onlyOwner {
         if(getBalance() > 0){
             withdrawFunds();
         }

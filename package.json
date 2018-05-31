@@ -65,7 +65,8 @@
     "truffle": "^4.1.11",
     "truffle-contract": "^3.0.5",
     "truffle-hdwallet-provider": "^0.0.3",
-    "truffle-solidity-loader": "^0.0.8"
+    "truffle-solidity-loader": "^0.0.8",
+    "zeppelin-solidity": "^1.9.0"
   },
   "scripts": {
     "start": "node scripts/start.js",

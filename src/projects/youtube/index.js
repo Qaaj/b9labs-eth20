@@ -405,15 +405,7 @@ class Youtube extends React.PureComponent {
     )
   };
 
-  renderLoading() {
-    return (
-        <div>Loading...</div>
-    )
-  }
-
   render() {
-    const { props } = this;
-
     return (<EthTVContainer>
       <Helmet>
         <meta charSet="utf-8" />
