@@ -32,10 +32,4 @@ Web3.get().then((web3) => {
       </Provider>,
       document.getElementById('root')
   );
-}).catch(err => {
-  ReactDOM.render(
-      <div>Something went wrong fetching your Web3 instance.</div>,
-      <div>{err}</div>,
-      document.getElementById('root')
-  );
-});
+})

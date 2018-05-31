@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {changeProvider} from '../../../../redux/SettingsReducer';
+import { connect } from 'react-redux';
+import { changeProvider } from '../../../../redux/SettingsReducer';
 import DropdownBase from './DropdownBase';
 
 class ProvidersDropdown extends React.Component {
@@ -25,7 +25,7 @@ class ProvidersDropdown extends React.Component {
   componentDidMount() {
   }
 
-  onChangeHandler = ({key, text, value}) => {
+  onChangeHandler = ({ key, text, value }) => {
     this.props.changeProvider(value)
   };
 
@@ -34,31 +34,28 @@ class ProvidersDropdown extends React.Component {
 
     let providerName = this.props.web3.currentProvider.constructor.name;
 
-    if (providerName.indexOf('HttpProvider') > -1){
+    if (providerName.indexOf('HttpProvider') > -1) {
 
-      if(this.props.web3.currentProvider.host.indexOf('ropsten') > -1){
+      if (this.props.web3.currentProvider.host.indexOf('ropsten') > -1) {
         providerName += ` - Ropsten`;
-      }else if(this.props.web3.currentProvider.host.indexOf('rinkeby') > -1){
+      } else if (this.props.web3.currentProvider.host.indexOf('rinkeby') > -1) {
         providerName += ` - Rinkeby`;
-      }else{
+      } else {
         providerName = "Custom";
       }
-    }else if(providerName.indexOf('MetamaskInpageProvider') > -1){
+    } else if (providerName.indexOf('MetamaskInpageProvider') > -1) {
       providerName = "MetaMask"
     }
 
     return (<DropdownBase placeholder={providerName}
                           style={this.props.style}
                           options={options}
-                          onChange={(e, params) => {
-                            console.log(e.currentTarget.key)
-                            this.onChangeHandler(params)
-                          }}/>);
+                          onChange={(e, params) => this.onChangeHandler(params)} />);
   }
 }
 
 ProvidersDropdown.defaultProps = {};
-ProvidersDropdown.propTypes    = {};
+ProvidersDropdown.propTypes = {};
 
 const mapStateToProps = (state) => {
   return {

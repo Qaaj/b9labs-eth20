@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Input, Label, Message, TextArea} from 'semantic-ui-react';
+import {Form, Input, Label, Message, TextArea, Loader} from 'semantic-ui-react';
 import styled from 'styled-components';
 import Blocky from './Blocky';
 import BaseModal from './modals/BaseModal';
@@ -33,7 +33,8 @@ class RequestLinkPanel extends React.Component {
   }
 
   componentDidMount(){
-    Promise.all([
+
+    if(this.props.isLoaded) Promise.all([
         //this.state.gasCosts * this.state.gasPrice
       this.getBalance(this.props.accounts[0]),
       this.getGasPrice(),
@@ -198,8 +199,11 @@ class RequestLinkPanel extends React.Component {
   };
 
   render() {
-    const CONTRACT_ADDRESS = this.props.contract.address.toString();
 
+    if(!this.props.isLoaded || !this.props.accounts) return <Loader inverted active size='large'>Loading Contract.</Loader>;
+
+
+    const CONTRACT_ADDRESS = this.props.contract.address.toString();
     return  (
         <RequestLinkPanelContainer
                      isOpen={this.props.isOpen}
@@ -338,9 +342,10 @@ class RequestLinkPanel extends React.Component {
 
 RequestLinkPanel.defaultProps = {};
 RequestLinkPanel.propTypes    = {
-  contract: PropTypes.object.isRequired,
+  contract: PropTypes.object,
   isOpen: PropTypes.bool.isRequired,
-
+  accounts: React.PropTypes.array,
+  isLoaded: React.PropTypes.bool,
   onCloseClick: PropTypes.func.isRequired,
   onSendClickedHandler: PropTypes.func.isRequired,
 };
