@@ -6127,34 +6127,13 @@
     "version": "0.4.24+commit.e67f0147.Emscripten.clang"
   },
   "networks": {
-    "1": {
-      "events": {},
-      "links": {},
-      "address": "0x749339e36dbabfac5206aa204483f720c02bcc31"
-    },
-    "3": {
-      "events": {},
-      "links": {},
-      "address": "0x11af5cd5a0efc902c2e49672ead7fb72af1f0294"
-    },
-    "144": {
-      "events": {},
-      "links": {},
-      "address": "0xb5b1b96bf7e50e28ce68570956141f6d188cd9ed"
-    },
     "4447": {
       "events": {},
       "links": {},
-      "address": "0x345ca3e014aaf5dca488057592ee47305d9b3e10",
-      "transactionHash": "0x87b0b7a275c6d0e075d973324daf77c6a4810be544797fa4e9ff46f456af9d65"
-    },
-    "5777": {
-      "events": {},
-      "links": {},
-      "address": "0x058f7ceff4a998e5ce3ce7a8e913e32e9fa52601",
-      "transactionHash": "0x5fc51b3fcecbd0dc452e297bff0f0c6754cf303133a79377088528bb8435439d"
+      "address": "0xdda6327139485221633a1fcd65f4ac932e60a2e1",
+      "transactionHash": "0x7c4e54fa940c667985950ac815045e211b265aa3985938b4cab1c6305215bccb"
     }
   },
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-07-08T12:28:13.742Z"
+  "updatedAt": "2018-07-08T12:33:55.451Z"
 }
