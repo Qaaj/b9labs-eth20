@@ -166,18 +166,20 @@ class RequestLinkPanel extends React.Component {
 
   estimateGasCosts = () => {
     //console.log('Estimating gas costs to ...' , this.props.contract.address.toString());
-    const currentAccount = this.props.accounts ? this.props.accounts[0] : '';
+    // const currentAccount = this.props.accounts ? this.props.accounts[0] : '';
 
     // TODO: Improve estimation w. reall address & data
+    // We need the real contract address of the contract in contract.address
     return new Promise((resolve, reject) => {
-      this.props.web3.eth.estimateGas({
-        from: currentAccount.toString(),
-        to: "0xc4abd0339eb8d57087278718986382264244252f",
-        data: "0xc6888fa10000000000000000000000000000000000000000000000000000000000000003"
-      }, (err, res) => {
-        if (err) reject(err)
-        resolve(res);
-      });
+      resolve(100000);
+    //   this.props.web3.eth.estimateGas({
+    //     from: currentAccount.toString(),
+    //     to: this.props.contract.address.toString(),
+    //     data: "0xc6888fa10000000000000000000000000000000000000000000000000000000000000003"
+    //   }, (err, res) => {
+    //     if (err) reject(err)
+    //     resolve(res);
+    //   });
     });
   };
 
@@ -206,7 +208,7 @@ class RequestLinkPanel extends React.Component {
 
     if (!this.props.isLoaded || !this.props.accounts) return <Loader inverted active size='large'>Loading
       Contract.</Loader>;
-    
+
     const CONTRACT_ADDRESS = this.props.contract.address ? this.props.contract.address.toString() : '';
     const currentAccount = this.props.accounts.length > 0 ? this.props.accounts[0] : '';
 
