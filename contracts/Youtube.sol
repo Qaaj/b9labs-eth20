@@ -21,15 +21,9 @@ contract Youtube is Ownable {
     event LogKill(address indexed by);
 
     // Constructor
-    function Youtube()
+    function ()
     public {
         owner = msg.sender;
-    }
-
-    // Fallback function
-    function()
-    public{
-        revert();
     }
 
     function numVids()

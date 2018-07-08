@@ -11,7 +11,7 @@ contract Ownable {
 	event LogNewOwner(address indexed old, address indexed current);
 
     // Constructor
-    function Ownable()
+    function ()
     public {
         owner = msg.sender;
     }
