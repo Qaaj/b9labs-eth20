@@ -30,13 +30,13 @@ class Splitter extends React.Component {
   }
 
   getBalance = async () => {
-    const result = await this.props.contract.contract.warchest();
-    const bobCash = await this.props.web3.eth.getBalance(this.state.bob);
-    const carolCash = await this.props.web3.eth.getBalance(this.state.carol);
+    // const result = await this.props.contract.contract.warchest();
+    // const bobCash = await this.props.web3.eth.getBalance(this.state.bob);
+    // const carolCash = await this.props.web3.eth.getBalance(this.state.carol);
     this.setState({
-      warchest: this.props.web3.fromWei(result.toNumber(), 'ether'),
-      bobAmount: this.props.web3.fromWei(bobCash.toNumber(), 'ether'),
-      carolAmount: this.props.web3.fromWei(carolCash.toNumber(), 'ether'),
+      warchest: 'deprecated', // this.props.web3.fromWei(result.toNumber(), 'ether'),
+      bobAmount: 'deprecated', //this.props.web3.fromWei(bobCash.toNumber(), 'ether'),
+      carolAmount: 'deprecated', //this.props.web3.fromWei(carolCash.toNumber(), 'ether'),
     })
   }
 
@@ -57,8 +57,8 @@ class Splitter extends React.Component {
   checkAccounts = async (contract) => {
     if (!contract) return;
     const owner = await contract.owner();
-    const bob = await contract.bob();
-    const carol = await contract.carol();
+    const bob = '0x0'; //await contract.bob();
+    const carol = '0x0'; //await contract.carol();
     // console.log({owner, bob, carol})
     this.setState({owner, bob, carol}, () => this.getBalance());
   }
@@ -71,12 +71,15 @@ class Splitter extends React.Component {
 
     const {props} = this;
 
-    console.log(this.state)
+
 
     if (!props.contract) return <div>Oops - Contract not loaded! </div>;
 
+
+
     return (<div>
       <h2>Splitter</h2>
+      <h4>This Frontend is not compatible with the latest contract code. Keeping code for future reference.</h4>
       <Input onChange={(e) => this.setState({SEND_AMOUNT: e.target.value})} value={this.state.SEND_AMOUNT} /><Button
         onClick={() => this.sendFromAlice("50000000000000000000")}> Let's split it up </Button>
       {/*<Button onClick={() => this.getBalance()}> Check Balance </Button>*/}
