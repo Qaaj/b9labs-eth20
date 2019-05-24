@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import Youtube from './projects/youtube'
 import Splitter from './projects/splitter'
+import Remittance from './projects/remittance'
 
 import { Button } from './styles';
 
@@ -29,15 +30,14 @@ const CloseButton = styled.div`
   top: 0px;
   right: 0px;
   cursor: pointer;
-  cursor: hand;
   font-size: 20px;
   z-index: 99999;
 `;
 
 class App extends Component {
 
-  //state = { component: null };
-  state = { component: 'eth.tv' };
+  state = { component: null };
+  // state = { component: 'eth.tv' };
 
   constructor(props) {
     super(props);
@@ -62,6 +62,7 @@ class App extends Component {
       let component;
       if (this.state.component === 'eth.tv') component = <Youtube />;
       if (this.state.component === 'splitter') component = <Splitter />;
+      if (this.state.component === 'remittance') component = <Remittance />;
       return (<div>
         {component}
         <CloseButton onClick={()=>this.setState({component: null})}>❌</CloseButton>
@@ -79,6 +80,7 @@ class App extends Component {
           <h2>Projects</h2>
           <Button onClick={() => this.setState({ component: 'splitter' })}>Splitter</Button>
           <Button onClick={() => this.setState({ component: 'eth.tv' })}>ETH.TV</Button>
+          <Button onClick={() => this.setState({ component: 'remittance' })}>Remittance</Button>
         </Container>
     );
   }

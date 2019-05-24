@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.24;
 
 
 /* The parent contract managing the list of active brokers and POAToken contracts.
@@ -6,8 +6,8 @@ pragma solidity ^0.4.11;
 
 
 contract CrowdFunding {
-  
-  
+
+
   /* Struct  for Funder  */
   struct Funder {
     address addr;
@@ -24,20 +24,22 @@ contract CrowdFunding {
   }
   //Declares a state variable 'numCampaigns'
   uint numCampaigns;
-  
+
   address public owner;
   //Creates a mapping of Campaign datatypes
   mapping (uint => Campaign) public campaigns;
-  
+
   event Changed(address a);
-  
+
   event CampaignCreated(uint campaignId, address creator);
-  
-  function CrowdFunding() public {
+
+  function () public {
     owner = msg.sender;
   }
-  
-  function getCampaignFunderByAddress(uint campaignId, address funderAddr) public returns (uint amount) {
+
+  function getCampaignFunderByAddress(uint campaignId, address funderAddr)
+  view
+  public returns (uint amount) {
     Campaign storage c = campaigns[campaignId];
     uint i = 0;
     uint f = c.numFunders;
@@ -49,26 +51,26 @@ contract CrowdFunding {
     }
     assert(false);
   }
-  
+
   /* first function sets up a new campaign */
   function newCampaign(address beneficiary, uint goal, string name) public returns (uint campaignID) {
     campaignID = numCampaigns++;
     // campaignID is return variable
     Campaign storage c = campaigns[campaignID];
     // assigns reference
-    CampaignCreated(campaignID, msg.sender);
+    emit CampaignCreated(campaignID, msg.sender);
     c.beneficiary = beneficiary;
     c.fundingGoal = goal;
     c.name = name;
     return campaignID;
   }
-  
+
   // function to contributes to the campaign
   // Line 1: function is defined as taking a single argument campaignID – it has no return value.
   // Line 2 and 3: Creates references to locations in storage to store a new funder *and* iterates the number of contributors.
   // Line 4,5, and 6: here we take the amount of ether passed with the contributors transaction and the public address of
   // the msg.sender and use it record the contribution from this transactions
-  
+
   function contribute(uint campaignID) public payable {
     Campaign storage c = campaigns[campaignID];
     Funder storage f = c.funders[c.numFunders++];

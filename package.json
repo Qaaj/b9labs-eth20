@@ -40,8 +40,6 @@
     "recursive-readdir": "2.1.0",
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.1",
-    "truffle-contract": "^1.1.8",
-    "truffle-solidity-loader": "0.0.8",
     "url-loader": "0.5.7",
     "webpack": "1.14.0",
     "webpack-dev-server": "1.16.2",
@@ -62,8 +60,13 @@
     "redux-thunk": "^2.2.0",
     "reduxsauce": "^0.7.0",
     "semantic-ui-react": "^0.77.2",
+    "solc": "0.4.21",
     "styled-components": "^3.0.2",
-    "truffle-hdwallet-provider": "^0.0.3"
+    "truffle": "^4.1.11",
+    "truffle-contract": "^3.0.5",
+    "truffle-hdwallet-provider": "^0.0.3",
+    "truffle-solidity-loader": "^0.0.8",
+    "zeppelin-solidity": "^1.9.0"
   },
   "scripts": {
     "start": "node scripts/start.js",

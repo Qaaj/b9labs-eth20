@@ -1,8 +1,8 @@
 import React from 'react';
-import {Helmet} from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import {Form, Label} from 'semantic-ui-react';
-import styled, {keyframes}  from 'styled-components';
+import { Form, Label } from 'semantic-ui-react';
+import styled, { keyframes } from 'styled-components';
 import BaseModal from './components/modals/BaseModal';
 import Navigation from './components/Navigation';
 import RequestLinkPanel from './components/RequestLinkPanel';
@@ -13,8 +13,8 @@ import {
   addSmartContractEventWatchers,
   deleteReceipt,
 } from './reducer';
-import { ToastContainer, toast} from 'react-toastify';
-import {Column, Row} from './styles';
+import { ToastContainer, toast } from 'react-toastify';
+import { Column, Row } from './styles';
 import Blocky from './components/Blocky';
 
 var WINDOW_RESIZE_TIMEOUT;
@@ -22,26 +22,43 @@ const HEADER_HEIGHT = 75;
 
 // language=LESS
 const fadeIn = keyframes`
-  0% {
-    visibility: hidden;
-    opacity: 0;
-  }
-  
-  1% {
-    visibility: visible;
-  }
-  
-  35%{
-    opacity: 1;
+  0
+  %
+  {
+    visibility: hidden
+  ;
+    opacity: 0
+  ;
   }
 
-  75% {
-    opacity: 1;
+  1
+  %
+  {
+    visibility: visible
+  ;
   }
-  
-  100% {
-    opacity: 0;
-    visibility: hidden;
+
+  35
+  %
+  {
+    opacity: 1
+  ;
+  }
+
+  75
+  %
+  {
+    opacity: 1
+  ;
+  }
+
+  100
+  %
+  {
+    opacity: 0
+  ;
+    visibility: hidden
+  ;
   }
 `;
 
@@ -125,20 +142,21 @@ class Youtube extends React.PureComponent {
 
     window.addEventListener('resize', this.onWindowResizedHandler);
   }
-  componentDidMount(){
-    // Not dispatching here, as contract load can be a tad slow
-    // this.props.requestCurrentVideo(this.props.contract);
 
-    if(this.props.url && this.props.url.length > 0){
+  componentDidMount() {
+    // Not dispatching here, as contract load can be a tad slow
+    this.props.addEventWatchers(this.props.contract);
+
+    if (this.props.url && this.props.url.length > 0) {
       this.setState({
         playerVisibility: 'visible'
       })
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if(prevProps.url !== this.props.url){
-      if(!this.state.showMessage){
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.url !== this.props.url) {
+      if (!this.state.showMessage) {
         this.showNotification('New video received!');
 
         window.setTimeout(() => {
@@ -148,7 +166,7 @@ class Youtube extends React.PureComponent {
           });
 
           window.setTimeout(() => {
-            this.setState({ showMessage: false, playerVisibility: 'visible'})
+            this.setState({ showMessage: false, playerVisibility: 'visible' })
           }, 4000);
 
         }, 750);
@@ -156,15 +174,16 @@ class Youtube extends React.PureComponent {
     }
 
     // Contract was loaded
-    if(prevProps.isLoading && !this.props.isLoading){
-      this.props.addEventWatchers(this.props.contract);
+    if (prevProps.isLoaded && !this.props.isLoaded) {
+      console.log('add watchers');
+      this.props.requestCurrentVideo(this.props.contract);
 
       // TODO: Refactor this
       this.getLastURL(this.props.contract);
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
   }
 
   onWindowResizedHandler = (evt) => {
@@ -187,7 +206,7 @@ class Youtube extends React.PureComponent {
   };
 
   getLastURL = (contract) => {
-    if(!contract) console.error('Needs a contract');
+    if (!contract) console.error('Needs a contract');
     return this.props.requestCurrentVideo(contract);
   };
 
@@ -207,98 +226,98 @@ class Youtube extends React.PureComponent {
   };
 
   renderTxReceipt = (txReceipt) => {
-    console.log('SHOWING RECEIPT ' , txReceipt)
+    console.log('SHOWING RECEIPT ', txReceipt)
 
     const { tx, from } = txReceipt;
 
     return (
         <BaseModal isOpen={txReceipt ? true : false}
-                         title="Confirmation"
-                         onClose={() => this.props.resetReceipt()}
-                         onConfirm={() => this.props.resetReceipt()}>
+                   title="Confirmation"
+                   onClose={() => this.props.resetReceipt()}
+                   onConfirm={() => this.props.resetReceipt()}>
           <Column style={{ marginLeft: '1em' }}>
             <h2>Receipt</h2>
 
-          <Form widths="equal" style={{ marginBottom: '1em'}}>
-            <Form.Group>
-            <Form.Field>
-              <label htmlFor="userAddress">FROM</label>
+            <Form widths="equal" style={{ marginBottom: '1em' }}>
+              <Form.Group>
+                <Form.Field>
+                  <label htmlFor="userAddress">FROM</label>
 
-              <Label style={{
-                display: 'flex',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-                     as='a'
-                     onClick={() => window.open(`https://etherscan.io/address/${from}`) }
-                     alt="Click to show your address on Etherscan"
-                     title="Click to show your address on Etherscan">
-                <Blocky seed={from} />
+                  <Label style={{
+                    display: 'flex',
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                         as='a'
+                         onClick={() => window.open(`https://etherscan.io/address/${from}`)}
+                         alt="Click to show your address on Etherscan"
+                         title="Click to show your address on Etherscan">
+                    <Blocky seed={from} />
 
-                <Column style={{ marginLeft: 25 }}>
-                  YOUR WALLET ADDRESS
-                  <strong>{from}</strong>
-                </Column>
-              </Label>
-            </Form.Field>
+                    <Column style={{ marginLeft: 25 }}>
+                      YOUR WALLET ADDRESS
+                      <strong>{from}</strong>
+                    </Column>
+                  </Label>
+                </Form.Field>
 
-            <Form.Field>
-              <label htmlFor="contractAddress">TO</label>
+                <Form.Field>
+                  <label htmlFor="contractAddress">TO</label>
 
-              <Label style={{
-                display: 'flex',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-                     as='a'
-                     onClick={() => window.open(`https://etherscan.io/address/${this.props.contract.address}`) }
-                     alt="Click to show Smart Contract on Etherscan"
-                     title="Click to show Smart Contract on Etherscan">
-                <Blocky seed={this.props.contract.address} />
+                  <Label style={{
+                    display: 'flex',
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                         as='a'
+                         onClick={() => window.open(`https://etherscan.io/address/${this.props.contract.address}`)}
+                         alt="Click to show Smart Contract on Etherscan"
+                         title="Click to show Smart Contract on Etherscan">
+                    <Blocky seed={this.props.contract.address} />
 
-                <Column style={{ marginLeft: 25 }}>
-                  ETH.TV SMART CONTRACT ADDRESS
-                  <strong>{this.props.contract.address}</strong>
-                </Column>
-              </Label>
-            </Form.Field>
-            </Form.Group>
+                    <Column style={{ marginLeft: 25 }}>
+                      ETH.TV SMART CONTRACT ADDRESS
+                      <strong>{this.props.contract.address}</strong>
+                    </Column>
+                  </Label>
+                </Form.Field>
+              </Form.Group>
 
 
-            <Form.Field>
-              <label htmlFor="userAddress">TRANSACTION</label>
+              <Form.Field>
+                <label htmlFor="userAddress">TRANSACTION</label>
 
-              <Label style={{
-                display: 'flex',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-                     as='a'
-                     onClick={() => window.open(`https://etherscan.io/tx/${tx}`) }
-                     alt="Click to show Smart Contract on Etherscan"
-                     title="Click to show Smart Contract on Etherscan">
-                <Blocky seed={tx} />
+                <Label style={{
+                  display: 'flex',
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                       as='a'
+                       onClick={() => window.open(`https://etherscan.io/tx/${tx}`)}
+                       alt="Click to show Smart Contract on Etherscan"
+                       title="Click to show Smart Contract on Etherscan">
+                  <Blocky seed={tx} />
 
-                <Column style={{ marginLeft: 25 }}>
-                  TRANSACTION REFERENCE
-                  <strong>{tx}</strong>
-                </Column>
-              </Label>
-            </Form.Field>
-          </Form>
+                  <Column style={{ marginLeft: 25 }}>
+                    TRANSACTION REFERENCE
+                    <strong>{tx}</strong>
+                  </Column>
+                </Label>
+              </Form.Field>
+            </Form>
 
 
             {txReceipt.message.length > 0 && (<div><h4>YOUR CUSTOM MESSAGE</h4>
-            <Column>
-              <Row>
-                <Column style={{}}>
-                  "{txReceipt.message}"
-                </Column>
-              </Row>
-            </Column></div>)}
+              <Column>
+                <Row>
+                  <Column style={{}}>
+                    "{txReceipt.message}"
+                  </Column>
+                </Row>
+              </Column></div>)}
 
             <h4>DETAILS</h4>
 
@@ -308,7 +327,7 @@ class Youtube extends React.PureComponent {
                   VIDEO ID
                 </Column>
 
-                <Column style={{ flex:3, alignItems: 'left'}}>
+                <Column style={{ flex: 3, alignItems: 'left' }}>
                   {txReceipt.id}
                 </Column>
               </Row>
@@ -318,7 +337,7 @@ class Youtube extends React.PureComponent {
                   BLOCK HASH
                 </Column>
 
-                <Column style={{ flex:3, alignItems: 'left'}}>
+                <Column style={{ flex: 3, alignItems: 'left' }}>
                   {txReceipt.blockHash}
                 </Column>
               </Row>
@@ -328,7 +347,7 @@ class Youtube extends React.PureComponent {
                   BLOCK NR.
                 </Column>
 
-                <Column style={{ flex:3, alignItems: 'left'}}>
+                <Column style={{ flex: 3, alignItems: 'left' }}>
                   {txReceipt.blockNumber}
                 </Column>
               </Row>
@@ -338,7 +357,7 @@ class Youtube extends React.PureComponent {
                   GAS USED
                 </Column>
 
-                <Column style={{ flex:3, alignItems: 'left'}}>
+                <Column style={{ flex: 3, alignItems: 'left' }}>
                   {txReceipt.gasUsed} wei
                 </Column>
               </Row>
@@ -348,7 +367,7 @@ class Youtube extends React.PureComponent {
                   CUMULATIVE GAS USED
                 </Column>
 
-                <Column style={{ flex:3, alignItems: 'left'}}>
+                <Column style={{ flex: 3, alignItems: 'left' }}>
                   {txReceipt.cumulativeGasUsed} wei
                 </Column>
               </Row>
@@ -358,7 +377,7 @@ class Youtube extends React.PureComponent {
                   STATUS
                 </Column>
 
-                <Column style={{ flex:3, alignItems: 'left'}}>
+                <Column style={{ flex: 3, alignItems: 'left' }}>
                   {txReceipt.status}
                 </Column>
               </Row>
@@ -380,49 +399,38 @@ class Youtube extends React.PureComponent {
             </Overlay>
           </Fade>
 
-          <YouTubeComponent style={{visibility: this.state.playerVisibility }}
+          <YouTubeComponent style={{ visibility: this.state.playerVisibility }}
                             videoPlayer={this.state.videoPlayer}
                             url={this.props.url} />
         </div>
     )
   };
 
-  renderLoading(){
-    return (
-        <div>Loading...</div>
-    )
-  }
-
   render() {
-    const { props } = this;
+    return (<EthTVContainer>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>ETH.TV - Decentralised Television</title>
+        <link rel="canonical" href="http://ethtelevision.com" />
+      </Helmet>
 
-    if(props.isLoading){
-      return this.renderLoading();
-    }else{
-      return (<EthTVContainer>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>ETH.TV - Decentralised Television</title>
-          <link rel="canonical" href="http://ethtelevision.com" />
-        </Helmet>
+      <ToastContainer style={{ top: '85px' }} />
 
-        <ToastContainer style={{ top: '85px'}}/>
+      <Navigation onMenuClicked={() => this.setState({ showRequestLinkPanel: true })} />
 
-        <Navigation onMenuClicked={() => this.setState({ showRequestLinkPanel: true })} />
+      {this.props.txReceipt ? this.renderTxReceipt(this.props.txReceipt) : null}
 
-        { this.props.txReceipt ? this.renderTxReceipt(this.props.txReceipt) : null }
+      <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
+                        isLoaded={this.props.isLoaded}
+                        onSendClickedHandler={this.onSendClickedHandler}
+                        onCloseClick={() => this.setState({ showRequestLinkPanel: false })}
+                        contract={this.props.contract}
+                        accounts={this.props.accounts}
+                        web3={this.props.web3} />
 
-        <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
-                          onSendClickedHandler={this.onSendClickedHandler}
-                          onCloseClick={() => this.setState({ showRequestLinkPanel: false })}
-                          contract={this.props.contract}
-                          accounts={this.props.accounts}
-                          web3={this.props.web3} />
+      {this.renderPlayer()}
+    </EthTVContainer>);
 
-        {this.renderPlayer()}
-
-      </EthTVContainer>);
-    }
   }
 }
 
@@ -436,7 +444,7 @@ const mapStateToProps = (state) => {
     message: state.youtube.getIn(['latestVideo', 'message']),
     from: state.youtube.getIn(['latestVideo', 'from']),
     txReceipt: state.youtube.get('txReceipt'),
-    isLoading: state.contracts.getIn(['Youtube', 'contract']) ? false : true,
+    isLoaded: state.contracts.getIn(['Youtube', 'isLoaded']),
   }
 };
 

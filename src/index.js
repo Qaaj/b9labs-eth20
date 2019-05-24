@@ -22,20 +22,15 @@ injectGlobal`
 
 // Prints out current build # in console;
 console.log(`Version: ${version}`);
+Web3.get('http://167.86.78.220:8545').then((web3) => {
 
-Web3.get().then((web3) => {
+  window._web3 = web3;
   const store = createStore(web3);
 
   ReactDOM.render(
       <Provider store={store}>
         <App />
       </Provider>,
-      document.getElementById('root')
-  );
-}).catch(err => {
-  ReactDOM.render(
-      <div>Something went wrong fetching your Web3 instance.</div>,
-      <div>{err}</div>,
       document.getElementById('root')
   );
 });

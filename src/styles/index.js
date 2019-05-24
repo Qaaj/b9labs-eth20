@@ -6,7 +6,7 @@ export const Button = styled.div`
   border-radius: 5px;
   background-color: #455A64;
   color: white;
-  max-width: 300px; text-align: center;
+  text-align: center;
   margin: 10px 5px;
   cursor: pointer;
 `;
