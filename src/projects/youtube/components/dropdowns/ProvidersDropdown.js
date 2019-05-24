@@ -16,7 +16,7 @@ class ProvidersDropdown extends React.Component {
         { key: 'localhost:8545', text: 'localhost:8545', value: 'http://localhost:8545' },
         { key: 'localhost:9545', text: 'localhost:9545', value: 'http://localhost:9545' },
         { key: 'ganache', text: 'Ganache', value: 'http://localhost:7545' },
-        { key: 'amazon', text: 'Amazon', value: 'http://52.39.44.21:8545' },
+        { key: 'bigboi', text: 'Big Boi', value: 'http://167.86.78.220:8545' },
         { key: 'injected', text: 'MetaMask', value: 'injected' },
       ]
     };

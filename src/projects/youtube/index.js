@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Form, Label } from 'semantic-ui-react';
-import styled, { keyframes }  from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import BaseModal from './components/modals/BaseModal';
 import Navigation from './components/Navigation';
 import RequestLinkPanel from './components/RequestLinkPanel';
@@ -145,7 +145,7 @@ class Youtube extends React.PureComponent {
 
   componentDidMount() {
     // Not dispatching here, as contract load can be a tad slow
-    // this.props.requestCurrentVideo(this.props.contract);
+    this.props.addEventWatchers(this.props.contract);
 
     if (this.props.url && this.props.url.length > 0) {
       this.setState({
@@ -174,8 +174,9 @@ class Youtube extends React.PureComponent {
     }
 
     // Contract was loaded
-    if (prevProps.isLoading && !this.props.isLoading) {
-      this.props.addEventWatchers(this.props.contract);
+    if (prevProps.isLoaded && !this.props.isLoaded) {
+      console.log('add watchers');
+      this.props.requestCurrentVideo(this.props.contract);
 
       // TODO: Refactor this
       this.getLastURL(this.props.contract);
@@ -249,7 +250,7 @@ class Youtube extends React.PureComponent {
                     justifyContent: 'center'
                   }}
                          as='a'
-                         onClick={() => window.open(`https://etherscan.io/address/${from}`) }
+                         onClick={() => window.open(`https://etherscan.io/address/${from}`)}
                          alt="Click to show your address on Etherscan"
                          title="Click to show your address on Etherscan">
                     <Blocky seed={from} />
@@ -271,7 +272,7 @@ class Youtube extends React.PureComponent {
                     justifyContent: 'center'
                   }}
                          as='a'
-                         onClick={() => window.open(`https://etherscan.io/address/${this.props.contract.address}`) }
+                         onClick={() => window.open(`https://etherscan.io/address/${this.props.contract.address}`)}
                          alt="Click to show Smart Contract on Etherscan"
                          title="Click to show Smart Contract on Etherscan">
                     <Blocky seed={this.props.contract.address} />
@@ -295,7 +296,7 @@ class Youtube extends React.PureComponent {
                   justifyContent: 'center'
                 }}
                        as='a'
-                       onClick={() => window.open(`https://etherscan.io/tx/${tx}`) }
+                       onClick={() => window.open(`https://etherscan.io/tx/${tx}`)}
                        alt="Click to show Smart Contract on Etherscan"
                        title="Click to show Smart Contract on Etherscan">
                   <Blocky seed={tx} />
@@ -417,7 +418,7 @@ class Youtube extends React.PureComponent {
 
       <Navigation onMenuClicked={() => this.setState({ showRequestLinkPanel: true })} />
 
-      { this.props.txReceipt ? this.renderTxReceipt(this.props.txReceipt) : null }
+      {this.props.txReceipt ? this.renderTxReceipt(this.props.txReceipt) : null}
 
       <RequestLinkPanel isOpen={this.state.showRequestLinkPanel}
                         isLoaded={this.props.isLoaded}

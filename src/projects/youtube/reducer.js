@@ -40,6 +40,7 @@ export const addSmartContractEventWatchers = (contractInstance) => async(dispatc
       const message = result.args.message;
       const id = result.args.videoId.toString()
 
+      console.log(result);
       console.groupCollapsed(`Solidity Event: LogVideoCreated: ${Object.keys(result.args).length} args`);
       console.log('Owner: ' , from);
       console.log('URL: ' , url);
@@ -137,6 +138,7 @@ export const deleteReceipt = (state) => async (dispatch) => {
 };
 
 export const newVideoReceived = (state, params) => {
+  console.log(params);
   let { video } = params;
   let { url, message, from, tx } = video;
 
