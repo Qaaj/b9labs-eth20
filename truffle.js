@@ -31,8 +31,8 @@ module.exports = {
       port: 9545,
       network_id: "*"
     },
-    amazon: {
-      host: '52.39.44.21',
+    bigboi: {
+      host: '167.86.78.220',
       port: 8545,
       network_id: 144,
       gas: 4712388,
